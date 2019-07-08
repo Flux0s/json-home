@@ -20,6 +20,12 @@
     "eslintConfig": {
         "extends": "react-app"
     },
+    "nodemonConfig": {
+        "watch": [
+            "backend/*"
+        ],
+        "delay": "2500"
+    },
     "browserslist": {
         "production": [
             ">0.2%",
