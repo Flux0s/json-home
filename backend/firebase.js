@@ -14,9 +14,7 @@ config = {
 
 firebase.initializeApp(config);
 
-console.log("Initialized Firebase app with configs");
 var auth = new firebase.auth();
-console.log("Initialized Firebase auth.");
 
 module.exports = {
     isAuthenticated: function(req, res, next) {
@@ -30,9 +28,23 @@ module.exports = {
     },
     doSignInWithGoogle: function(req, res, next) {
         console.log("Attempting launch google sign-in popup...");
-        var provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(auth.googleProvider);
+        console.log(
+            "Blocked attempted google login... This function is depreciated."
+        );
+        // var provider = new firebase.auth.GoogleAuthProvider();
+        // auth.signInWithPopup(auth.googleProvider);
         next();
+    },
+    doSignUpWithEmailAndPassword: function(req, res, next) {
+        firebase
+            .auth()
+            .createUserWithEmailAndPassword(email, password)
+            .catch(function(error) {
+                console.log("Encountered error while creating new user");
+                console.log("Error Code: ", error.code);
+
+                console.log("Message: ", error.message);
+            });
     }
 };
 
