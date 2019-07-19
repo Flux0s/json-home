@@ -12,6 +12,8 @@ config = {
     appId: process.env.FIREBASE_APP_ID
 };
 
+console.log("Config object used to initialize firebase object: ");
+console.log(config);
 firebase.initializeApp(config);
 
 var auth = new firebase.auth();
