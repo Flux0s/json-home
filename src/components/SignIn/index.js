@@ -1,13 +1,13 @@
 import React from "react";
 
-import axios from "axios";
-
 import CssBaseline from "@material-ui/core/CssBaseline";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+
+import { doSignInWithGoogle } from "../App/requests";
 
 const useStyles = makeStyles((theme) => ({
     "@global": {
@@ -58,21 +58,6 @@ const SignIn = () => {
             {/* <SignInGoogle /> */}
         </div>
     );
-};
-
-const doSignInWithGoogle = () => {
-    axios
-        .post("http://localhost:5000/sign-in", {
-            headers: {
-                "Access-Control-Allow-Origin": "http://localhost:5000"
-            }
-        })
-        .then(function(response) {
-            console.log(response);
-        })
-        .catch(function(error) {
-            console.log(error);
-        });
 };
 
 export default SignIn;

@@ -31,11 +31,10 @@ module.exports = {
     doSignInWithGoogle: function(req, res, next) {
         console.log("Attempting launch google sign-in popup...");
         console.log(
-            "Blocked attempted google login... This function is depreciated."
+            "Blocked attempted google login. This function is depreciated."
         );
         // var provider = new firebase.auth.GoogleAuthProvider();
         // auth.signInWithPopup(auth.googleProvider);
-        next();
     },
     doSignUpWithEmailAndPassword: function(req, res, next) {
         firebase
