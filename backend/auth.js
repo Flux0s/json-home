@@ -24,3 +24,5 @@ const auth = {
         credentialsRequired: false
     })
 };
+
+module.exports = auth;

@@ -1,25 +1,26 @@
 const express = require("express");
 const path = require("path");
-var bodyParser = require("body-parser");
 const envConfig = require("dotenv").config();
+const unless = require("express-unless");
 const cors = require("cors")({ origin: true });
+const auth = require("./auth");
 
 var Firebase = require("./firebase");
+var bodyParser = require("body-parser");
 
 const app = express();
 app.use(bodyParser.json());
+app.use(auth.required.unless({ path: ["/home", "/sign-in", "/sign-up"] }));
 app.use(cors);
 
 // ------- API Endpoints ------- //
 app.post("/sign-in", (req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    Firebase.doSignInWithGoogle();
     console.log("Attempted to sign in with google!");
+
+    Firebase.doSignInWithGoogle();
 });
+
+app.get("/getListOfLights", (req, res) => {});
 
 // ------- Environment Specific Routes ------- //
 if (process.env.NODE_ENV == "development") {
