@@ -24,11 +24,20 @@ export const doSignInWithEmailAndPassword = () => {
 export const doSignUpWithEmailAndPassword = (email, password) => {
     console.log("Sending sign up request with e-mail and password...");
     axios
-        .post("http://localhost:5000/sign-up", {
-            headers: {
-                "Access-Control-Allow-Origin": "http://localhost:5000"
+        .post(
+            "http://localhost:5000/sign-up",
+            {
+                user: {
+                    email: email,
+                    password: password
+                }
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
             }
-        })
+        )
         .then(function(response) {
             console.log(response);
         })

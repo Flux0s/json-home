@@ -1,15 +1,16 @@
 const express = require("express");
 const path = require("path");
+var bodyParser = require("body-parser");
 const envConfig = require("dotenv").config();
-
 const cors = require("cors")({ origin: true });
+
 var Firebase = require("./firebase");
 
 const app = express();
-
+app.use(bodyParser.json());
 app.use(cors);
 
-// app.options("/sign-in", cors()); // enable pre-flight request for sign-in request
+// ------- API Endpoints ------- //
 app.post("/sign-in", (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
@@ -20,7 +21,13 @@ app.post("/sign-in", (req, res) => {
     console.log("Attempted to sign in with google!");
 });
 
-if (process.env.NODE_ENV != "development") {
+// ------- Environment Specific Routes ------- //
+if (process.env.NODE_ENV == "development") {
+    app.post("/sign-up", (req, res) => {
+        // console.log("Attempted to sign up with email and password!");
+        Firebase.doSignUpWithEmailAndPassword(req, res);
+    });
+} else if (process.env.NODE_ENV != "development") {
     // Serve the static files from the React app
     app.use(express.static(path.join(__dirname, "/../build")));
 
