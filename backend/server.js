@@ -8,6 +8,7 @@ const envConfig = require("dotenv").config();
 
 const jwt = require("./jwt");
 const Firebase = require("./firebase");
+const errorHandler = require("./error-handler");
 
 // app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -22,7 +23,9 @@ app.post("/sign-in", (req, res) => {
 
     Firebase.doSignInWithEmailAndPassword();
 });
-app.get("/getListOfLights", (req, res) => {});
+app.get("/getListOfLights", (req, res) => {
+    res.send("List of Lights");
+});
 
 // ------- Environment Specific Routes ------- //
 if (process.env.NODE_ENV === "development") {
@@ -45,6 +48,9 @@ if (process.env.NODE_ENV === "development") {
         res.sendFile(path.join(__dirname + "/../build/index.html"));
     });
 }
+
+// global error handler
+app.use(errorHandler);
 
 const port = process.env.NODE_ENV === "production" ? 80 : 5000;
 app.listen(port, function() {
