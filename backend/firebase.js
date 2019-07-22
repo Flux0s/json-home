@@ -1,6 +1,7 @@
 var firebase = require("firebase");
 require("firebase/auth");
 require("firebase/database");
+const jwt = require("./jwt");
 
 config = {
     apiKey: process.env.FIREBASE_API_KEY,
@@ -12,8 +13,6 @@ config = {
     appId: process.env.FIREBASE_APP_ID
 };
 
-// console.log("Config object used to initialize firebase object: ");
-// console.log(config);
 firebase.initializeApp(config);
 
 var auth = new firebase.auth();
@@ -41,7 +40,7 @@ module.exports = {
             body: { user }
         } = req;
         if (!user.email) {
-            console.log("Error: Did not find email in signup request!");
+            console.log("Error: Did not find email in sign up request!");
             return res.status(422).json({
                 errors: {
                     email: "is required"
@@ -50,7 +49,7 @@ module.exports = {
         }
 
         if (!user.password) {
-            console.log("Error: Did not find password in signup request!");
+            console.log("Error: Did not find password in sign up request!");
 
             return res.status(422).json({
                 errors: {
@@ -61,24 +60,49 @@ module.exports = {
 
         console.log("Sign up request for user: ", user);
 
-        // auth.createUserWithEmailAndPassword(email, password).catch(function(
-        //     error
-        // ) {
-        //     console.log("Encountered error while creating new user");
-        //     console.log("Error Code: ", error.code);
-        //     console.log("Message: ", error.message);
-        // });
+        auth.createUserWithEmailAndPassword(user.email, user.password)
+            .then(function(newUser) {
+                console.log("uid", newUser.uid);
+
+                //Here if you want you can sign in the user
+            })
+            .catch(function(error) {
+                console.log("Encountered error while creating new user");
+                console.log("Error Code: ", error.code);
+                console.log("Message: ", error.message);
+            });
+    },
+    doSignInWithEmailAndPassword: function(req, res, next) {
+        const { user } = req;
+        if (!user.email) {
+            console.log("Error: Did not find email in sign in request!");
+            return res.status(422).json({
+                errors: {
+                    email: "is required"
+                }
+            });
+        }
+
+        if (!user.password) {
+            console.log("Error: Did not find password in sign in request!");
+
+            return res.status(422).json({
+                errors: {
+                    password: "is required"
+                }
+            });
+        }
+        auth.createUserWithEmailAndPassword(user.email, user.password)
+            .then(function(newUser) {
+                console.log("uid", newUser.uid);
+
+                //Here if you want you can sign in the user
+            })
+            .catch(function(error) {
+                console.log("Encountered error while creating new user");
+                console.log("Error Code: ", error.code);
+                console.log("Message: ", error.message);
+            });
+        console.log("Sign in request for user: ", user);
     }
 };
-
-// class Firebase {
-//     constructor() {
-//         app.initializeApp(config);
-
-//         this.auth = app.auth();
-
-//         this.googleProvider = new app.auth.GoogleAuthProvider();
-//     }
-// }
-
-// export default Firebase;

@@ -12,6 +12,7 @@
         "express-jwt": "^5.3.1",
         "express-unless": "^0.5.0",
         "firebase": "^6.2.4",
+        "jsonwebtoken": "^8.5.1",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
         "react-router-dom": "^5.0.1",
@@ -21,6 +22,7 @@
     "scripts": {
         "start": "npm run build && node backend/server.js",
         "build": "react-scripts build",
+        "clean": "rm -rf build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\"",
