@@ -1,5 +1,5 @@
 import React from "react";
-import { Router, Route, Link } from "react-router-dom";
+import { Router, Route } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { Container } from "@material-ui/core";
@@ -7,6 +7,7 @@ import { Container } from "@material-ui/core";
 import { history } from "../helpers/history";
 import { PrivateRoute } from "../helpers/privateRoute";
 import { authenticationService } from "../helpers/auth-service";
+import TopAppBar from "../navbar";
 
 // import Navigation from "../Navigation";
 import LandingPage from "../Landing";
@@ -35,7 +36,7 @@ class App extends React.Component {
 
     logout() {
         authenticationService.logout();
-        history.push("/login");
+        history.push(ROUTES.SIGN_IN);
     }
 
     render() {
@@ -43,24 +44,7 @@ class App extends React.Component {
         return (
             <Router history={history}>
                 <ThemeProvider theme={theme}>
-                    {/* <Navigation /> */}
-                    {currentUser && (
-                        <nav className="navbar navbar-expand navbar-dark bg-dark">
-                            <div className="navbar-nav">
-                                <Link to="/" className="nav-item nav-link">
-                                    Home
-                                </Link>
-                                <a
-                                    href="/"
-                                    onClick={this.logout}
-                                    className="nav-item nav-link"
-                                >
-                                    Logout
-                                </a>
-                            </div>
-                        </nav>
-                    )}
-                    <hr />
+                    <TopAppBar />
                     <Container component="main" maxWidth="xs">
                         <Route
                             exact

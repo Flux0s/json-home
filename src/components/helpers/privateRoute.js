@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
 import { authenticationService } from "./auth-service";
-import SignIn from "../SignIn";
+import { SIGN_IN } from "../../constants/routes";
 
 export const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -14,7 +14,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
                 return (
                     <Redirect
                         to={{
-                            pathname: SignIn,
+                            pathname: SIGN_IN,
                             state: { from: props.location }
                         }}
                     />

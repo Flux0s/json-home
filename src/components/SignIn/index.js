@@ -9,6 +9,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 import { authenticationService } from "../helpers/auth-service";
+import { HOME } from "../../constants/routes";
 
 const styles = (theme) => ({
     "@global": {
@@ -40,7 +41,7 @@ class SignIn extends Component {
         super(props);
         // redirect to home if already logged in
         if (authenticationService.currentUserValue) {
-            this.props.history.push("/");
+            this.props.history.push(HOME);
         }
         this.state = {
             username: "",

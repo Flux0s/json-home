@@ -24,7 +24,7 @@ module.exports = {
             req.user = user;
             next();
         } else {
-            res.redirect("/log-in");
+            res.redirect("/sign-in");
         }
     },
     doSignInWithGoogle: function(req, res, next) {
