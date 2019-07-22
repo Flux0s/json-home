@@ -18,10 +18,10 @@ app.use(bodyParser.json());
 app.use(jwt.jwtMiddleware());
 
 // ------- API Endpoints ------- //
-app.post("/sign-in", (req, res) => {
-    console.log("Attempted to sign in with google!");
+app.post("/sign-in", (req, res, next) => {
+    console.log("User attempted to sign in!");
 
-    Firebase.doSignInWithEmailAndPassword();
+    Firebase.doSignInWithEmailAndPassword(req, res, next);
 });
 app.get("/getListOfLights", (req, res) => {
     res.send("List of Lights");
@@ -32,9 +32,9 @@ if (process.env.NODE_ENV === "development") {
     console.log(
         "Server is running in development env. Sign-up API endpoint has been opened!"
     );
-    app.post("/sign-up", (req, res) => {
+    app.post("/sign-up", (req, res, next) => {
         console.log("Attempted to sign up with email and password!");
-        Firebase.doSignUpWithEmailAndPassword(req, res);
+        Firebase.doSignUpWithEmailAndPassword(req, res, next);
     });
 } else if (process.env.NODE_ENV !== "development") {
     console.log(

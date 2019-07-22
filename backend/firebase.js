@@ -67,13 +67,13 @@ module.exports = {
                 //Here if you want you can sign in the user
             })
             .catch(function(error) {
-                console.log("Encountered error while creating new user");
-                console.log("Error Code: ", error.code);
-                console.log("Message: ", error.message);
+                next(error);
             });
     },
     doSignInWithEmailAndPassword: function(req, res, next) {
-        const { user } = req;
+        const {
+            body: { user }
+        } = req;
         if (!user.email) {
             console.log("Error: Did not find email in sign in request!");
             return res.status(422).json({
@@ -92,17 +92,13 @@ module.exports = {
                 }
             });
         }
-        auth.createUserWithEmailAndPassword(user.email, user.password)
+        auth.signInWithEmailAndPassword(user.email, user.password)
             .then(function(newUser) {
-                console.log("uid", newUser.uid);
-
-                //Here if you want you can sign in the user
+                console.log("Authenticated user with ID: ", newUser.user.uid);
+                res.send(jwt.generateJWT(newUser.user.uid));
             })
             .catch(function(error) {
-                console.log("Encountered error while creating new user");
-                console.log("Error Code: ", error.code);
-                console.log("Message: ", error.message);
+                next(error);
             });
-        console.log("Sign in request for user: ", user);
     }
 };

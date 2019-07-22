@@ -1,15 +1,16 @@
-import React from "react";
-
-import CssBaseline from "@material-ui/core/CssBaseline";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import React, { Component } from "react";
 import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import LockedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { withStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
 
-import { doSignInWithGoogle } from "../App/requests";
+import { doSignInWithEmailAndPassword } from "../App/requests";
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
     "@global": {
         body: {
             backgroundColor: theme.palette.common.white
@@ -32,32 +33,97 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2)
     }
-}));
+});
 
-const SignIn = () => {
-    const classes = useStyles();
-    return (
-        <div className={classes.paper}>
-            <CssBaseline />
-            <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h3">
-                Sign In
-            </Typography>
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                onClick={doSignInWithGoogle}
-            >
-                Sign In With Google
-            </Button>
-            {/* <SignInGoogle /> */}
-        </div>
-    );
-};
+class SignIn extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: "",
+            password: ""
+        };
+    }
 
-export default SignIn;
+    handleUsernameChange = (event) => {
+        // console.log(
+        //     "User attempted to modify username field",
+        //     event.target.value
+        // );
+        this.setState({ username: event.target.value });
+    };
+
+    handlePasswordChange = (event) => {
+        this.setState({ password: event.target.value });
+    };
+
+    handleSubmit = (event) => {
+        // console.log(
+        //     "User attempted to submit sign in information!\n Username: ",
+        //     this.state.username,
+        //     " Password: ",
+        //     this.state.password
+        // );
+        doSignInWithEmailAndPassword(this.state.username, this.state.password);
+        event.preventDefault();
+    };
+
+    render() {
+        const { classes } = this.props;
+        return (
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <div className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <LockedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign In
+                    </Typography>
+                    <form
+                        className={classes.form}
+                        noValidate
+                        onSubmit={this.handleSubmit}
+                    >
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                            value={this.state.username}
+                            onChange={this.handleUsernameChange}
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            value={this.state.password}
+                            onChange={this.handlePasswordChange}
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                        >
+                            Submit
+                        </Button>
+                    </form>
+                </div>
+            </Container>
+        );
+    }
+}
+
+export default withStyles(styles)(SignIn);

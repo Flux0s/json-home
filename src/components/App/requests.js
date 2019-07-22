@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const jwt = "";
+
 export const doSignInWithGoogle = () => {
     console.log(
         "Warning! Attempted to request sign in with google. This functionality is depreciated."
