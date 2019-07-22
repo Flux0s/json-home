@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-import { doSignInWithEmailAndPassword } from "../App/requests";
+import { authenticationService } from "../helpers/auth-service";
 
 const styles = (theme) => ({
     "@global": {
@@ -38,6 +38,10 @@ const styles = (theme) => ({
 class SignIn extends Component {
     constructor(props) {
         super(props);
+        // redirect to home if already logged in
+        if (authenticationService.currentUserValue) {
+            this.props.history.push("/");
+        }
         this.state = {
             username: "",
             password: ""
@@ -63,7 +67,7 @@ class SignIn extends Component {
         //     " Password: ",
         //     this.state.password
         // );
-        doSignInWithEmailAndPassword(this.state.username, this.state.password);
+        authenticationService.signin(this.state.username, this.state.password);
         event.preventDefault();
     };
 

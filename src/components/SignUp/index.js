@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-import { doSignUpWithEmailAndPassword } from "../App/requests";
+import { authenticationService } from "../helpers/auth-service";
 
 const styles = (theme) => ({
     "@global": {
@@ -38,6 +38,10 @@ const styles = (theme) => ({
 class SignUp extends Component {
     constructor(props) {
         super(props);
+        // redirect to home if already logged in
+        if (authenticationService.currentUserValue) {
+            this.props.history.push("/");
+        }
         this.state = {
             username: "",
             password: ""
@@ -57,13 +61,13 @@ class SignUp extends Component {
     };
 
     handleSubmit = (event) => {
-        // console.log(
-        //     "User attempted to submit sign up information!\n Username: ",
-        //     this.state.username,
-        //     " Password: ",
-        //     this.state.password
-        // );
-        doSignUpWithEmailAndPassword(this.state.username, this.state.password);
+        console.log(
+            "User attempted to submit sign up information!\n Username: ",
+            this.state.username,
+            " Password: ",
+            this.state.password
+        );
+        authenticationService.signup(this.state.username, this.state.password);
         event.preventDefault();
     };
 

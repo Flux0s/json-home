@@ -36,6 +36,7 @@ module.exports = {
         // auth.signInWithPopup(auth.googleProvider);
     },
     doSignUpWithEmailAndPassword: function(req, res, next) {
+        console.log(req.body);
         const {
             body: { user }
         } = req;
@@ -62,7 +63,7 @@ module.exports = {
 
         auth.createUserWithEmailAndPassword(user.email, user.password)
             .then(function(newUser) {
-                console.log("uid", newUser.uid);
+                console.log("uid", newUser.user.uid);
 
                 //Here if you want you can sign in the user
             })
@@ -95,7 +96,7 @@ module.exports = {
         auth.signInWithEmailAndPassword(user.email, user.password)
             .then(function(newUser) {
                 console.log("Authenticated user with ID: ", newUser.user.uid);
-                res.send(jwt.generateJWT(newUser.user.uid));
+                res.send({ token: jwt.generateJWT(newUser.user.uid) });
             })
             .catch(function(error) {
                 next(error);
