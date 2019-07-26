@@ -99,6 +99,7 @@ module.exports = {
                 res.send({ token: jwt.generateJWT(newUser.user.uid) });
             })
             .catch(function(error) {
+                console.log("Error while logging in user!");
                 next(error);
             });
     }

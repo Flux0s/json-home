@@ -20,6 +20,9 @@ const styles = (theme) => ({
     },
     title: {
         flexGrow: 1
+    },
+    button: {
+        margin: theme.spacing(10)
     }
 });
 
@@ -30,40 +33,38 @@ class TopAppBar extends Component {
             currentUser: null
         };
     }
-
     componentDidMount() {
         authenticationService.currentUser.subscribe((x) =>
             this.setState({ currentUser: x })
         );
     }
-
-    TopLeftButton = (props) => {
-        const isLoggedIn = props.currentUser != null;
+    AuthChangeButton = () => {
+        console.log(window.location.pathname);
+        if (window.location.pathname === SIGN_IN) return null;
+        const isLoggedIn = this.state.currentUser != null;
         if (isLoggedIn) {
             return (
-                <Button color="inherit" onClick={this.redirectSignIn}>
-                    Sign-In
+                <Button variant="contained" onClick={this.logout}>
+                    Sign-Out
                 </Button>
             );
         } else {
             return (
-                <Button color="inherit" onClick={this.logout}>
-                    Sign-Out
+                <Button variant="contained" onClick={this.redirectSignIn}>
+                    Sign-In
                 </Button>
             );
         }
     };
-
     redirectSignIn = () => {
         this.props.history.push(SIGN_IN);
     };
-    logout() {
+    logout = () => {
         authenticationService.logout();
         this.props.history.push(SIGN_IN);
-    }
+    };
     render() {
         const { classes } = this.props;
-        const { currentUser } = this.state;
 
         return (
             <div className={classes.root}>
@@ -80,7 +81,8 @@ class TopAppBar extends Component {
                         <Typography variant="h6" className={classes.title}>
                             Json Home
                         </Typography>
-                        <this.TopLeftButton />
+
+                        <this.AuthChangeButton className={classes.button} />
                     </Toolbar>
                 </AppBar>
             </div>

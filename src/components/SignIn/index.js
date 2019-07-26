@@ -68,7 +68,11 @@ class SignIn extends Component {
         //     " Password: ",
         //     this.state.password
         // );
-        authenticationService.signin(this.state.username, this.state.password);
+        authenticationService
+            .signin(this.state.username, this.state.password)
+            .then((user) => {
+                if (user != null) this.props.history.push(HOME);
+            });
         event.preventDefault();
     };
 

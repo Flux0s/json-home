@@ -16,8 +16,14 @@ import SignUp from "../SignUp";
 import Home from "../Home";
 
 import * as ROUTES from "../../constants/routes";
+import {  deepOrange, indigo } from "@material-ui/core/colors";
 
-const theme = createMuiTheme();
+const theme = createMuiTheme({
+    palette: {
+        primary: { main: indigo[800] },
+        secondary: { main: deepOrange[400] }
+    }
+});
 
 class App extends React.Component {
     constructor(props) {
