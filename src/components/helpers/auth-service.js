@@ -35,6 +35,9 @@ function signin(email, password) {
             currentUserSubject.next(user);
 
             return user;
+        })
+        .catch((error) => {
+            return Promise.reject(error);
         });
 }
 

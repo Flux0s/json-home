@@ -19,8 +19,7 @@ app.use(jwt.jwtMiddleware());
 
 // ------- API Endpoints ------- //
 app.post("/sign-in", (req, res, next) => {
-    console.log("User attempted to sign in!");
-
+    // console.log("User attempted to sign in!");
     Firebase.doSignInWithEmailAndPassword(req, res, next);
 });
 app.get("/getListOfLights", (req, res) => {
@@ -33,7 +32,7 @@ if (process.env.NODE_ENV === "development") {
         "Server is running in development env. Sign-up API endpoint has been opened!"
     );
     app.post("/sign-up", (req, res, next) => {
-        console.log("Attempted to sign up with email and password!");
+        // console.log("Attempted to sign up with email and password!");
         Firebase.doSignUpWithEmailAndPassword(req, res, next);
     });
 } else if (process.env.NODE_ENV !== "development") {

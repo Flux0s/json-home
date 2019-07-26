@@ -76,22 +76,12 @@ module.exports = {
             body: { user }
         } = req;
         if (!user.email) {
-            console.log("Error: Did not find email in sign in request!");
-            return res.status(422).json({
-                errors: {
-                    email: "is required"
-                }
-            });
+            next("Email not found in sign-in request");
+            return;
         }
-
         if (!user.password) {
-            console.log("Error: Did not find password in sign in request!");
-
-            return res.status(422).json({
-                errors: {
-                    password: "is required"
-                }
-            });
+            next("Password not found in sign-in request");
+            return;
         }
         auth.signInWithEmailAndPassword(user.email, user.password)
             .then(function(newUser) {
@@ -99,7 +89,6 @@ module.exports = {
                 res.send({ token: jwt.generateJWT(newUser.user.uid) });
             })
             .catch(function(error) {
-                console.log("Error while logging in user!");
                 next(error);
             });
     }

@@ -16,7 +16,8 @@ import SignUp from "../SignUp";
 import Home from "../Home";
 
 import * as ROUTES from "../../constants/routes";
-import {  deepOrange, indigo } from "@material-ui/core/colors";
+import { deepOrange, indigo } from "@material-ui/core/colors";
+import { SnackbarProvider } from "notistack";
 
 const theme = createMuiTheme({
     palette: {
@@ -46,25 +47,34 @@ class App extends React.Component {
     }
 
     render() {
-        const { currentUser } = this.state;
         return (
             <Router history={history}>
                 <ThemeProvider theme={theme}>
-                    <TopAppBar />
-                    <Container component="main" maxWidth="xs">
-                        <Route
-                            exact
-                            path={ROUTES.LANDING}
-                            component={LandingPage}
-                        />
-                        <Route exact path={ROUTES.SIGN_IN} component={SignIn} />
-                        <Route exact path={ROUTES.SIGN_UP} component={SignUp} />
-                        <PrivateRoute
-                            exact
-                            path={ROUTES.HOME}
-                            component={Home}
-                        />
-                    </Container>
+                    <SnackbarProvider maxSnack={3}>
+                        <TopAppBar />
+                        <Container component="main" maxWidth="xs">
+                            <Route
+                                exact
+                                path={ROUTES.LANDING}
+                                component={LandingPage}
+                            />
+                            <Route
+                                exact
+                                path={ROUTES.SIGN_IN}
+                                component={SignIn}
+                            />
+                            <Route
+                                exact
+                                path={ROUTES.SIGN_UP}
+                                component={SignUp}
+                            />
+                            <PrivateRoute
+                                exact
+                                path={ROUTES.HOME}
+                                component={Home}
+                            />
+                        </Container>
+                    </SnackbarProvider>
                 </ThemeProvider>
             </Router>
         );

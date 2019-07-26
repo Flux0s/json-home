@@ -10,6 +10,7 @@ import Container from "@material-ui/core/Container";
 
 import { authenticationService } from "../helpers/auth-service";
 import { HOME } from "../../constants/routes";
+import { withSnackbar } from "notistack";
 
 const styles = (theme) => ({
     "@global": {
@@ -62,6 +63,7 @@ class SignIn extends Component {
     };
 
     handleSubmit = (event) => {
+        event.preventDefault();
         // console.log(
         //     "User attempted to submit sign in information!\n Username: ",
         //     this.state.username,
@@ -72,8 +74,10 @@ class SignIn extends Component {
             .signin(this.state.username, this.state.password)
             .then((user) => {
                 if (user != null) this.props.history.push(HOME);
+            })
+            .catch((error) => {
+                this.props.enqueueSnackbar(error, { variant: "error" });
             });
-        event.preventDefault();
     };
 
     render() {
@@ -135,4 +139,4 @@ class SignIn extends Component {
     }
 }
 
-export default withStyles(styles)(SignIn);
+export default withSnackbar(withStyles(styles)(SignIn));
