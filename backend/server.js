@@ -4,7 +4,6 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
 const envConfig = require("dotenv").config();
-// const unless = require("express-unless");
 
 const jwt = require("./jwt");
 const Firebase = require("./firebase");
@@ -17,8 +16,11 @@ app.use(bodyParser.json());
 // use JWT auth to secure the api
 app.use(jwt.jwtMiddleware());
 
+//allow OPTIONS for cors pre-flight on all resources
+app.options("*", cors());
+
 // ------- API Endpoints ------- //
-app.post("/sign-in", (req, res, next) => {
+app.post("/sign-in", cors(), (req, res, next) => {
     // console.log("User attempted to sign in!");
     Firebase.doSignInWithEmailAndPassword(req, res, next);
 });
