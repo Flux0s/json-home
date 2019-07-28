@@ -1,0 +1,6 @@
+html,
+.landing {
+    background-image: url(./laptopBackground.jpg);
+    background-size: cover;
+    height: 100%;
+}

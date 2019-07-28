@@ -1,9 +1,8 @@
 import React from "react";
+import "./landing.css";
 
 const Landing = () => (
-    <div>
-        <h1>Landing Page</h1>
-    </div>
+    <div classname="landing">{/* <ParticleComponent /> */}</div>
 );
 
 export default Landing;

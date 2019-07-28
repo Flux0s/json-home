@@ -13,11 +13,6 @@ import { HOME } from "../../constants/routes";
 import { withSnackbar } from "notistack";
 
 const styles = (theme) => ({
-    "@global": {
-        body: {
-            backgroundColor: theme.palette.common.white
-        }
-    },
     paper: {
         marginTop: theme.spacing(8),
         display: "flex",
@@ -76,7 +71,10 @@ class SignIn extends Component {
                 if (user != null) this.props.history.push(HOME);
             })
             .catch((error) => {
-                this.props.enqueueSnackbar(error, { variant: "error" });
+                this.props.enqueueSnackbar(error.message, {
+                    variant: "error",
+                    autoHideDuration: 3000
+                });
             });
     };
 

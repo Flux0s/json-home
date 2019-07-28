@@ -2,22 +2,21 @@ import React from "react";
 import { Router, Route } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
-import { Container } from "@material-ui/core";
+import { deepOrange, indigo } from "@material-ui/core/colors";
+import { SnackbarProvider } from "notistack";
 
 import { history } from "../helpers/history";
 import { PrivateRoute } from "../helpers/privateRoute";
 import { authenticationService } from "../helpers/auth-service";
 import TopAppBar from "../navbar";
+import "./app.css";
 
-// import Navigation from "../Navigation";
 import LandingPage from "../Landing";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import Home from "../Home";
 
 import * as ROUTES from "../../constants/routes";
-import { deepOrange, indigo } from "@material-ui/core/colors";
-import { SnackbarProvider } from "notistack";
 
 const theme = createMuiTheme({
     palette: {
@@ -51,29 +50,33 @@ class App extends React.Component {
             <Router history={history}>
                 <ThemeProvider theme={theme}>
                     <SnackbarProvider maxSnack={3}>
-                        <TopAppBar />
-                        <Container component="main" maxWidth="xs">
-                            <Route
-                                exact
-                                path={ROUTES.LANDING}
-                                component={LandingPage}
-                            />
-                            <Route
-                                exact
-                                path={ROUTES.SIGN_IN}
-                                component={SignIn}
-                            />
-                            <Route
-                                exact
-                                path={ROUTES.SIGN_UP}
-                                component={SignUp}
-                            />
-                            <PrivateRoute
-                                exact
-                                path={ROUTES.HOME}
-                                component={Home}
-                            />
-                        </Container>
+                        <div className="box">
+                            <div className="row header">
+                                <TopAppBar />
+                            </div>
+                            <div className="row content">
+                                <Route
+                                    exact
+                                    path={ROUTES.LANDING}
+                                    component={LandingPage}
+                                />
+                                <Route
+                                    exact
+                                    path={ROUTES.SIGN_IN}
+                                    component={SignIn}
+                                />
+                                <Route
+                                    exact
+                                    path={ROUTES.SIGN_UP}
+                                    component={SignUp}
+                                />
+                                <PrivateRoute
+                                    exact
+                                    path={ROUTES.HOME}
+                                    component={Home}
+                                />
+                            </div>
+                        </div>
                     </SnackbarProvider>
                 </ThemeProvider>
             </Router>
