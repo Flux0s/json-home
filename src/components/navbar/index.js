@@ -13,9 +13,6 @@ const styles = (theme) => ({
     root: {
         flexGrow: 1
     },
-    menuButton: {
-        marginRight: theme.spacing(2)
-    },
     title: {
         flexGrow: 1
     },
@@ -42,13 +39,21 @@ class TopAppBar extends Component {
         const isLoggedIn = this.state.currentUser != null;
         if (isLoggedIn) {
             return (
-                <Button variant="contained" onClick={this.logout}>
+                <Button
+                    color="secondary"
+                    variant="contained"
+                    onClick={this.logout}
+                >
                     Sign-Out
                 </Button>
             );
         } else {
             return (
-                <Button variant="contained" onClick={this.redirectSignIn}>
+                <Button
+                    color="secondary"
+                    variant="contained"
+                    onClick={this.redirectSignIn}
+                >
                     Sign-In
                 </Button>
             );

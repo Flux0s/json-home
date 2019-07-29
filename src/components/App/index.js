@@ -20,8 +20,8 @@ import * as ROUTES from "../../constants/routes";
 
 const theme = createMuiTheme({
     palette: {
-        primary: { main: indigo[800] },
-        secondary: { main: deepOrange[400] }
+        primary: { main: "#3E1A48" },
+        secondary: { main: "#2A9F98"}
     }
 });
 
