@@ -2,7 +2,6 @@ import React from "react";
 import { Router, Route } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
-import { deepOrange, indigo } from "@material-ui/core/colors";
 import { SnackbarProvider } from "notistack";
 
 import { history } from "../helpers/history";
@@ -20,8 +19,8 @@ import * as ROUTES from "../../constants/routes";
 
 const theme = createMuiTheme({
     palette: {
-        primary: { main: "#3E1A48" },
-        secondary: { main: "#2A9F98"}
+        primary: { main: "#6C96B8" },
+        secondary: { main: "#D4A974"}
     }
 });
 

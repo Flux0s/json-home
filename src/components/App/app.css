@@ -10,12 +10,9 @@ body {
     height: 100%;
 }
 
-.box .row {
-    /* border: 1px dotted grey; */
-}
-
 .box .row.header {
     flex: 0 1 auto;
+    z-index: 9999;
     /* The above is shorthand for:
     flex-grow: 0,
     flex-shrink: 1,
