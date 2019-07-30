@@ -7,20 +7,21 @@ import { SnackbarProvider } from "notistack";
 import { history } from "../helpers/history";
 import { PrivateRoute } from "../helpers/privateRoute";
 import { authenticationService } from "../helpers/auth-service";
-import TopAppBar from "../navbar";
 import "./app.css";
 
 import LandingPage from "../Landing";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import Home from "../Home";
+import TopAppBar from "../navbar";
 
 import * as ROUTES from "../../constants/routes";
+import { CssBaseline } from "@material-ui/core";
 
 const theme = createMuiTheme({
     palette: {
         primary: { main: "#6C96B8" },
-        secondary: { main: "#D4A974"}
+        secondary: { main: "#D4A974" }
     }
 });
 
@@ -48,6 +49,7 @@ class App extends React.Component {
         return (
             <Router history={history}>
                 <ThemeProvider theme={theme}>
+                    <CssBaseline />
                     <SnackbarProvider maxSnack={3}>
                         <div className="box">
                             <div className="row header">

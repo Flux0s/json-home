@@ -1,11 +1,18 @@
 import React, { Component } from "react";
-import { Paper, Typography, Container } from "@material-ui/core";
+import { Typography, Container, Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 import css from "./landing.module.css";
+import SellingPoint from "./sellingPoint/index";
+import sellingPoints from "./sellingPoint/sellingPoints.json";
 
 const styles = (theme) => ({
-    root: {
-        padding: theme.spacing(3, 2)
+    headline: {
+        padding: theme.spacing(3, 2),
+        color: "white",
+        "font-size": "3em"
+    },
+    cardContainer: {
+        margin: theme.spacing(1)
     }
 });
 
@@ -13,29 +20,47 @@ class Landing extends Component {
     render() {
         const MUIstyles = this.props.classes;
         const classes = { ...css, ...MUIstyles };
-        console.log(classes);
+        console.log(sellingPoints);
         return (
             <div className={classes.parent}>
-                <div className={classes.background}>
+                <div className={classes.tintedBackground}>
                     <Container>
-                        {/* <Paper className={classes.root}> */}
                         <Typography
-                            style={{ padding: "75px" }}
-                            variant="h2"
-                            component="h1"
+                            className={classes.headline}
+                            // style={{ padding: "75px" }}
+                            variant="h1"
                         >
-                            Open source smart home management
+                            Who needs expensive smart home devices?
                         </Typography>
-                        {/* </Paper> */}
                     </Container>
+
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 100 100"
                         preserveAspectRatio="none"
                         className={classes.angle}
                     >
-                        <polygon fill="white" points="0,100 100,0 100,100" />
+                        <polygon fill="#eeeeee" points="0,100 100,0 100,100" />
                     </svg>
+                    <Grid
+                        container
+                        // direction="row"
+                        justify="space-evenly"
+                        alignItems="flex-end"
+                        spacing={4}
+                        className={classes.cardContainer}
+                    >
+                        <>
+                            {sellingPoints.map((point) => (
+                                <SellingPoint
+                                    title={point.title}
+                                    content={point.description}
+                                    image={point.imagePath}
+                                    key={point.title}
+                                />
+                            ))}
+                        </>
+                    </Grid>
                 </div>
             </div>
         );

@@ -31,7 +31,7 @@ app.get("/getListOfLights", (req, res) => {
 // ------- Environment Specific Routes ------- //
 if (process.env.NODE_ENV === "development") {
     console.log(
-        "Server is running in development env. Sign-up API endpoint has been opened!"
+        "Server is running in development env. Sign-up endpoint has been opened!"
     );
     app.post("/sign-up", (req, res, next) => {
         // console.log("Attempted to sign up with email and password!");

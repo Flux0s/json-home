@@ -1,0 +1,17 @@
+[
+    {
+        "title": "Selling Point #1",
+        "description": "This is an example of a selling point!",
+        "imagePath": ""
+    },
+    {
+        "title": "Selling Point #2",
+        "description": "Each selling point will be rendered on it's own.",
+        "imagePath": ""
+    },
+    {
+        "title": "Selling Point #3",
+        "description": "There can be any number of selling points as they are rendered dynamically.",
+        "imagePath": ""
+    }
+]

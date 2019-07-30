@@ -1,19 +1,30 @@
 .parent {
     height: 100%;
+    background-color: #eeeeee;
 }
 
-.background {
+.tintedBackground {
     position: relative;
-    height: 90%;
-    background-image: url(./laptopBackground.jpg);
+    height: 95%;
+    background:
+    /* top, transparent red, faked with gradient */ linear-gradient(
+            rgba(70, 70, 70, 0.75),
+            rgba(70, 70, 70, 0.75)
+        ),
+        url(./laptopBackground.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: bottom;
 }
 
-.headerText {
-    text-align: left;
-    margin: 0px;
+.paperContainer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.paper {
+    padding: 15px;
+    display: inline;
 }
 
 .angle {
