@@ -4,6 +4,8 @@ import { withStyles } from "@material-ui/styles";
 import css from "./landing.module.css";
 import SellingPoint from "./sellingPoint/index";
 import sellingPoints from "./sellingPoint/sellingPoints.json";
+import { HOME } from "../../constants/routes";
+import { authenticationService } from "../helpers/auth-service";
 
 const styles = (theme) => ({
     headline: {
@@ -17,6 +19,13 @@ const styles = (theme) => ({
 });
 
 class Landing extends Component {
+    constructor(props) {
+        super(props);
+        // redirect to home if already logged in
+        if (authenticationService.currentUserValue) {
+            this.props.history.push(HOME);
+        }
+    }
     render() {
         const MUIstyles = this.props.classes;
         const classes = { ...css, ...MUIstyles };
