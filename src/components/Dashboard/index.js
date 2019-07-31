@@ -37,11 +37,11 @@ class Dashboard extends Component {
         const { classes } = this.props;
         return (
             <Box className={classes.root}>
-                <Typography variant="h1">Home Page</Typography>
+                {/* <Typography variant="h1">Home Page</Typography>
                 <Typography variant="h4">
                     This page displays the currently configured list of devices:
-                </Typography>
-                <Divider className={classes.divider} />
+                </Typography> 
+                <Divider className={classes.divider} /> */}
                 <Grid
                     container
                     direction="row"
