@@ -6,10 +6,18 @@ import Device from "./device";
 const devices = [
     {
         id: 1,
-        name: "Default Device",
-        description:
-            "This is a default device object, if you are seeing this then there was an issue retrieving the list of configured devices from the server.",
-        isLoaded: false
+        name: "",
+        description: ""
+    },
+    {
+        id: 2,
+        name: "",
+        description: ""
+    },
+    {
+        id: 3,
+        name: "",
+        description: ""
     }
 ];
 
@@ -34,7 +42,12 @@ class Dashboard extends Component {
                     This page displays the currently configured list of devices:
                 </Typography>
                 <Divider className={classes.divider} />
-                <Grid container spacing={2}>
+                <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                >
                     <>
                         {devices.map((device) => (
                             <Device
