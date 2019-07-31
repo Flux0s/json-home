@@ -73,7 +73,7 @@ class SignIn extends Component {
             .catch((error) => {
                 this.props.enqueueSnackbar(error.message, {
                     variant: "error",
-                    autoHideDuration: 3000
+                    autoHideDuration: 4000
                 });
             });
     };

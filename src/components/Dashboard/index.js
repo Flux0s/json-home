@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { Typography, Box, Grid, withStyles, Divider } from "@material-ui/core";
+import { Box, Grid, withStyles } from "@material-ui/core";
+import { api } from "../helpers/api-service.js";
 
 import Device from "./device";
+import { withSnackbar } from "notistack";
 
 const devices = [
     {
@@ -32,6 +34,16 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = { devices };
+        api.getDevices()
+            .then((devices) => {
+                this.setState({ devices: devices });
+            })
+            .catch((error) => {
+                this.props.enqueueSnackbar(error.message, {
+                    variant: "error",
+                    autoHideDuration: 4000
+                });
+            });
     }
     render() {
         const { classes } = this.props;
@@ -64,4 +76,4 @@ class Dashboard extends Component {
     }
 }
 
-export default withStyles(styles)(Dashboard);
+export default withSnackbar(withStyles(styles)(Dashboard));
