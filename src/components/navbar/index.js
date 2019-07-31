@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import { SIGN_IN } from "../../constants/routes";
 import { withStyles } from "@material-ui/styles";
 import { authenticationService } from "../helpers/auth-service";
+import { Box } from "@material-ui/core";
 
 const styles = (theme) => ({
     root: {
@@ -81,9 +82,10 @@ class TopAppBar extends Component {
                     >
                         <MenuIcon />
                     </IconButton> */}
-                        <Typography variant="h6" className={classes.title}>
+                        <Box className={classes.title} />
+                        {/* <Typography variant="h6" className={classes.title}>
                             Json Home
-                        </Typography>
+                        </Typography> */}
 
                         <this.AuthChangeButton className={classes.button} />
                     </Toolbar>

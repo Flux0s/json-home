@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/styles";
 import css from "./landing.module.css";
 import SellingPoint from "./sellingPoint/index";
 import sellingPoints from "./sellingPoint/sellingPoints.json";
-import { HOME } from "../../constants/routes";
+import { DASHBOARD } from "../../constants/routes";
 import { authenticationService } from "../helpers/auth-service";
 
 const styles = (theme) => ({
@@ -23,7 +23,7 @@ class Landing extends Component {
         super(props);
         // redirect to home if already logged in
         if (authenticationService.currentUserValue) {
-            this.props.history.push(HOME);
+            this.props.history.push(DASHBOARD);
         }
     }
     render() {

@@ -19,7 +19,7 @@ const styles = (theme) => ({
     }
 });
 
-class Home extends Component {
+class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = { devices };
@@ -50,4 +50,4 @@ class Home extends Component {
     }
 }
 
-export default withStyles(styles)(Home);
+export default withStyles(styles)(Dashboard);

@@ -12,7 +12,7 @@ import "./app.css";
 import LandingPage from "../Landing";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
-import Home from "../Home";
+import Dashboard from "../Dashboard";
 import TopAppBar from "../navbar";
 
 import * as ROUTES from "../../constants/routes";
@@ -73,8 +73,8 @@ class App extends React.Component {
                                 />
                                 <PrivateRoute
                                     exact
-                                    path={ROUTES.HOME}
-                                    component={Home}
+                                    path={ROUTES.DASHBOARD}
+                                    component={Dashboard}
                                 />
                             </div>
                         </div>

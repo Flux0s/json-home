@@ -9,7 +9,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 import { authenticationService } from "../helpers/auth-service";
-import { HOME } from "../../constants/routes";
+import { DASHBOARD } from "../../constants/routes";
 import { withSnackbar } from "notistack";
 
 const styles = (theme) => ({
@@ -37,7 +37,7 @@ class SignIn extends Component {
         super(props);
         // redirect to home if already logged in
         if (authenticationService.currentUserValue) {
-            this.props.history.push(HOME);
+            this.props.history.push(DASHBOARD);
         }
         this.state = {
             username: "",
@@ -68,7 +68,7 @@ class SignIn extends Component {
         authenticationService
             .signin(this.state.username, this.state.password)
             .then((user) => {
-                if (user != null) this.props.history.push(HOME);
+                if (user != null) this.props.history.push(DASHBOARD);
             })
             .catch((error) => {
                 this.props.enqueueSnackbar(error.message, {
