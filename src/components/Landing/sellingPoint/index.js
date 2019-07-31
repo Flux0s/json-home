@@ -15,15 +15,15 @@ const styles = (theme) => ({
     card: {
         // padding: theme.spacing(1),
         // height: 150,
-        // [theme.breakpoints.down("sm")]: {
-        //     margin: theme.spacing(3, 3)
-        // },
-        // [theme.breakpoints.up("md")]: {
-        //     margin: theme.spacing(2, 4)
-        // },
-        // [theme.breakpoints.up("lg")]: {
-        //     margin: theme.spacing(2, 10)
-        // }
+        [theme.breakpoints.down("sm")]: {
+            margin: theme.spacing(3, 3)
+        },
+        [theme.breakpoints.up("md")]: {
+            margin: theme.spacing(2, 4)
+        },
+        [theme.breakpoints.up("lg")]: {
+            margin: theme.spacing(2, 10)
+        }
     },
     media: {
         // height: 90

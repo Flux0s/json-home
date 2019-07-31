@@ -47,7 +47,7 @@ class Landing extends Component {
                         // direction="row"
                         justify="space-evenly"
                         alignItems="flex-end"
-                        spacing={4}
+                        // spacing={4}
                         className={classes.cardContainer}
                     >
                         <>
