@@ -4,9 +4,7 @@ import { authenticationService } from "./auth-service";
 
 const apiUrl = "http://localhost:5000";
 
-export const api = {
-    getDevices
-};
+// API function abstractions
 
 function getDevices() {
     const requestOptions = {
@@ -17,15 +15,12 @@ function getDevices() {
                 "Bearer " + authenticationService.currentUserValue.token
         }
     };
-
-    return (
-        fetch(apiUrl + API.getDevices, requestOptions)
-            .then(handleResponse)
-            // .then((devices) => {
-            //     return devices;
-            // })
-            .catch((error) => {
-                return Promise.reject(error);
-            })
-    );
+    console.log(authenticationService.currentUserValue);
+    return fetch(apiUrl + API.getDevices, requestOptions).then(handleResponse);
 }
+
+// API export
+
+export const api = {
+    getDevices
+};

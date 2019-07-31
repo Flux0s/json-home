@@ -33,7 +33,7 @@ const styles = (theme) => ({
 class Dashboard extends Component {
     constructor(props) {
         super(props);
-        this.state = { devices };
+        this.state = { devices: devices };
         api.getDevices()
             .then((devices) => {
                 this.setState({ devices: devices });
@@ -61,7 +61,7 @@ class Dashboard extends Component {
                     alignItems="center"
                 >
                     <>
-                        {devices.map((device) => (
+                        {this.state.devices.map((device) => (
                             <Device
                                 key={device.id}
                                 title={device.name}

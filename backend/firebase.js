@@ -16,6 +16,7 @@ config = {
 firebase.initializeApp(config);
 
 var auth = new firebase.auth();
+var database = new firebase.database();
 
 module.exports = {
     isAuthenticated: function(req, res, next) {
