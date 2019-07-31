@@ -8,6 +8,7 @@ const envConfig = require("dotenv").config();
 const jwt = require("./jwt");
 const Firebase = require("./firebase");
 const errorHandler = require("./error-handler");
+const getDevices = require("./api/getListOfDevices");
 
 // app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -24,8 +25,8 @@ app.post("/sign-in", cors(), (req, res, next) => {
     // console.log("User attempted to sign in!");
     Firebase.doSignInWithEmailAndPassword(req, res, next);
 });
-app.get("/getListOfLights", (req, res) => {
-    res.send("List of Lights");
+app.get("/getListOfDevices", (req, res, next) => {
+    getDevices(req, res, next);
 });
 
 // ------- Environment Specific Routes ------- //
