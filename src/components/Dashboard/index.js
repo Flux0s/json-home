@@ -8,7 +8,8 @@ const devices = [
         id: 1,
         name: "Default Device",
         description:
-            "This is a default device object, if you are seeing this then there was an issue retrieving the list of configured devices from the server."
+            "This is a default device object, if you are seeing this then there was an issue retrieving the list of configured devices from the server.",
+        isLoaded: false
     }
 ];
 

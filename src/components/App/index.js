@@ -1,5 +1,5 @@
 import React from "react";
-import { Router, Route } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { SnackbarProvider } from "notistack";
@@ -14,6 +14,7 @@ import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import Dashboard from "../Dashboard";
 import TopAppBar from "../navbar";
+import NotFound from "../404";
 
 import * as ROUTES from "../../constants/routes";
 import { CssBaseline } from "@material-ui/core";
@@ -56,26 +57,29 @@ class App extends React.Component {
                                 <TopAppBar />
                             </div>
                             <div className="row content">
-                                <Route
-                                    exact
-                                    path={ROUTES.LANDING}
-                                    component={LandingPage}
-                                />
-                                <Route
-                                    exact
-                                    path={ROUTES.SIGN_IN}
-                                    component={SignIn}
-                                />
-                                <Route
-                                    exact
-                                    path={ROUTES.SIGN_UP}
-                                    component={SignUp}
-                                />
-                                <PrivateRoute
-                                    exact
-                                    path={ROUTES.DASHBOARD}
-                                    component={Dashboard}
-                                />
+                                <Switch>
+                                    <Route
+                                        exact
+                                        path={ROUTES.LANDING}
+                                        component={LandingPage}
+                                    />
+                                    <Route
+                                        exact
+                                        path={ROUTES.SIGN_IN}
+                                        component={SignIn}
+                                    />
+                                    <Route
+                                        exact
+                                        path={ROUTES.SIGN_UP}
+                                        component={SignUp}
+                                    />
+                                    <PrivateRoute
+                                        exact
+                                        path={ROUTES.DASHBOARD}
+                                        component={Dashboard}
+                                    />
+                                    <Route component={NotFound} />
+                                </Switch>
                             </div>
                         </div>
                     </SnackbarProvider>
