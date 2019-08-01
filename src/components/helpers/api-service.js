@@ -15,7 +15,6 @@ function getDevices() {
                 "Bearer " + authenticationService.currentUserValue.token
         }
     };
-    console.log(authenticationService.currentUserValue);
     return fetch(apiUrl + API.getDevices, requestOptions).then(handleResponse);
 }
 

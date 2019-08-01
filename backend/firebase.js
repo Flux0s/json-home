@@ -19,45 +19,19 @@ var auth = new firebase.auth();
 var database = new firebase.database();
 
 module.exports = {
-    isAuthenticated: function(req, res, next) {
-        var user = firebase.auth().currentUser;
-        if (user !== null) {
-            req.user = user;
-            next();
-        } else {
-            res.redirect("/sign-in");
-        }
-    },
-    doSignInWithGoogle: function(req, res, next) {
-        console.log("Attempting launch google sign-in popup...");
-        console.log(
-            "Blocked attempted google login. This function is depreciated."
-        );
-        // var provider = new firebase.auth.GoogleAuthProvider();
-        // auth.signInWithPopup(auth.googleProvider);
-    },
+    // Authentication methods
+
     doSignUpWithEmailAndPassword: function(req, res, next) {
-        console.log(req.body);
         const {
             body: { user }
         } = req;
         if (!user.email) {
-            console.log("Error: Did not find email in sign up request!");
-            return res.status(422).json({
-                errors: {
-                    email: "is required"
-                }
-            });
+            next("Email not found in sign-in request");
+            return;
         }
-
         if (!user.password) {
-            console.log("Error: Did not find password in sign up request!");
-
-            return res.status(422).json({
-                errors: {
-                    password: "is required"
-                }
-            });
+            next("Password not found in sign-in request");
+            return;
         }
 
         console.log("Sign up request for user: ", user);
@@ -66,7 +40,7 @@ module.exports = {
             .then(function(newUser) {
                 console.log("uid", newUser.user.uid);
 
-                //Here if you want you can sign in the user
+                doSignInWithEmailAndPassword(req, res, next);
             })
             .catch(function(error) {
                 next(error);
@@ -92,5 +66,15 @@ module.exports = {
             .catch(function(error) {
                 next(error);
             });
+    },
+
+    // Database functions
+
+    getFromDatabase: function(requestObjectPath) {
+        var getRequestReference = database.ref(requestObjectPath);
+        // Return a promise to the requested object path
+        return getRequestReference.once("value");
     }
+
+    
 };

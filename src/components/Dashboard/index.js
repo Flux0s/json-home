@@ -36,6 +36,7 @@ class Dashboard extends Component {
         this.state = { devices: devices };
         api.getDevices()
             .then((devices) => {
+                console.log(devices);
                 this.setState({ devices: devices });
             })
             .catch((error) => {
