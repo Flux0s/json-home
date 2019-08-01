@@ -13,5 +13,10 @@
         "title": "Selling Point #3",
         "description": "There can be any number of selling points as they are rendered dynamically.",
         "imagePath": ""
+    },
+    {
+        "title": "Selling Point #4",
+        "description": "There can be any number of selling points as they are rendered dynamically.",
+        "imagePath": ""
     }
 ]

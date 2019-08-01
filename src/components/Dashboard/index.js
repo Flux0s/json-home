@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Box, Grid, withStyles } from "@material-ui/core";
-import { api } from "../helpers/api-service.js";
-
-import Device from "./device";
 import { withSnackbar } from "notistack";
+
+import { api } from "../helpers/api-service.js";
+import Device from "./device";
 
 const devices = [
     {
@@ -36,7 +36,7 @@ class Dashboard extends Component {
         this.state = { devices: devices };
         api.getDevices()
             .then((devices) => {
-                console.log(devices);
+                // console.log(devices);
                 this.setState({ devices: devices });
             })
             .catch((error) => {
@@ -64,6 +64,7 @@ class Dashboard extends Component {
                     <>
                         {this.state.devices.map((device) => (
                             <Device
+                                type="content"
                                 key={device.id}
                                 title={device.name}
                                 content={device.description}
@@ -71,6 +72,7 @@ class Dashboard extends Component {
                             />
                         ))}
                     </>
+                    <Device type="add" />
                 </Grid>
             </Box>
         );
