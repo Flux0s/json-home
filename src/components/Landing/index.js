@@ -63,10 +63,8 @@ class Landing extends Component {
                         </svg>
                         <Grid
                             container
-                            // direction="row"
                             justify="space-evenly"
                             alignItems="flex-end"
-                            // spacing={4}
                             className="row content"
                         >
                             <>

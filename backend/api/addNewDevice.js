@@ -1,9 +1,14 @@
 const Firebase = require("../firebase");
+const deviceSchema = require("../schema");
 
 module.exports = addDevice;
 
 function addDevice(req, res, next) {
-    // next("This API endpoint has not been implemented yet");
+    const deviceObject = deviceSchema.parse(req.body.device);
+    console.log(deviceObject);
+    next("This API endpoint has not been implemented yet");
+    return;
+
     const devicesObjectPath = "/devices/";
     Firebase.appendToDatabase(devicesObjectPath)
         .then(function(snapshot) {

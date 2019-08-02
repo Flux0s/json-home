@@ -13,15 +13,17 @@ const defaultServerDevice = [
 function getDevices(req, res, next) {
     // next("This API endpoint has not been implemented yet");
     const devicesObjectPath = "/devices/";
-    Firebase.getFromDatabase(devicesObjectPath)
-        .then(function(snapshot) {
-            // console.log(snapshot.val());
-            // res.send(snapshot.val());
-        })
-        .catch(function(error) {
-            next("Encountered error while getting list of devices: " + error);
-        });
-    // setTimeout(function() {
-    //     return res.status(200).json(defaultServerDevice);
-    // }, 5000);
+    setTimeout(function() {
+        Firebase.getFromDatabase(devicesObjectPath)
+            .then(function(snapshot) {
+                // console.log(snapshot.val());
+                res.send(snapshot.val());
+            })
+            .catch(function(error) {
+                next(
+                    "Encountered error while getting list of devices: " + error
+                );
+            });
+        //     return res.status(200).json(defaultServerDevice);
+    }, 5000);
 }

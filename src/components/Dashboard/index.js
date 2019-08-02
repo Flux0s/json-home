@@ -23,12 +23,6 @@ const devices = [
     }
 ];
 
-// const styles = (theme) => ({
-//     divider: {
-//         margin: theme.spacing(2)
-//     }
-// });
-
 class Dashboard extends Component {
     constructor(props) {
         super(props);

@@ -22,15 +22,15 @@ const styles = (theme) => ({
         },
         [theme.breakpoints.up("sm")]: {
             margin: theme.spacing(0, 2),
-            height: 250
+            height: 280
         },
         [theme.breakpoints.up("md")]: {
             margin: theme.spacing(0, 4),
-            height: 220
+            height: 280
         },
         [theme.breakpoints.up("lg")]: {
             margin: theme.spacing(0, 10),
-            height: 240
+            padding: 10
         }
     },
     divider: {

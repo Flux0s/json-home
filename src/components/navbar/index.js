@@ -4,7 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 
-import { SIGN_IN } from "../../constants/routes";
+import { SIGN_IN, LANDING } from "../../constants/routes";
 import { withStyles } from "@material-ui/styles";
 import { authenticationService } from "../helpers/auth-service";
 import { Box } from "@material-ui/core";
@@ -64,7 +64,7 @@ class TopAppBar extends Component {
     };
     logout = () => {
         authenticationService.logout();
-        this.props.history.push(SIGN_IN);
+        this.props.history.push(LANDING);
     };
     render() {
         const { classes } = this.props;

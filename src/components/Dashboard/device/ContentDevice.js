@@ -9,7 +9,7 @@ import {
 
 const styles = (theme) => ({
     divider: {
-        margin: theme.spacing(2)
+        margin: theme.spacing(2, 0)
     }
 });
 
@@ -27,7 +27,7 @@ class ContentDevice extends Component {
                 </Typography>
                 <Divider className={classes.divider} />
                 <Typography variant="body2">
-                    {this.props.content || (
+                    {this.props.description || (
                         <Skeleton width="100%" color="#d1d1d1" count={3} />
                     )}
                 </Typography>
