@@ -77,6 +77,7 @@ function DeviceDisplay(props) {
                     aria-label="add"
                     size="large"
                     className={props.classes.addIconButton}
+                    onClick={props.handleAddClick}
                 >
                     <AddIcon className={props.classes.addIcon} />
                 </Button>
@@ -92,9 +93,10 @@ class Device extends Component {
         };
     }
 
-    updateType(newType) {
-        this.setState({ type: newType });
-    }
+    createDeviceForm = () => {
+        console.log("Click!");
+        this.setState({ type: "new" });
+    };
 
     render() {
         const { classes } = this.props;
@@ -105,7 +107,7 @@ class Device extends Component {
                     <DeviceDisplay
                         type={this.state.type}
                         {...this.props}
-                        updateType={this.updateType}
+                        handleAddClick={this.createDeviceForm}
                     />
                 </Card>
             </Grid>

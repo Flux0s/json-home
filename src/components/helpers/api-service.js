@@ -11,6 +11,7 @@ function getDevices() {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
             Authorization:
                 "Bearer " + authenticationService.currentUserValue.token
         }

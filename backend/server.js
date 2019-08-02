@@ -10,9 +10,13 @@ const Firebase = require("./firebase");
 const errorHandler = require("./error-handler");
 const getDevices = require("./api/getListOfDevices");
 
-// app.use(bodyParser.urlencoded({ extended: false }));
+var corsOptions = {
+    origin: "*",
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
 app.use(bodyParser.json());
-// app.use(cors);
+app.use(cors(corsOptions));
 
 // use JWT auth to secure the api
 app.use(jwt.jwtMiddleware());
