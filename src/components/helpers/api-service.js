@@ -28,7 +28,7 @@ function addDevice(device) {
         ),
         body: JSON.stringify(device)
     };
-    return fetch(apiUrl + API.getDevices, requestOptions).then(handleResponse);
+    return fetch(apiUrl + API.addDevice, requestOptions).then(handleResponse);
 }
 
 // API export

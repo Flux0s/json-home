@@ -28,7 +28,7 @@ class ContentDevice extends Component {
                 <Divider className={classes.divider} />
                 <Typography variant="body2">
                     {this.props.description || (
-                        <Skeleton width="100%" color="#d1d1d1" count={3} />
+                        <Skeleton width="100%" color="#d1d1d1" count={5} />
                     )}
                 </Typography>
             </CardContent>

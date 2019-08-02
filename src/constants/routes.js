@@ -4,5 +4,5 @@ export const SIGN_UP = "/sign-up";
 export const DASHBOARD = "/Dashboard";
 export const API = {
     getDevices: "/getListOfDevices",
-    getOtherInfo: "/getOtherInformation"
+    addDevice: "/addNewDevice"
 };

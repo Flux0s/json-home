@@ -1,9 +1,18 @@
 import React, { Component } from "react";
-import { withStyles, CardContent, Button, Box } from "@material-ui/core";
+import {
+    withStyles,
+    CardContent,
+    Button,
+    Box,
+    Grid,
+    Chip
+} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import css from "./device.module.css";
-import { api } from "../../helpers/api-service";
 import { withSnackbar } from "notistack";
+
+import { api } from "../../helpers/api-service";
+import DeviceTypes from "./DeviceTypes";
 
 const styles = (theme) => ({
     addDeviceCard: {
@@ -27,6 +36,9 @@ const styles = (theme) => ({
     },
     activeButton: {
         margin: theme.spacing(0, 0, 0, 1)
+    },
+    typeChip: {
+        margin: theme.spacing(0, 1, 1, 0)
     }
 });
 const device = {};
@@ -35,17 +47,21 @@ class NewDevice extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            active: false
+            type: "add"
         };
     }
 
-    handleAddClick = () => {
-        this.setState((prevState) => ({ active: !prevState.active }));
+    handleTypeChange = (type) => {
+        this.setState({ type: type });
+    };
+
+    handleChipClick = (name) => {
+        this.handleTypeChange("form");
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
-        api.signin(device)
+        api.addDevice(device)
             .then((response) => {
                 console.log(response);
             })
@@ -62,20 +78,21 @@ class NewDevice extends Component {
         const classes = { ...css, ...MUIstyles };
         let content;
 
-        if (this.state.active) {
+        if (this.state.type === "form") {
             content = (
                 <Box className={classes.parent}>
                     <Box className={classes.content} />
                     <Box className={classes.footer}>
-                        <form>
+                        <form onSubmit={this.handleSubmit}>
                             <Button
                                 className={classes.activeButton}
                                 variant="outlined"
-                                onClick={this.handleAddClick}
+                                onClick={() => this.handleTypeChange("add")}
                             >
                                 Cancel
                             </Button>
                             <Button
+                                type="submit"
                                 className={classes.activeButton}
                                 variant="contained"
                                 color="primary"
@@ -86,14 +103,52 @@ class NewDevice extends Component {
                     </Box>
                 </Box>
             );
-        } else {
+        } else if (this.state.type === "device-select") {
+            content = (
+                <Box className={classes.parent}>
+                    <Box className={classes.content}>
+                        <Grid
+                        // container
+                        // direction="row"
+                        // justify="center"
+                        // alignItems="center"
+                        >
+                            <>
+                                {DeviceTypes.map((type) => {
+                                    return (
+                                        <Chip
+                                            key={type.name}
+                                            label={type.name}
+                                            className={classes.typeChip}
+                                            clickable
+                                            onClick={() =>
+                                                this.handleChipClick(type)
+                                            }
+                                        />
+                                    );
+                                })}
+                            </>
+                        </Grid>
+                    </Box>
+                    <Box className={classes.footer}>
+                        <Button
+                            className={classes.activeButton}
+                            variant="outlined"
+                            onClick={() => this.handleTypeChange("add")}
+                        >
+                            Cancel
+                        </Button>
+                    </Box>
+                </Box>
+            );
+        } else if (this.state.type === "add") {
             content = (
                 <Box className={classes.BackgroundBox}>
                     <Button
                         aria-label="add"
                         size="large"
                         className={classes.addIconButton}
-                        onClick={this.handleAddClick}
+                        onClick={() => this.handleTypeChange("device-select")}
                     >
                         <AddIcon className={classes.addIcon} />
                     </Button>

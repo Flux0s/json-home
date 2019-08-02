@@ -8,7 +8,7 @@ const envConfig = require("dotenv").config();
 const jwt = require("./jwt");
 const Firebase = require("./firebase");
 const errorHandler = require("./error-handler");
-const getDevices = require("./api/getListOfDevices");
+const api = require("./api");
 
 var corsOptions = {
     origin: "*",
@@ -30,7 +30,11 @@ app.post("/sign-in", cors(), (req, res, next) => {
     Firebase.doSignInWithEmailAndPassword(req, res, next);
 });
 app.get("/getListOfDevices", (req, res, next) => {
-    getDevices(req, res, next);
+    api.getDevices(req, res, next);
+});
+app.put("/addNewDevice", (req, res, next) => {
+    console.log("Request to add new device recieved!");
+    api.addDevice(req, res, next);
 });
 
 // ------- Environment Specific Routes ------- //

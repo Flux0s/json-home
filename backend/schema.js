@@ -1,9 +1,5 @@
 const schema = require("schm");
 
-module.exports = {
-    deviceSchema
-};
-
 const deviceSchema = schema({
     id: Number,
     deviceType: String,
@@ -11,3 +7,7 @@ const deviceSchema = schema({
     state: String,
     options: String
 });
+
+module.exports = {
+    deviceSchema
+};

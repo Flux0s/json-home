@@ -35,7 +35,7 @@ class Landing extends Component {
     render() {
         const MUIstyles = this.props.classes;
         const classes = { ...css, ...MUIstyles };
-        console.log(sellingPoints);
+        // console.log(sellingPoints);
         return (
             <div className={classes.parent}>
                 <div className={classes.tintedBackground}>
