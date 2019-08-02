@@ -1,0 +1,23 @@
+.parent {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+.content {
+    flex: 1 1 auto;
+    padding: 16px;
+}
+
+.footer {
+    flex: 0 1 auto;
+    text-align: right;
+    padding: 16px;
+
+    /* The above is shorthand for:
+    flex-grow: 0,
+    flex-shrink: 1,
+    flex-basis: auto
+    */
+}

@@ -1,19 +1,11 @@
 const Firebase = require("../firebase");
 
-module.exports = getDevices;
+module.exports = addDevice;
 
-const defaultServerDevice = [
-    {
-        id: 1,
-        name: "Server Stored Device",
-        description: "This device was retrieved from the server."
-    }
-];
-
-function getDevices(req, res, next) {
+function addDevice(req, res, next) {
     // next("This API endpoint has not been implemented yet");
     const devicesObjectPath = "/devices/";
-    Firebase.getFromDatabase(devicesObjectPath)
+    Firebase.appendToDatabase(devicesObjectPath)
         .then(function(snapshot) {
             // console.log(snapshot.val());
             // res.send(snapshot.val());

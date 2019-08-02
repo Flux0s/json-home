@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Box, Grid, withStyles } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import { withSnackbar } from "notistack";
 
 import { api } from "../helpers/api-service.js";
@@ -23,12 +23,11 @@ const devices = [
     }
 ];
 
-const styles = (theme) => ({
-    root: {},
-    divider: {
-        margin: theme.spacing(2)
-    }
-});
+// const styles = (theme) => ({
+//     divider: {
+//         margin: theme.spacing(2)
+//     }
+// });
 
 class Dashboard extends Component {
     constructor(props) {
@@ -47,14 +46,8 @@ class Dashboard extends Component {
             });
     }
     render() {
-        const { classes } = this.props;
         return (
-            <Box className={classes.root}>
-                {/* <Typography variant="h1">Home Page</Typography>
-                <Typography variant="h4">
-                    This page displays the currently configured list of devices:
-                </Typography> 
-                <Divider className={classes.divider} /> */}
+            <Box>
                 <Grid
                     container
                     direction="row"
@@ -62,21 +55,22 @@ class Dashboard extends Component {
                     alignItems="center"
                 >
                     <>
-                        {this.state.devices.map((device) => (
-                            <Device
-                                type="content"
-                                key={device.id}
-                                title={device.name}
-                                content={device.description}
-                                icon={device.iconName}
-                            />
-                        ))}
+                        {this.state.devices.map((device) => {
+                            // console.log(device);
+                            return (
+                                <Device
+                                    type="content"
+                                    key={device.id}
+                                    device={device}
+                                />
+                            );
+                        })}
                     </>
-                    <Device type="add" />
+                    <Device type="new" />
                 </Grid>
             </Box>
         );
     }
 }
 
-export default withSnackbar(withStyles(styles)(Dashboard));
+export default withSnackbar(Dashboard);
