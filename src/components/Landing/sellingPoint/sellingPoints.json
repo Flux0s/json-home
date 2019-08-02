@@ -1,21 +1,16 @@
 [
     {
-        "title": "Selling Point #1",
-        "description": "This is an example of a selling point!",
+        "title": "Open Source",
+        "description": "The source code for this project is fully open source! You can set up your own instance with ease by visiting the github repo and following the steps in the readme.md!",
         "imagePath": ""
     },
     {
         "title": "Selling Point #2",
-        "description": "Each selling point will be rendered on it's own.",
+        "description": "This is an example of another selling point component!",
         "imagePath": ""
     },
     {
         "title": "Selling Point #3",
-        "description": "There can be any number of selling points as they are rendered dynamically.",
-        "imagePath": ""
-    },
-    {
-        "title": "Selling Point #4",
         "description": "There can be any number of selling points as they are rendered dynamically.",
         "imagePath": ""
     }

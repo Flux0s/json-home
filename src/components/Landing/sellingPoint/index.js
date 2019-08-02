@@ -3,7 +3,8 @@ import {
     Card,
     Typography,
     Grid,
-    CardContent
+    CardContent,
+    Divider
     // CardMedia
 } from "@material-ui/core";
 import React, { Component } from "react";
@@ -14,19 +15,31 @@ const styles = (theme) => ({
     },
     card: {
         // padding: theme.spacing(1),
-        // height: 150,
-        [theme.breakpoints.down("sm")]: {
-            margin: theme.spacing(3, 3)
+        [theme.breakpoints.down("xs")]: {
+            margin: theme.spacing(4),
+            width: 300,
+            height: 200
+        },
+        [theme.breakpoints.up("sm")]: {
+            margin: theme.spacing(0, 2),
+            height: 250
         },
         [theme.breakpoints.up("md")]: {
-            margin: theme.spacing(2, 4)
+            margin: theme.spacing(0, 4),
+            height: 220
         },
         [theme.breakpoints.up("lg")]: {
-            margin: theme.spacing(2, 10)
+            margin: theme.spacing(0, 10),
+            height: 240
         }
     },
-    media: {
-        // height: 90
+    divider: {
+        // [theme.breakpoints.up("sm")]: {
+        // margin: theme.spacing(0, 2)
+        // },
+        [theme.breakpoints.up("md")]: {
+            margin: theme.spacing(2, 0)
+        }
     }
 });
 
@@ -35,7 +48,7 @@ class SellingPoint extends Component {
         const { classes } = this.props;
 
         return (
-            <Grid item xs className={classes.gridItem}>
+            <Grid item sm className={classes.gridItem}>
                 <Card className={classes.card}>
                     {/* <CardMedia
                             className={classes.media}
@@ -45,6 +58,7 @@ class SellingPoint extends Component {
                         <Typography gutterBottom variant="h5">
                             {this.props.title}
                         </Typography>
+                        <Divider className={classes.divider} />
                         <Typography
                             variant="body2"
                             color="textSecondary"
