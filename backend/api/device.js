@@ -1,7 +1,15 @@
-const Firebase = require("./firebase");
-const DeviceList = require("./repositories/deviceList");
+// device.js - device api route module.
 
-module.exports = {
+var express = require("express");
+var router = express.Router();
+
+// Home page route.
+router.get("/", function(req, res) {
+    res.send("Wiki home page");
+});
+
+
+const placeHolder = {
     addDevice(req, res, next) {
         // const number = new Number();
 
@@ -75,3 +83,5 @@ module.exports = {
         // }, 3500);
     }
 };
+
+module.exports = router;

@@ -10,6 +10,9 @@ const Firebase = require("./service/firebase");
 const errorHandler = require("./error-handler");
 const api = require("./service/api");
 
+var deviceRouter = require("./api/device");
+var authRouter = require("./api/auth");
+
 var corsOptions = {
     origin: "*",
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
@@ -32,7 +35,7 @@ app.get("/getListOfDevices", (req, res, next) => {
     api.getDevices(req, res, next);
 });
 app.get("/getEmptyDeviceObject", (req, res, next) => {
-    api.getDevices(req, res, next);
+    api.getEmptyDevice(req, res, next);
 });
 app.get("/getListOfDeviceTypes", (req, res, next) => {
     api.getDeviceTypes(req, res, next);

@@ -20,7 +20,8 @@
         "react-scripts": "3.0.1",
         "react-skeleton-loader": "^1.0.4",
         "recompose": "^0.30.0",
-        "rxjs": "^6.5.2"
+        "rxjs": "^6.5.2",
+        "schm": "^0.4.1"
     },
     "scripts": {
         "start": "npm run build && node backend/server.js",
