@@ -5,14 +5,14 @@ import {
     Button,
     Box,
     Grid,
-    Chip
+    Chip,
+    CircularProgress
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import css from "./device.module.css";
 import { withSnackbar } from "notistack";
 
 import { api } from "../../helpers/api-service";
-import DeviceTypes from "./DeviceTypes";
 
 const styles = (theme) => ({
     addDeviceCard: {
@@ -39,7 +39,8 @@ const styles = (theme) => ({
     },
     typeChip: {
         margin: theme.spacing(0, 1, 1, 0)
-    }
+    },
+    deviceTypesLoad: {}
 });
 const device = {};
 
@@ -47,8 +48,19 @@ class NewDevice extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            type: "add"
+            type: "add",
+            deviceTypes: null
         };
+        api.getDeviceTypes()
+            .then((types) => {
+                this.setState({ deviceTypes: types });
+            })
+            .catch((error) => {
+                this.props.enqueueSnackbar(error.message, {
+                    variant: "error",
+                    autoHideDuration: 4000
+                });
+            });
     }
 
     handleTypeChange = (type) => {
@@ -107,28 +119,30 @@ class NewDevice extends Component {
             content = (
                 <Box className={classes.parent}>
                     <Box className={classes.content}>
-                        <Grid
-                        // container
-                        // direction="row"
-                        // justify="center"
-                        // alignItems="center"
-                        >
-                            <>
-                                {DeviceTypes.map((type) => {
-                                    return (
-                                        <Chip
-                                            key={type.name}
-                                            label={type.name}
-                                            className={classes.typeChip}
-                                            clickable
-                                            onClick={() =>
-                                                this.handleChipClick(type)
-                                            }
-                                        />
-                                    );
-                                })}
-                            </>
-                        </Grid>
+                        {this.state.deviceTypes == null && (
+                            <CircularProgress
+                                className={classes.deviceTypesLoad}
+                            />
+                        )}
+                        {this.state.deviceTypes != null && (
+                            <Grid>
+                                <>
+                                    {this.state.deviceTypes.map((type) => {
+                                        return (
+                                            <Chip
+                                                key={type}
+                                                label={type}
+                                                className={classes.typeChip}
+                                                clickable
+                                                onClick={() =>
+                                                    this.handleChipClick(type)
+                                                }
+                                            />
+                                        );
+                                    })}
+                                </>
+                            </Grid>
+                        )}
                     </Box>
                     <Box className={classes.footer}>
                         <Button

@@ -14,14 +14,14 @@
         "firebase": "^6.2.4",
         "jsonwebtoken": "^8.5.1",
         "notistack": "^0.8.9",
+        "objectmodel": "^4.0.1",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
         "react-router-dom": "^5.0.1",
         "react-scripts": "3.0.1",
         "react-skeleton-loader": "^1.0.4",
         "recompose": "^0.30.0",
-        "rxjs": "^6.5.2",
-        "schm": "^0.4.1"
+        "rxjs": "^6.5.2"
     },
     "scripts": {
         "start": "npm run build && node backend/server.js",
@@ -30,7 +30,7 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\"",
-        "dev-server": "nodemon backend/server.js",
+        "dev-server": "nodemon --experimental-modules backend/server.js",
         "dev-client": "react-scripts start"
     },
     "eslintConfig": {
@@ -56,6 +56,7 @@
     },
     "devDependencies": {
         "concurrently": "^4.1.1",
+        "eslint": "^6.1.0",
         "nodemon": "^1.19.1"
     }
 }

@@ -1,7 +1,7 @@
 var firebase = require("firebase");
 require("firebase/auth");
 require("firebase/database");
-const jwt = require("./jwt");
+const jwt = require("../jwt");
 
 config = {
     apiKey: process.env.FIREBASE_API_KEY,

@@ -6,9 +6,9 @@ const path = require("path");
 const envConfig = require("dotenv").config();
 
 const jwt = require("./jwt");
-const Firebase = require("./firebase");
+const Firebase = require("./service/firebase");
 const errorHandler = require("./error-handler");
-const api = require("./api");
+const api = require("./service/api");
 
 var corsOptions = {
     origin: "*",
@@ -26,14 +26,18 @@ app.options("*", cors());
 
 // ------- API Endpoints ------- //
 app.post("/sign-in", cors(), (req, res, next) => {
-    // console.log("User attempted to sign in!");
     Firebase.doSignInWithEmailAndPassword(req, res, next);
 });
 app.get("/getListOfDevices", (req, res, next) => {
     api.getDevices(req, res, next);
 });
+app.get("/getEmptyDeviceObject", (req, res, next) => {
+    api.getDevices(req, res, next);
+});
+app.get("/getListOfDeviceTypes", (req, res, next) => {
+    api.getDeviceTypes(req, res, next);
+});
 app.put("/addNewDevice", (req, res, next) => {
-    console.log("Request to add new device recieved!");
     api.addDevice(req, res, next);
 });
 
