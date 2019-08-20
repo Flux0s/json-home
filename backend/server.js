@@ -1,29 +1,20 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
+const app = require("express")();
 const bodyParser = require("body-parser");
 const path = require("path");
 const envConfig = require("dotenv").config();
 
-const jwt = require("./jwt");
-const Firebase = require("./service/firebase");
-const errorHandler = require("./error-handler");
-const api = require("./service/api");
-
+// Import Middleware stack
+let middleware = require("./middleware");
 // Import routes
 let deviceRouter = require("./routes/devices");
 let authRouter = require("./routes/auth");
 
-var corsOptions = {
-    origin: "*",
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+middleware.initalize(app);
 
 app.use("/auth", authRouter);
 app.use("/devices", deviceRouter);
 
 app.use(bodyParser.json());
-app.use(cors(corsOptions));
 
 // use JWT auth to secure the api
 app.use(jwt.jwtMiddleware());
