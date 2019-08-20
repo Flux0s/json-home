@@ -4,10 +4,12 @@ var express = require("express");
 var router = express.Router();
 
 // Home page route.
-router.get("/", function(req, res) {
-    res.send("Wiki home page");
+router.get("/", (req, res) => {
+    console.log("Received GET request for /devices");
 });
-
+router.get("/:id", (req, res) => {
+    console.log("Received request for /devices/" + req.params.id);
+});
 
 const placeHolder = {
     addDevice(req, res, next) {
