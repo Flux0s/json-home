@@ -1,26 +1,12 @@
-const app = require("express")();
-const bodyParser = require("body-parser");
-const path = require("path");
-const envConfig = require("dotenv").config();
-
+// Import Server and env
+let app = require("express")();
+let env = require("dotenv").config();
 // Import Middleware stack
 let middleware = require("./middleware");
-// Import routes
-let deviceRouter = require("./routes/devices");
-let authRouter = require("./routes/auth");
 
 middleware.initalize(app);
 
-app.use("/auth", authRouter);
-app.use("/devices", deviceRouter);
 
-app.use(bodyParser.json());
-
-// use JWT auth to secure the api
-app.use(jwt.jwtMiddleware());
-
-//allow OPTIONS for cors pre-flight on all resources
-app.options("*", cors());
 
 // // ------- API Endpoints ------- //
 // app.post("/sign-in", cors(), (req, res, next) => {
@@ -61,10 +47,7 @@ app.options("*", cors());
 //     });
 // }
 
-// global error handler
-app.use(errorHandler);
-
-const port = process.env.NODE_ENV === "production" ? 80 : 5000;
+const port = process.env.NODE_ENV === "production" ? 80 : process.env.PORT;
 app.listen(port, function() {
     console.log("Server listening on port " + port);
 });

@@ -5,7 +5,7 @@ const jwtSecret = process.env.JWT_SECRET;
 const jwtExpire = process.env.JWT_EXPIRE;
 
 module.exports = {
-    jwtMiddleware: function() {
+    jwtMiddleware =() => {
         return expressJwt({
             secret: jwtSecret,
             getToken: (req) => {
@@ -26,7 +26,7 @@ module.exports = {
             ]
         });
     },
-    generateJWT: function(userID) {
+    generateJWT = (userID) => {
         const token = jwt.sign({ uid: userID }, jwtSecret, {
             expiresIn: jwtExpire
         });

@@ -1,12 +1,6 @@
 module.exports = errorHandler;
 
 function errorHandler(err, req, res, next) {
-    if (typeof err === "string") {
-        // custom application error
-        console.log("Error: " + err + "!");
-        return res.status(400).json({ message: "Error: " + err + "!" });
-    }
-
     if (err.name === "UnauthorizedError") {
         // jwt authentication error
         if (process.env.NODE_ENV === "development")
