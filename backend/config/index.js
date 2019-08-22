@@ -14,7 +14,7 @@ module.exports = {
         adminEmail: process.env.FIREBASE_ADMIN_EMAIL,
         appID: process.env.FIREBASE_APP_ID
     },
-    JWT: {
+    jwt: {
         secret: process.env.JWT_SECRET,
         expire: process.env.JWT_EXPIRE
     }

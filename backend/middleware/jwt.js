@@ -1,11 +1,8 @@
 const expressJwt = require("express-jwt");
 const jwt = require("jsonwebtoken");
 
-const jwtSecret = process.env.JWT_SECRET;
-const jwtExpire = process.env.JWT_EXPIRE;
-
 module.exports = {
-    jwtMiddleware: () => {
+    jwtMiddleware: (config) => {
         return expressJwt({
             secret: jwtSecret,
             getToken: (req) => {
@@ -27,8 +24,8 @@ module.exports = {
         });
     },
     generateJWT: (userID) => {
-        const token = jwt.sign({ uid: userID }, jwtSecret, {
-            expiresIn: jwtExpire
+        const token = jwt.sign({ uid: userID }, config.secret, {
+            expiresIn: config.expire
         });
         // console.log("Generated JWT for authenticated user: ", token);
         return token;

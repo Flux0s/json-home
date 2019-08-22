@@ -12,7 +12,7 @@ import AddIcon from "@material-ui/icons/Add";
 import css from "./device.module.css";
 import { withSnackbar } from "notistack";
 
-import { api } from "../../helpers/api-service";
+// import { api } from "../../helpers/api-service";
 
 const styles = (theme) => ({
     addDeviceCard: {
@@ -73,16 +73,16 @@ class NewDevice extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        api.addDevice(device)
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                this.props.enqueueSnackbar(error.message, {
-                    variant: "error",
-                    autoHideDuration: 4000
-                });
-            });
+        // api.addDevice(device)
+        //     .then((response) => {
+        //         console.log(response);
+        //     })
+        //     .catch((error) => {
+        //         this.props.enqueueSnackbar(error.message, {
+        //             variant: "error",
+        //             autoHideDuration: 4000
+        //         });
+        //     });
     };
 
     render() {

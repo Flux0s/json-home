@@ -1,5 +1,5 @@
 let router = require("express").Router();
-let firebase = require("../services/firebase");
+let firebase = require("../services/firebase-service");
 
 router.post("/sign-in", (req, res, next) => {
     const {
@@ -18,7 +18,19 @@ router.post("/sign-in", (req, res, next) => {
 });
 
 router.post("/sign-up", (req, res, next) => {
-    console.log("Received request for sign-up");
+    const {
+        body: { user }
+    } = req;
+    firebase
+        .signup(user.email, user.password)
+        .then((token) => {
+            res.json({
+                success: true,
+                message: "Authentication successful!",
+                token: token
+            });
+        })
+        .catch(next);
 });
 
 module.exports = router;

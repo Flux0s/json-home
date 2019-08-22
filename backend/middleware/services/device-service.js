@@ -1,7 +1,17 @@
-const Firebase = require("./firebase");
-const DeviceList = require("./repositories/deviceList");
+let firebase = require("./firebase-service");
+// const DeviceList = require("./repositories/deviceList");
+
+let getDevices = () => {
+    const devicesObjectPath = "/devices/";
+    return firebase.getFromDatabase(devicesObjectPath).then(function(snapshot) {
+        // console.log(snapshot.val());
+        const ListOfDevices = new DeviceRepository(snapshot.val());
+        
+    });
+};
 
 module.exports = {
+    getDevices,
     addDevice(req, res, next) {
         // const number = new Number();
 
@@ -23,23 +33,6 @@ module.exports = {
             .catch(function(error) {
                 next("Encountered error while adding new device: " + error);
             });
-    },
-    getDevices(req, res, next) {
-        // next("This API endpoint has not been implemented yet");
-        const devicesObjectPath = "/devices/";
-        // setTimeout(function() {
-        Firebase.getFromDatabase(devicesObjectPath)
-            .then(function(snapshot) {
-                // console.log(snapshot.val());
-                const ListOfDevices = new DeviceRepository(snapshot.val());
-                res.send(ListOfDevices);
-            })
-            .catch(function(error) {
-                next(
-                    "Encountered error while getting list of devices: " + error
-                );
-            });
-        // }, 3500);
     },
     getEpmtyDevice(req, res, next) {
         // next("This API endpoint has not been implemented yet");

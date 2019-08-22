@@ -18,24 +18,24 @@ function getDevices() {
     };
     return fetch(apiUrl + API.devices, requestOptions).then(handleResponse);
 }
-// function getEmptyDevice() {
-//     const requestOptions = {
-//         method: "GET",
-//         headers: baseHeadersObject(authenticationService.currentUserValue.token)
-//     };
-//     return fetch(apiUrl + API.getEmptyDevice, requestOptions).then(
-//         handleResponse
-//     );
-// }
-function getDeviceTypes() {
+function getEmptyDevice() {
     const requestOptions = {
         method: "GET",
         headers: baseHeadersObject(authenticationService.currentUserValue.token)
     };
-    return fetch(apiUrl + API.getDeviceTypes, requestOptions).then(
+    return fetch(apiUrl + API.getEmptyDevice, requestOptions).then(
         handleResponse
     );
 }
+// function getDeviceTypes() {
+//     const requestOptions = {
+//         method: "GET",
+//         headers: baseHeadersObject(authenticationService.currentUserValue.token)
+//     };
+//     return fetch(apiUrl + API.getDeviceTypes, requestOptions).then(
+//         handleResponse
+//     );
+// }
 function addDevice(device) {
     const requestOptions = {
         method: "PUT",
@@ -50,7 +50,7 @@ function addDevice(device) {
 // API export
 export const api = {
     getDevices,
-    // getEmptyDevice,
-    getDeviceTypes,
+    getEmptyDevice,
+    // getDeviceTypes,
     addDevice
 };

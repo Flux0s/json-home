@@ -7,14 +7,15 @@ let errorHandler = require("./error-handler");
 // Import routes
 let deviceRouter = require("./routes/devices");
 let authRouter = require("./routes/auth");
-let firebase = require("./services/firebase");
+// Import modules that need to be loaded with config
+let firebase = require("./services/firebase-service");
 
 module.exports = {
     initalize(app, config) {
         app.use(cors);
         //allow OPTIONS for cors pre-flight on all resources
         app.options("*", cors);
-        app.use(jwt.jwtMiddleware());
+        app.use(jwt.jwtMiddleware(config.jwt));
         app.use(bodyParser.json());
         // Configure routes
         app.use("/auth", authRouter);
