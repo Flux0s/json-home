@@ -1,8 +1,7 @@
 import { BehaviorSubject } from "rxjs";
 
 import { handleResponse } from "./response-handler";
-import { SIGN_IN } from "../../constants/routes";
-import { SIGN_UP } from "../../constants/routes";
+import { auth } from "../../constants/routes";
 
 const apiUrl = "http://localhost:5000";
 
@@ -27,7 +26,7 @@ function signin(email, password) {
         body: JSON.stringify({ user: { email, password } })
     };
 
-    return fetch(apiUrl + SIGN_IN, requestOptions)
+    return fetch(apiUrl + auth.SIGN_IN, requestOptions)
         .then(handleResponse)
         .then((user) => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -47,7 +46,7 @@ function signup(email, password) {
         body: JSON.stringify({ user: { email, password } })
     };
 
-    return fetch(apiUrl + SIGN_UP, requestOptions).then(handleResponse);
+    return fetch(apiUrl + auth.SIGN_UP, requestOptions).then(handleResponse);
 }
 
 function logout() {

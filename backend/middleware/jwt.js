@@ -5,7 +5,7 @@ const jwtSecret = process.env.JWT_SECRET;
 const jwtExpire = process.env.JWT_EXPIRE;
 
 module.exports = {
-    jwtMiddleware =() => {
+    jwtMiddleware: () => {
         return expressJwt({
             secret: jwtSecret,
             getToken: (req) => {
@@ -21,12 +21,12 @@ module.exports = {
             path: [
                 // public routes that don't require authentication
                 "/",
-                "/sign-in",
-                "/sign-up"
+                "/auth/sign-in",
+                "/auth/sign-up"
             ]
         });
     },
-    generateJWT = (userID) => {
+    generateJWT: (userID) => {
         const token = jwt.sign({ uid: userID }, jwtSecret, {
             expiresIn: jwtExpire
         });

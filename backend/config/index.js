@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 // Read the .env file, parse the contents, assign it to process.env.
 dotenv.config();
 
-export default {
+module.exports = {
     port: process.env.PORT,
     firebase: {
         apiKey: process.env.FIREBASE_API_KEY,

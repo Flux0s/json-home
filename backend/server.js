@@ -1,17 +1,12 @@
 // Import Server and env
 let app = require("express")();
-let env = require("dotenv").config();
+let config = require("./config");
 // Import Middleware stack
 let middleware = require("./middleware");
 
-middleware.initalize(app);
-
-
+middleware.initalize(app, config);
 
 // // ------- API Endpoints ------- //
-// app.post("/sign-in", cors(), (req, res, next) => {
-//     Firebase.doSignInWithEmailAndPassword(req, res, next);
-// });
 // app.get("/getListOfDevices", (req, res, next) => {
 //     api.getDevices(req, res, next);
 // });
@@ -47,7 +42,7 @@ middleware.initalize(app);
 //     });
 // }
 
-const port = process.env.NODE_ENV === "production" ? 80 : process.env.PORT;
+const port = process.env.NODE_ENV === "development" ? 5000 : process.env.PORT;
 app.listen(port, function() {
     console.log("Server listening on port " + port);
 });
