@@ -8,8 +8,8 @@ export const auth = {
     SIGN_UP: "/auth/sign-up"
 };
 export const API = {
-    getDevices: "/getListOfDevices",
-    getDeviceTypes: "/getListOfDeviceTypes",
+    devices: "/devices",
+    // getDeviceTypes: "/getListOfDeviceTypes",
     getEmptyDevice: "/getEmptyDeviceObject",
     addDevice: "/addNewDevice"
 };

@@ -30,7 +30,7 @@ module.exports = {
         const token = jwt.sign({ uid: userID }, jwtSecret, {
             expiresIn: jwtExpire
         });
-        console.log("Generated JWT for authenticated user: ", token);
+        // console.log("Generated JWT for authenticated user: ", token);
         return token;
     }
 };

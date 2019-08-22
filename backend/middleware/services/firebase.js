@@ -5,9 +5,11 @@ let jwt = require("../jwt");
 
 module.exports = {
     // Initialize firebase configuration
+
     initializeApp: (config) => {
         firebase.initializeApp(config);
     },
+
     // Authentication methods
 
     signup: (email, password) => {
@@ -23,7 +25,6 @@ module.exports = {
             .auth()
             .signInWithEmailAndPassword(email, password)
             .then((user) => {
-                console.log(user);
                 return jwt.generateJWT(user.uid);
             });
     },

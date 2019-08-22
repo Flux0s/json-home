@@ -51,16 +51,16 @@ class NewDevice extends Component {
             type: "add",
             deviceTypes: null
         };
-        api.getDeviceTypes()
-            .then((types) => {
-                this.setState({ deviceTypes: types });
-            })
-            .catch((error) => {
-                this.props.enqueueSnackbar(error.message, {
-                    variant: "error",
-                    autoHideDuration: 4000
-                });
-            });
+        // api.getDeviceTypes()
+        //     .then((types) => {
+        //         this.setState({ deviceTypes: types });
+        //     })
+        //     .catch((error) => {
+        //         this.props.enqueueSnackbar(error.message, {
+        //             variant: "error",
+        //             autoHideDuration: 4000
+        //         });
+        //     });
     }
 
     handleTypeChange = (type) => {
