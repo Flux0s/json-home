@@ -1,12 +1,11 @@
 let firebase = require("./firebase-service");
-// const DeviceList = require("./repositories/deviceList");
+let lightModel = require("./models/light-model");
 
 let getDevices = () => {
     const devicesObjectPath = "/devices/";
     return firebase.getFromDatabase(devicesObjectPath).then(function(snapshot) {
         // console.log(snapshot.val());
         const ListOfDevices = new DeviceRepository(snapshot.val());
-        
     });
 };
 

@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 module.exports = {
     jwtMiddleware: (config) => {
         return expressJwt({
-            secret: jwtSecret,
+            secret: config.secret,
             getToken: (req) => {
                 if (
                     req.headers.authorization &&

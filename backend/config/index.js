@@ -4,6 +4,9 @@ dotenv.config();
 
 module.exports = {
     port: process.env.PORT,
+    database: {
+        uri: process.env.MONGO_DATABSE_URI
+    },
     firebase: {
         apiKey: process.env.FIREBASE_API_KEY,
         authDomain: process.env.FIREBASE_AUTH_DOMAIN,
