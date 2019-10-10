@@ -1,15 +1,23 @@
-let mongoose = require("mongoose");
+let mongoose = require('mongoose');
 
-const lightProperties = {
-    on: Boolean
-};
-
-const deviceSchema = new mongoose.Schema({
-    // Properties
-    Type: String
-    // Operations
+const lightSchema = new mongoose.Schema({
+  // Properties
+  Name: { type: String, required: true, unique: true },
+  Location: String,
+  On: Boolean,
+  Color: {
+    type: String,
+    set: (s) => {
+      if (!s.match(/#[A-F|a-f|0-9]{6}/g))
+        throw new Error('Attempted to set invalid light color');
+      else return s;
+    }
+  }
 });
 
-module.exports = (type) => {
-    return mongoose.model("Device", deviceSchema);
+lightSchema.methods.togglePower = (cb) => {
+  this.On = !this.On;
+  return Promise.resolve(this.On);
 };
+
+module.exports = mongoose.model('Light', lightSchema);

@@ -7,9 +7,3 @@ export const auth = {
     SIGN_IN: "/auth/sign-in",
     SIGN_UP: "/auth/sign-up"
 };
-export const API = {
-    devices: "/devices",
-    // getDeviceTypes: "/getListOfDeviceTypes",
-    getEmptyDevice: "/getEmptyDeviceObject",
-    addDevice: "/addNewDevice"
-};

@@ -1,9 +1,10 @@
 let mongoose = require("mongoose");
 
 module.exports = {
-    initalize: (config) => {
+    initialize: (config) => {
         mongoose.connect(config.uri, {
-            useNewUrlParser: true
+            useNewUrlParser: true,
+            useUnifiedTopology: true
         });
     }
 };

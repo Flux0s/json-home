@@ -1,8 +1,10 @@
-// Import Server and env
-let app = require("express")();
-let config = require("./config");
+// Import Server
+let app = require('express')();
+let dotenv = require('dotenv').config();
+// Load env into config object
+let config = require('./config');
 // Import Middleware stack
-let middleware = require("./middleware");
+let middleware = require('./middleware');
 
 middleware.initalize(app, config);
 
@@ -42,7 +44,7 @@ middleware.initalize(app, config);
 //     });
 // }
 
-const port = process.env.NODE_ENV === "development" ? 5000 : process.env.PORT;
+const port = process.env.NODE_ENV === 'development' ? 5000 : process.env.PORT;
 app.listen(port, function() {
-    console.log("Server listening on port " + port);
+  console.log('Server listening at: ' + process.env.domain + ':' + port);
 });

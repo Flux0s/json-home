@@ -6,7 +6,8 @@ let jwt = require("../jwt");
 module.exports = {
     // Initialize firebase configuration
 
-    initializeApp: (config) => {
+    initialize: (config) => {
+        // console.log(config);
         firebase.initializeApp(config);
     },
 
