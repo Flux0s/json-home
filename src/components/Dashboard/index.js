@@ -46,9 +46,6 @@ class Dashboard extends Component {
         <Grid container direction='row' justify='center' alignItems='center'>
           <>
             {this.state.devices.map((device) => {
-              {
-                /* console.log(device); */
-              }
               return <Device type='content' key={device.id} device={device} />;
             })}
           </>

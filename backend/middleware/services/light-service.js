@@ -1,4 +1,5 @@
-let lightModel = require('./models/light-model');
+let lightModel = require('./models/light-model').model;
+let lightTemplate = require('./models/light-model').template;
 
 // TODO: Add filtering parameter
 let getLights = () =>
@@ -22,9 +23,7 @@ let getLightByName = (name) => {
 };
 
 let getEmptyLightObject = () => {
-  let emptyLightObject = new lightModel({ name: 'testLight' });
-  console.log(emptyLightObject);
-  // return
+  return Promise.resolve(lightTemplate);
 };
 
 // Use getEmptyLightObject to get correct parameter format
