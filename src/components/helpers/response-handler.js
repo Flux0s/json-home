@@ -1,9 +1,9 @@
 import { authenticationService } from "./auth-service";
 
 export function handleResponse(response) {
-    console.log(response);
+    // console.log(response);
     return response.text().then((text) => {
-        console.log(text);
+        // console.log(text);
         let data;
         data = text && JSON.parse(text);
         // console.log(data);

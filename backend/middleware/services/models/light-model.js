@@ -1,5 +1,7 @@
 let mongoose = require('mongoose');
 
+
+
 const lightSchema = new mongoose.Schema({
   Name: { type: String, required: true, unique: true },
   Location: String,
@@ -19,7 +21,7 @@ lightSchema.methods.togglePower = (cb) => {
   return Promise.resolve(this.On);
 };
 
-template = { Name: null, Location: null, Color: null };
+template = ['Name', 'Location', 'Color'];
 
 module.exports = {
   model: mongoose.model('Light', lightSchema),

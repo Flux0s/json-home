@@ -4,7 +4,7 @@ import {
   CardContent,
   Button,
   Box,
-  Grid,
+  TextField,
   CircularProgress
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
@@ -35,6 +35,9 @@ const styles = (theme) => ({
   },
   activeButton: {
     margin: theme.spacing(0, 0, 0, 1)
+  },
+  textField: {
+    margin: theme.spacing(1, 3)
   }
 });
 class NewDevice extends Component {
@@ -42,13 +45,29 @@ class NewDevice extends Component {
     super(props);
     this.state = {
       active: false,
-      lightTemplate: null
+      lightProps: null,
+      newLight: {}
     };
   }
 
+  handleUpdate = (event) => {
+    let id = event.target.id,
+      update = {},
+      value = event.target.value;
+    update[id] = value;
+    this.setState((prevState) => ({ ...update }));
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
-    // api.addDevice(device)
+    let newLight = Object.keys(this.state)
+      .filter((i) => this.state.lightProps.includes(i))
+      .reduce((acc, key) => {
+        acc[key] = this.state[key];
+        return acc;
+      }, {});
+    console.log(newLight);
+    // api.addLight(device)
     //     .then((response) => {
     //         console.log(response);
     //     })
@@ -63,14 +82,35 @@ class NewDevice extends Component {
   render() {
     const MUIstyles = this.props.classes;
     const classes = { ...css, ...MUIstyles };
-    let content;
+    let content, formInputs;
+
+    if (this.state.lightProps)
+      formInputs = (
+        <>
+          {this.state.lightProps.map((input) => {
+            return (
+              <TextField
+                required
+                id={input}
+                label={input}
+                className={classes.textField}
+                margin='normal'
+                value={this.state[input]}
+                onChange={this.handleUpdate}
+                key={input}
+              />
+            );
+          })}
+        </>
+      );
+    else formInputs = <CircularProgress />;
 
     if (this.state.active) {
       content = (
         <Box className={classes.parent}>
-          <Box className={classes.content} />
-          <Box className={classes.footer}>
-            <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit}>
+            <Box className={classes.content}>{formInputs}</Box>
+            <Box className={classes.footer}>
               <Button
                 className={classes.activeButton}
                 variant='outlined'
@@ -86,8 +126,8 @@ class NewDevice extends Component {
               >
                 Submit
               </Button>
-            </form>
-          </Box>
+            </Box>
+          </form>
         </Box>
       );
     } else {
@@ -98,11 +138,16 @@ class NewDevice extends Component {
             size='large'
             className={classes.addIconButton}
             onClick={() => {
-              if (!this.state.lightTemplate)
+              if (!this.state.lightProps)
                 api
                   .getEmptyLight()
                   .then((res) => {
-                    this.setState({ lightTemplate: res });
+                    let newLight = {};
+                    res.forEach((prop) => (newLight[prop] = ''));
+                    this.setState({
+                      lightProps: res,
+                      ...newLight
+                    });
                   })
                   .catch((error) => {
                     this.props.enqueueSnackbar(error.message, {

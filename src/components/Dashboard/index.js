@@ -3,9 +3,9 @@ import { Box, Grid } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
 
 import { api } from '../helpers/api-service.js';
-import Device from './device';
+import Light from './light';
 
-const devices = [
+const lights = [
   {
     id: 1,
     name: '',
@@ -26,17 +26,16 @@ const devices = [
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = { devices: devices };
+    this.state = { devices: lights };
     api
       .getLights()
       .then((devices) => {
-        console.log(devices);
         this.setState({ devices: devices });
       })
       .catch((error) => {
         this.props.enqueueSnackbar(error.message, {
           variant: 'error',
-          autoHideDuration: 4000
+          autoHideDuration: 3500
         });
       });
   }
@@ -46,10 +45,10 @@ class Dashboard extends Component {
         <Grid container direction='row' justify='center' alignItems='center'>
           <>
             {this.state.devices.map((device) => {
-              return <Device type='content' key={device.id} device={device} />;
+              return <Light type='content' key={device.id} device={device} />;
             })}
           </>
-          <Device type='new' />
+          <Light type='new' />
         </Grid>
       </Box>
     );
