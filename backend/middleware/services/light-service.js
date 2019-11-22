@@ -1,9 +1,9 @@
-let lightModel = require('./models/light-model').model;
-let lightTemplate = require('./models/light-model').template;
+let lightModel = require("./models/light-model").model;
+let lightTemplate = require("./models/light-model").template;
 
 // TODO: Add filtering parameter
 let getLights = () =>
-  lightModel.find({}, (err, lights) => {
+  lightModel.find({}, { __v: false }, (err, lights) => {
     if (err) {
       // console.log(err);
       return Promise.reject(err);
@@ -26,10 +26,18 @@ let getEmptyLightObject = () => {
   return Promise.resolve(lightTemplate);
 };
 
-// Use getEmptyLightObject to get correct parameter format
+// Clients should use getEmptyLightObject to get correct parameter format
+// Returns: List of lights after adding the new object, or err if failed validation or during save operation
 let addNewLightObject = (lightObject) => {
   newLightObject = new lightModel(lightObject);
-  console.log(newLightObject);
+  let validationError = newLightObject.validateSync();
+  if (validationError) return Promise.reject(validationerror);
+  else {
+    return newLightObject.save((err) => {
+      if (err) return Promise.reject(err);
+      else return getLights();
+    });
+  }
 };
 
 module.exports = {
@@ -37,59 +45,4 @@ module.exports = {
   getLightByName,
   getEmptyLightObject,
   addNewLightObject
-  // addDevice(req, res, next) {
-  //     // const number = new Number();
-
-  //     // console.log(number);
-  //     // if (schemas.deviceSchema.validate(req.body.device)) {
-  //     //     next("Device in response did not match schema");
-  //     //     return;
-  //     // }
-  //     // const deviceObject = schemas.deviceSchema.parse(req.body.device);
-  //     next("This API endpoint has not been implemented yet");
-  //     return;
-
-  //     const devicesObjectPath = "/devices/";
-  //     Firebase.appendToDatabase(devicesObjectPath)
-  //         .then(function(snapshot) {
-  //             // console.log(snapshot.val());
-  //             // res.send(snapshot.val());
-  //         })
-  //         .catch(function(error) {
-  //             next("Encountered error while adding new device: " + error);
-  //         });
-  // },
-  // getEpmtyDevice(req, res, next) {
-  //     // next("This API endpoint has not been implemented yet");
-  //     const devicesObjectPath = "/devices/";
-  //     // setTimeout(function() {
-  //     Firebase.getFromDatabase(devicesObjectPath)
-  //         .then(function(snapshot) {
-  //             // console.log(snapshot.val());
-  //             res.send(snapshot.val());
-  //         })
-  //         .catch(function(error) {
-  //             next(
-  //                 "Encountered error while getting list of devices: " + error
-  //             );
-  //         });
-  //     // }, 3500);
-  // },
-  // getDeviceTypes(req, res, next) {
-  //     // next("This API endpoint has not been implemented yet");
-  //     const deviceTypesObjectPath = "/deviceTypes/";
-  //     // setTimeout(function() {
-  //     Firebase.getFromDatabase(deviceTypesObjectPath)
-  //         .then(function(snapshot) {
-  //             // console.log(snapshot.val());
-  //             res.send(snapshot.val());
-  //         })
-  //         .catch(function(error) {
-  //             next(
-  //                 "Encountered error while getting list of device types: " +
-  //                     error
-  //             );
-  //         });
-  //     // }, 3500);
-  // }
 };

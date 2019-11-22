@@ -59,7 +59,7 @@ function Light(props) {
   // Set the content object to one of the following: add new device, loading from server, editable content object
   let [ContentObject, setContentObject] = useState(() => {
     if (props.new) return <AddButton onClick={revealAddFields} />;
-    else if (!props.name)
+    else if (!props.fields.Name)
       return (
         <Box className={classes.loadingContainer}>
           <Box className={classes.loadingItem}>
@@ -67,7 +67,14 @@ function Light(props) {
           </Box>
         </Box>
       );
-    else return <Content fields={props.fields} />;
+    else
+      return (
+        <Content
+          fields={props.fields}
+          primaryButtonText={"Update"}
+          secondaryButtonText={"Revert"}
+        />
+      );
   });
   // Allows add objects to return to unrevealed state
   function handleCancelAdd() {
@@ -76,18 +83,21 @@ function Light(props) {
   // Function that handles the submit event for content objects
   let handleSubmit = (event, fields) => {
     event.preventDefault();
-    console.log(event);
-    api
-      .addNewLight(fields)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        props.enqueueSnackbar(error.message, {
-          variant: "error",
-          autoHideDuration: 4000
+    // console.log(event);
+    if (fields._id) console.log("Update requested!");
+    else
+      api
+        .addNewLight(fields)
+        .then((response) => {
+          // console.log(response);
+          props.handleUpdateList(response);
+        })
+        .catch((error) => {
+          props.enqueueSnackbar(error.message, {
+            variant: "error",
+            autoHideDuration: 4000
+          });
         });
-      });
   };
   // Requests an empty light object via API and creates a content object based on response
   function revealAddFields() {
@@ -108,6 +118,8 @@ function Light(props) {
             fields={res}
             handleCancelAdd={handleCancelAdd}
             handleSubmit={handleSubmit}
+            primaryButtonText={"Add"}
+            secondaryButtonText={"Cancel"}
           />
         );
       })

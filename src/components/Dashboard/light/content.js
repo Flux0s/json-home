@@ -53,19 +53,20 @@ function Content(props) {
       <Box className={classes.fieldContainer}>
         <>
           {Object.keys(fields).map((field) => {
-            return (
-              <TextField
-                required
-                id={field}
-                label={field}
-                className={classes.textField}
-                margin='normal'
-                value={fields[field]}
-                onChange={handleUpdate}
-                key={field}
-                variant='outlined'
-              />
-            );
+            if (field !== "_id")
+              return (
+                <TextField
+                  required
+                  id={field}
+                  label={field}
+                  className={classes.textField}
+                  margin='normal'
+                  value={fields[field]}
+                  onChange={handleUpdate}
+                  key={field}
+                  variant='outlined'
+                />
+              );
           })}
         </>
       </Box>
@@ -74,9 +75,10 @@ function Content(props) {
           variant='outlined'
           onClick={() => {
             if (props.handleCancelAdd) props.handleCancelAdd();
+            else setFields(props.fields);
           }}
         >
-          Cancel
+          {props.secondaryButtonText}
         </Button>
         <Button
           type='submit'
@@ -84,7 +86,7 @@ function Content(props) {
           variant='contained'
           color='primary'
         >
-          Submit
+          {props.primaryButtonText}
         </Button>
       </Box>
     </form>

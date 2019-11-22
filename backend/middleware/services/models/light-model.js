@@ -7,7 +7,7 @@ const lightSchema = new mongoose.Schema({
   Color: {
     type: String,
     set: (s) => {
-      if (!s.match(/#[A-F|a-f|0-9]{6}/g))
+      if (!s.match(/#[A-F|a-f|0-9]{8}/g))
         throw new Error("Attempted to set invalid light color");
       else return s;
     }

@@ -21,22 +21,19 @@ router.get("/", (req, res, next) => {
 router.get("/:id", (req, res, next) => {
   console.log("Received a request for light with id: " + req.params.id);
 
-  next("This API endpoint has not been implemented yet");
+  next(new Error("This API endpoint has not been implemented yet"));
   return;
 });
 router.put("/", (req, res, next) => {
-  console.log(
-    "Received a request to add new light with content: " +
-      JSON.stringify(req.body)
-  );
-
-  next("This API endpoint is currently in development");
-  return;
+  lightService
+    .addNewLightObject(req.body)
+    .then((newLightList) => res.json(newLightList))
+    .catch((err) => next(err));
 });
 router.post("/:id", (req, res, next) => {
   console.log("Received a request to update light with id: " + req.params.id);
 
-  next("This API endpoint is currently in development");
+  next(new Error("This API endpoint is currently in development"));
   return;
 });
 module.exports = router;
