@@ -1,25 +1,19 @@
-import React, { Component } from 'react';
-import { Box, Grid } from '@material-ui/core';
-import { withSnackbar } from 'notistack';
+import React, { Component } from "react";
+import { Box, Grid } from "@material-ui/core";
+import { withSnackbar } from "notistack";
 
-import { api } from '../helpers/api-service.js';
-import Light from './light';
+import { api } from "../helpers/api-service.js";
+import Light from "./light";
 
 const lights = [
   {
-    id: 1,
-    name: '',
-    description: ''
+    id: 1
   },
   {
-    id: 2,
-    name: '',
-    description: ''
+    id: 2
   },
   {
-    id: 3,
-    name: '',
-    description: ''
+    id: 3
   }
 ];
 
@@ -34,7 +28,7 @@ class Dashboard extends Component {
       })
       .catch((error) => {
         this.props.enqueueSnackbar(error.message, {
-          variant: 'error',
+          variant: "error",
           autoHideDuration: 3500
         });
       });
@@ -45,10 +39,12 @@ class Dashboard extends Component {
         <Grid container direction='row' justify='center' alignItems='center'>
           <>
             {this.state.devices.map((device) => {
-              return <Light type='content' key={device.id} device={device} />;
+              return <Light key={device.id} fields={{ ...device }} />;
             })}
           </>
-          <Light type='new' />
+          <Light
+          /* new */
+          />
         </Grid>
       </Box>
     );

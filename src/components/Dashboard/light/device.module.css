@@ -11,13 +11,13 @@
 }
 
 .footer {
+  
+    /* The below is shorthand for:
+      flex-grow: 0,
+      flex-shrink: 1,
+      flex-basis: auto
+      */
   flex: 0 1 auto;
   text-align: right;
   padding: 16px;
-
-  /* The above is shorthand for:
-    flex-grow: 0,
-    flex-shrink: 1,
-    flex-basis: auto
-    */
 }

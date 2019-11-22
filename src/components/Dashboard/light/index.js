@@ -1,49 +1,49 @@
-import React, { Component } from 'react';
-import { Card, withStyles, Grid } from '@material-ui/core';
-import ContentLight from './ContentLight';
-import NewLight from './NewLight';
+import React, { Component } from "react";
+import { Card, Grid, makeStyles } from "@material-ui/core";
+import Content from "./content";
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   card: {
-    [theme.breakpoints.down('xs')]: {
-      height: '450px',
-      width: '100%'
-    },
-    [theme.breakpoints.up('sm')]: {
-      height: '450px',
-      width: '400px'
-    },
-    [theme.breakpoints.up('md')]: {
-      height: '300px',
-      width: '500px'
-    }
+    width: "100%",
+    height: "100%"
   },
   gridItem: {
-    margin: theme.spacing(1)
-  }
-});
-
-class Light extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      type: this.props.type
-    };
-  }
-  render() {
-    const { classes } = this.props;
-    let DeviceDisplay;
-    if (this.state.type === 'content') {
-      DeviceDisplay = <Content {...this.props.device} />;
-    } else if (this.state.type === 'new') {
-      DeviceDisplay = <NewLight />;
+    [theme.breakpoints.down("xs")]: {
+      margin: theme.spacing(4),
+      height: "450px",
+      width: "100%"
+    },
+    [theme.breakpoints.up("sm")]: {
+      margin: theme.spacing(2),
+      height: "450px",
+      width: "350px"
+    },
+    [theme.breakpoints.up("md")]: {
+      margin: theme.spacing(2),
+      height: "450px",
+      width: "425px"
+    },
+    [theme.breakpoints.up("lg")]: {
+      marginTop: theme.spacing(6, 4),
+      height: "450px",
+      width: "450px"
     }
-    return (
-      <Grid item className={classes.gridItem}>
-        <Card className={classes.card}>{DeviceDisplay}</Card>
-      </Grid>
-    );
   }
+}));
+
+function Light(props) {
+  const classes = useStyles();
+  function test(props) {
+    if (props.new) return <div> new </div>;
+    else return <Content {...props.fields} />;
+  };
+  return (
+    <Grid item className={classes.gridItem}>
+      <Card className={classes.card}>
+
+      </Card>
+    </Grid>
+  );
 }
 
-export default withStyles(styles)(Light);
+export default Light;

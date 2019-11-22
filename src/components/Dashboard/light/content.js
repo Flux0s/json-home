@@ -1,72 +1,49 @@
-import React, { Component } from 'react';
-import {
-  withStyles,
-  CardContent,
-  Button,
-  Box,
-  TextField,
-  CircularProgress
-} from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import css from './device.module.css';
-import { withSnackbar } from 'notistack';
+import React, { useState } from "react";
+import { makeStyles, Box, Button } from "@material-ui/core";
 
-import { api } from '../../helpers/api-service';
+import { api } from "../../helpers/api-service";
 
-const styles = (theme) => ({
-  addDeviceCard: {
-    height: '100%',
-    width: '100%',
-    'text-align': 'center',
-    display: 'flex'
+const useStyles = makeStyles((theme) => ({
+  parentBox: {
+    width: "100%",
+    display: "flex",
+    flexFlow: "column",
+    height: "100%",
+    padding: theme.spacing(2)
   },
-  BackgroundBox: {
-    'background-color': theme.palette.grey[200],
-    width: 'inherit'
+  fieldContainer: {
+    flex: "1 1 auto"
+    // textAlign: "center"
+    // padding: 8px, 16px;
   },
-  addIconButton: {
-    margin: 'auto',
-    width: 'inherit',
-    height: '100%'
+  buttonContainer: {
+    flex: "0 1 auto",
+    textAlign: "right"
   },
-  addIcon: {
-    width: '30%',
-    height: '30%'
+  textbox: {
+    margin: theme.spacing(1)
   },
-  activeButton: {
-    margin: theme.spacing(0, 0, 0, 1)
-  },
-  textField: {
-    margin: theme.spacing(1, 3)
+  button: {
+    marginLeft: theme.spacing(1)
   }
-});
-class NewDevice extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: false,
-      lightProps: null,
-      newLight: {}
-    };
-  }
+}));
 
-  handleUpdate = (event) => {
-    let id = event.target.id,
-      update = {},
-      value = event.target.value;
-    update[id] = value;
-    this.setState((prevState) => ({ ...update }));
-  };
+function Content(props) {
+  // Definition and initialization
+  const classes = useStyles();
+  const [fields, setFields] = useState(0);
+  // setFields();
 
-  handleSubmit = (event) => {
+  // Event handlers
+  let handleSubmit = (event) => {
     event.preventDefault();
-    let newLight = Object.keys(this.state)
-      .filter((i) => this.state.lightProps.includes(i))
-      .reduce((acc, key) => {
-        acc[key] = this.state[key];
-        return acc;
-      }, {});
-    console.log(newLight);
+    // let newLight = Object.keys(this.state)
+    //   .filter((i) => this.state.lightProps.includes(i))
+    //   .reduce((acc, key) => {
+    //     acc[key] = this.state[key];
+    //     return acc;
+    //   }, {});
+    console.log(fields);
     // api.addLight(device)
     //     .then((response) => {
     //         console.log(response);
@@ -78,97 +55,44 @@ class NewDevice extends Component {
     //         });
     //     });
   };
+  // if (!props.lightProps)
+  //   api
+  //     .getEmptyLight()
+  //     .then((res) => {
+  //       let newLight = {};
+  //       res.forEach((prop) => (newLight[prop] = ""));
+  //       this.setState({
+  //         lightProps: res,
+  //         ...newLight
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       this.props.enqueueSnackbar(error.message, {
+  //         variant: "error",
+  //         autoHideDuration: 4000
+  //       });
+  //     });
 
-  render() {
-    const MUIstyles = this.props.classes;
-    const classes = { ...css, ...MUIstyles };
-    let content, formInputs;
-
-    if (this.state.lightProps)
-      formInputs = (
-        <>
-          {this.state.lightProps.map((input) => {
-            return (
-              <TextField
-                required
-                id={input}
-                label={input}
-                className={classes.textField}
-                margin='normal'
-                value={this.state[input]}
-                onChange={this.handleUpdate}
-                key={input}
-              />
-            );
-          })}
-        </>
-      );
-    else formInputs = <CircularProgress />;
-
-    if (this.state.active) {
-      content = (
-        <Box className={classes.parent}>
-          <form onSubmit={this.handleSubmit}>
-            <Box className={classes.content}>{formInputs}</Box>
-            <Box className={classes.footer}>
-              <Button
-                className={classes.activeButton}
-                variant='outlined'
-                onClick={() => this.setState({ active: false })}
-              >
-                Cancel
-              </Button>
-              <Button
-                type='submit'
-                className={classes.activeButton}
-                variant='contained'
-                color='primary'
-              >
-                Submit
-              </Button>
-            </Box>
-          </form>
-        </Box>
-      );
-    } else {
-      content = (
-        <Box className={classes.BackgroundBox}>
-          <Button
-            aria-label='add'
-            size='large'
-            className={classes.addIconButton}
-            onClick={() => {
-              if (!this.state.lightProps)
-                api
-                  .getEmptyLight()
-                  .then((res) => {
-                    let newLight = {};
-                    res.forEach((prop) => (newLight[prop] = ''));
-                    this.setState({
-                      lightProps: res,
-                      ...newLight
-                    });
-                  })
-                  .catch((error) => {
-                    this.props.enqueueSnackbar(error.message, {
-                      variant: 'error',
-                      autoHideDuration: 4000
-                    });
-                  });
-              this.setState({ active: true });
-            }}
-          >
-            <AddIcon className={classes.addIcon} />
-          </Button>
-        </Box>
-      );
-    }
-    return (
-      <CardContent className={classes.addDeviceCard} style={{ padding: '0px' }}>
-        {content}
-      </CardContent>
-    );
-  }
+  return (
+    <form className={classes.parentBox} onSubmit={handleSubmit}>
+      <Box className={classes.fieldContainer}></Box>
+      <Box className={classes.buttonContainer}>
+        <Button
+          variant='outlined'
+          /* onClick={() => this.setState({ active: false })} */
+        >
+          Cancel
+        </Button>
+        <Button
+          type='submit'
+          className={classes.button}
+          variant='contained'
+          color='primary'
+        >
+          Submit
+        </Button>
+      </Box>
+    </form>
+  );
 }
-
-export default withSnackbar(withStyles(styles)(NewDevice));
+export default Content;
