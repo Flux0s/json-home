@@ -1,6 +1,4 @@
-let mongoose = require('mongoose');
-
-
+let mongoose = require("mongoose");
 
 const lightSchema = new mongoose.Schema({
   Name: { type: String, required: true, unique: true },
@@ -10,7 +8,7 @@ const lightSchema = new mongoose.Schema({
     type: String,
     set: (s) => {
       if (!s.match(/#[A-F|a-f|0-9]{6}/g))
-        throw new Error('Attempted to set invalid light color');
+        throw new Error("Attempted to set invalid light color");
       else return s;
     }
   }
@@ -21,9 +19,9 @@ lightSchema.methods.togglePower = (cb) => {
   return Promise.resolve(this.On);
 };
 
-template = ['Name', 'Location', 'Color'];
+template = { Name: "", Location: "", Color: "" };
 
 module.exports = {
-  model: mongoose.model('Light', lightSchema),
+  model: mongoose.model("Light", lightSchema),
   template: template
 };

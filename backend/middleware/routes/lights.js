@@ -18,20 +18,23 @@ router.get("/", (req, res, next) => {
   }
 });
 // Get a specific device
-router.get("/:id", (req, res) => {
-  console.log("Received request for light with id: " + req.params.id);
+router.get("/:id", (req, res, next) => {
+  console.log("Received a request for light with id: " + req.params.id);
 
   next("This API endpoint has not been implemented yet");
   return;
 });
-router.post("/", (req, res) => {
-  console.log("Received request to add new light");
+router.put("/", (req, res, next) => {
+  console.log(
+    "Received a request to add new light with content: " +
+      JSON.stringify(req.body)
+  );
 
   next("This API endpoint is currently in development");
   return;
 });
-router.put("/:id", (req, res) => {
-  console.log("Received request to update light with id: " + req.params.id);
+router.post("/:id", (req, res, next) => {
+  console.log("Received a request to update light with id: " + req.params.id);
 
   next("This API endpoint is currently in development");
   return;

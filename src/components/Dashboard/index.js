@@ -8,12 +8,6 @@ import Light from "./light";
 const lights = [
   {
     id: 1
-  },
-  {
-    id: 2
-  },
-  {
-    id: 3
   }
 ];
 
@@ -35,18 +29,16 @@ class Dashboard extends Component {
   }
   render() {
     return (
-      <Box>
-        <Grid container direction='row' justify='center' alignItems='center'>
-          <>
-            {this.state.devices.map((device) => {
-              return <Light key={device.id} fields={{ ...device }} />;
-            })}
-          </>
-          <Light
-          /* new */
-          />
-        </Grid>
-      </Box>
+      /* <Box> */
+      <Grid container direction='row' justify='center' alignItems='center'>
+        <>
+          {this.state.devices.map((device) => {
+            return <Light key={device.id} fields={{ ...device }} />;
+          })}
+        </>
+        <Light new />
+      </Grid>
+      /* </Box> */
     );
   }
 }

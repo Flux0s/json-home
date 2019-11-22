@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles, Box, Button } from "@material-ui/core";
-
-import { api } from "../../helpers/api-service";
+import { makeStyles, Box, Button, TextField } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   parentBox: {
@@ -15,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
     flex: "1 1 auto"
     // textAlign: "center"
     // padding: 8px, 16px;
+  },
+  textField: {
+    margin: theme.spacing(1, 3),
+    display: "flex"
   },
   buttonContainer: {
     flex: "0 1 auto",
@@ -31,55 +33,48 @@ const useStyles = makeStyles((theme) => ({
 function Content(props) {
   // Definition and initialization
   const classes = useStyles();
-  const [fields, setFields] = useState(0);
-  // setFields();
+  const [fields, setFields] = useState(props.fields);
 
   // Event handlers
-  let handleSubmit = (event) => {
-    event.preventDefault();
-    // let newLight = Object.keys(this.state)
-    //   .filter((i) => this.state.lightProps.includes(i))
-    //   .reduce((acc, key) => {
-    //     acc[key] = this.state[key];
-    //     return acc;
-    //   }, {});
-    console.log(fields);
-    // api.addLight(device)
-    //     .then((response) => {
-    //         console.log(response);
-    //     })
-    //     .catch((error) => {
-    //         this.props.enqueueSnackbar(error.message, {
-    //             variant: "error",
-    //             autoHideDuration: 4000
-    //         });
-    //     });
-  };
-  // if (!props.lightProps)
-  //   api
-  //     .getEmptyLight()
-  //     .then((res) => {
-  //       let newLight = {};
-  //       res.forEach((prop) => (newLight[prop] = ""));
-  //       this.setState({
-  //         lightProps: res,
-  //         ...newLight
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       this.props.enqueueSnackbar(error.message, {
-  //         variant: "error",
-  //         autoHideDuration: 4000
-  //       });
-  //     });
+
+  function handleUpdate(event) {
+    let id = event.target.id,
+      update = {},
+      value = event.target.value;
+    update[id] = value;
+    setFields((prevState) => ({ ...prevState, ...update }));
+  }
 
   return (
-    <form className={classes.parentBox} onSubmit={handleSubmit}>
-      <Box className={classes.fieldContainer}></Box>
+    <form
+      className={classes.parentBox}
+      onSubmit={(event) => props.handleSubmit(event, fields)}
+    >
+      <Box className={classes.fieldContainer}>
+        <>
+          {Object.keys(fields).map((field) => {
+            return (
+              <TextField
+                required
+                id={field}
+                label={field}
+                className={classes.textField}
+                margin='normal'
+                value={fields[field]}
+                onChange={handleUpdate}
+                key={field}
+                variant='outlined'
+              />
+            );
+          })}
+        </>
+      </Box>
       <Box className={classes.buttonContainer}>
         <Button
           variant='outlined'
-          /* onClick={() => this.setState({ active: false })} */
+          onClick={() => {
+            if (props.handleCancelAdd) props.handleCancelAdd();
+          }}
         >
           Cancel
         </Button>
