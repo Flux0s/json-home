@@ -22,7 +22,8 @@
         "react-skeleton-loader": "^1.0.4",
         "recompose": "^0.30.0",
         "rxjs": "^6.5.3",
-        "schm": "^0.4.1"
+        "schm": "^0.4.1",
+        "socket.io": "^2.3.0"
     },
     "scripts": {
         "start": "npm run build && node backend/server.js",

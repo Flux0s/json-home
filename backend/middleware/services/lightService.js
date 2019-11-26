@@ -1,5 +1,6 @@
 let lightModel = require("./models/light-model").model;
 let lightTemplate = require("./models/light-model").template;
+const socketEmitter = require("../socket.io").socketEmitter;
 
 // TODO: Add filtering parameter
 let getLights = () =>
@@ -23,6 +24,7 @@ let getLightByName = (name) => {
 };
 
 let getEmptyLightObject = () => {
+  socketEmitter.emit("test", "data");
   return Promise.resolve(lightTemplate);
 };
 

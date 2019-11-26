@@ -2,6 +2,7 @@ import { handleResponse } from "./response-handler";
 import { authenticationService } from "./auth-service";
 
 const apiUrl = "http://localhost:5000";
+
 const lightEndpoint = "/lights";
 
 const baseHeadersObject = (token) => ({

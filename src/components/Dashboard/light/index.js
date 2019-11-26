@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { withSnackbar } from "notistack";
 import {
   Card,
   Grid,
@@ -56,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Light(props) {
   const classes = useStyles();
-  // Set the content object to one of the following: add new device, loading from server, editable content object
+  // Set the content object to one of the following states: add new device, loading from server, editable content object
   let [ContentObject, setContentObject] = useState(() => {
     if (props.new) return <AddButton onClick={revealAddFields} />;
     else if (!props.fields.Name)
@@ -93,10 +92,7 @@ function Light(props) {
           props.handleUpdateList(response);
         })
         .catch((error) => {
-          props.enqueueSnackbar(error.message, {
-            variant: "error",
-            autoHideDuration: 4000
-          });
+          props.throwError(error.message);
         });
   };
   // Requests an empty light object via API and creates a content object based on response
@@ -124,10 +120,7 @@ function Light(props) {
         );
       })
       .catch((error) => {
-        props.enqueueSnackbar(error.message, {
-          variant: "error",
-          autoHideDuration: 4000
-        });
+        props.throwError(error.message);
       });
   }
 
@@ -138,4 +131,4 @@ function Light(props) {
   );
 }
 
-export default withSnackbar(Light);
+export default Light;

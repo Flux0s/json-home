@@ -14,6 +14,12 @@ class Dashboard extends Component {
     }));
     // console.log("Updated list of devices: " + JSON.stringify(newList));
   };
+  throwError = (errorMessage) => {
+    this.props.enqueueSnackbar(errorMessage, {
+      variant: "error",
+      autoHideDuration: 3500
+    });
+  };
   constructor(props) {
     super(props);
     this.state = { devices: lights };
@@ -23,10 +29,7 @@ class Dashboard extends Component {
         this.setState({ devices: devices });
       })
       .catch((error) => {
-        this.props.enqueueSnackbar(error.message, {
-          variant: "error",
-          autoHideDuration: 3500
-        });
+        this.throwError(error.message);
       });
   }
   render() {
@@ -41,11 +44,16 @@ class Dashboard extends Component {
                 key={device._id}
                 fields={{ ...device }}
                 handleUpdateList={this.handleUpdateList}
+                throwError={this.throwError}
               />
             );
           })}
         </>
-        <Light new handleUpdateList={this.handleUpdateList} />
+        <Light
+          new
+          handleUpdateList={this.handleUpdateList}
+          throwError={this.throwError}
+        />
       </Grid>
       /* </Box> */
     );
