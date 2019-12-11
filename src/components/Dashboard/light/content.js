@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { makeStyles, Box, Button, TextField } from "@material-ui/core";
+import { makeStyles, Box, Button } from "@material-ui/core";
+import TextInput from "./input/text-input";
+import ColorInput from "./input/color-input";
 
 const useStyles = makeStyles((theme) => ({
   parentBox: {
@@ -14,16 +16,9 @@ const useStyles = makeStyles((theme) => ({
     // textAlign: "center"
     // padding: 8px, 16px;
   },
-  textField: {
-    margin: theme.spacing(1, 3),
-    display: "flex"
-  },
   buttonContainer: {
     flex: "0 1 auto",
     textAlign: "right"
-  },
-  textbox: {
-    margin: theme.spacing(1)
   },
   button: {
     marginLeft: theme.spacing(1)
@@ -53,20 +48,47 @@ function Content(props) {
       <Box className={classes.fieldContainer}>
         <>
           {Object.keys(fields).map((field) => {
-            if (field !== "_id")
+            if (field === "Name") {
               return (
-                <TextField
-                  required
-                  id={field}
-                  label={field}
-                  className={classes.textField}
-                  margin='normal'
-                  value={fields[field]}
-                  onChange={handleUpdate}
+                <TextInput
                   key={field}
+                  field={field}
+                  value={fields[field]}
+                  handleUpdate={handleUpdate}
+                  variant={undefined}
+                />
+              );
+            } else if (field === "Color")
+              return (
+                <ColorInput
+                  key={field}
+                  field={field}
+                  handleUpdate={handleUpdate}
+                  color={ fields["Color"] }
+                  variant={undefined}
+                />
+              );
+            else if (field !== "_id")
+              return (
+                <TextInput
+                  key={field}
+                  field={field}
+                  value={fields[field]}
+                  handleUpdate={handleUpdate}
                   variant='outlined'
                 />
               );
+            return null;
+            /*
+            else if (field === "Color")
+              return (
+                <TextInput
+                  field={field}
+                  value={fields[field]}
+                  handleUpdate={handleUpdate}
+                  variant='outlined'
+                />
+              ); */
           })}
         </>
       </Box>

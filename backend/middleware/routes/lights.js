@@ -1,6 +1,6 @@
 let express = require("express");
 let router = express.Router();
-let lightService = require("../services/lightService");
+let lightService = require("../services/light-service");
 
 // Get all devices
 // TODO: add filtering and sorting options in the query string

@@ -5,7 +5,7 @@ import { withSnackbar } from "notistack";
 import { api } from "../helpers/api-service.js";
 import Light from "./light";
 
-const lights = [{}];
+const lights = [{ _id: -1 }];
 
 class Dashboard extends Component {
   handleUpdateList = (newList) => {

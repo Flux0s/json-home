@@ -24,7 +24,7 @@ let getLightByName = (name) => {
 };
 
 let getEmptyLightObject = () => {
-  socketEmitter.emit("test", "data");
+  // socketEmitter.emit("test", "data");
   return Promise.resolve(lightTemplate);
 };
 
