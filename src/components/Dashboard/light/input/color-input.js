@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import { HuePicker, AlphaPicker } from "react-color";
 
@@ -42,6 +42,10 @@ const decimalToHex = (x) => {
 function ColorInput(props) {
   const classes = useStyles();
   const [color, setColor] = useState(hexToRGB(props.color));
+  useEffect((prevProps, prevColor) => {
+    if (prevColor !== hexToRGB(prevProps.color))
+      setColor(hexToRGB(prevProps.color));
+  });
   let handleColorUpdate = (update, event) => {
     // console.log("Updating color to: " + JSON.stringify(update));
     setColor((prevColor) => {
@@ -82,7 +86,7 @@ function ColorInput(props) {
       <div className={classes.pickerContainer}>
         <HuePicker
           className={classes.picker}
-          onChange={handleColorUpdate}
+          onChangeComplete={handleColorUpdate}
           color={color}
         />
       </div>

@@ -32,8 +32,9 @@ let getEmptyLightObject = () => {
 // Returns: List of lights after adding the new object, or err if failed validation or during save operation
 let addNewLightObject = (lightObject) => {
   newLightObject = new lightModel(lightObject);
+  console.log(JSON.stringify(lightObject));
   let validationError = newLightObject.validateSync();
-  if (validationError) return Promise.reject(validationerror);
+  if (validationError) return Promise.reject(validationError);
   else {
     return newLightObject.save((err) => {
       if (err) return Promise.reject(err);
