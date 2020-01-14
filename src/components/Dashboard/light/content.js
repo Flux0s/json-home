@@ -29,10 +29,12 @@ function Content(props) {
   // Definition and initialization
   const classes = useStyles();
   const [fields, setFields] = useState(props.fields);
+  const [state, setState] = useState({ reset: false });
 
   // Event handlers
 
   function handleUpdate(event) {
+    setState({ reset: false });
     let id = event.target.id,
       update = {},
       value = event.target.value;
@@ -63,8 +65,9 @@ function Content(props) {
                 <ColorInput
                   key={field}
                   field={field}
+                  reset={state.reset}
                   handleUpdate={handleUpdate}
-                  color={ fields["Color"] }
+                  color={fields["Color"]}
                   variant={undefined}
                 />
               );
@@ -97,8 +100,15 @@ function Content(props) {
           variant='outlined'
           onClick={() => {
             if (props.handleCancelAdd) props.handleCancelAdd();
-            else setFields(props.fields);
+            else {
+              setState({ reset: true });
+              setFields(props.fields);
+            }
           }}
+          disabled={
+            !props.handleCancelAdd &&
+            JSON.stringify(props.fields) === JSON.stringify(fields)
+          }
         >
           {props.secondaryButtonText}
         </Button>

@@ -42,10 +42,9 @@ const decimalToHex = (x) => {
 function ColorInput(props) {
   const classes = useStyles();
   const [color, setColor] = useState(hexToRGB(props.color));
-  useEffect((prevProps, prevColor) => {
-    if (prevColor !== hexToRGB(prevProps.color))
-      setColor(hexToRGB(prevProps.color));
-  });
+  useEffect(() => {
+    if (props.reset) setColor(hexToRGB(props.color));
+  }, [props.reset]);
   let handleColorUpdate = (update, event) => {
     // console.log("Updating color to: " + JSON.stringify(update));
     setColor((prevColor) => {
@@ -93,7 +92,7 @@ function ColorInput(props) {
       <div className={classes.pickerContainer}>
         <AlphaPicker
           className={classes.picker}
-          onChange={handleAlphaUpdate}
+          onChangeComplete={handleAlphaUpdate}
           color={color}
         />
       </div>

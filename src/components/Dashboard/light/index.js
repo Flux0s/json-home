@@ -71,7 +71,7 @@ function Light(props) {
         <Content
           fields={props.fields}
           primaryButtonText={"Update"}
-          secondaryButtonText={"Revert"}
+          secondaryButtonText={"Reset"}
         />
       );
   });
