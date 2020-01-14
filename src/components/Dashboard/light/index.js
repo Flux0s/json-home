@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   Grid,
@@ -55,10 +55,18 @@ const useStyles = makeStyles((theme) => ({
 
 function Light(props) {
   const classes = useStyles();
+  // let [state, setState] = useState();
+
+  // Reload light if schema has loaded
+  useEffect(() => {
+    console.log("Recieved Schema: " + JSON.stringify(props.schema));
+    // setState();
+  }, [props.schema]);
+
   // Set the content object to one of the following states: add new device, loading from server, editable content object
   let [ContentObject, setContentObject] = useState(() => {
     if (props.new) return <AddButton onClick={revealAddFields} />;
-    else if (!props.fields.Name)
+    else if (!props.fields.Name || !props.schema)
       return (
         <Box className={classes.loadingContainer}>
           <Box className={classes.loadingItem}>
@@ -70,6 +78,7 @@ function Light(props) {
       return (
         <Content
           fields={props.fields}
+          schema={props.schema}
           primaryButtonText={"Update"}
           secondaryButtonText={"Reset"}
         />
@@ -96,7 +105,9 @@ function Light(props) {
         });
   };
   // Requests an empty light object via API and creates a content object based on response
+  // console.log(JSON.stringify(props));
   function revealAddFields() {
+    console.log(JSON.stringify(props));
     // Set to loading while processing the API call
     setContentObject(
       <Box className={classes.loadingContainer}>
@@ -109,9 +120,11 @@ function Light(props) {
       .getEmptyLight()
       .then((res) => {
         // Create a content object based on reply
+        console.log(JSON.stringify(props.schema));
         setContentObject(
           <Content
             fields={res}
+            schema={props.schema}
             handleCancelAdd={handleCancelAdd}
             handleSubmit={handleSubmit}
             primaryButtonText={"Add"}
@@ -123,7 +136,6 @@ function Light(props) {
         props.throwError(error.message);
       });
   }
-
   return (
     <Grid item className={classes.gridItem}>
       <Card className={classes.card}>{ContentObject}</Card>

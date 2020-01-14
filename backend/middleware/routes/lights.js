@@ -5,9 +5,9 @@ let lightService = require("../services/light-service");
 // Get all devices
 // TODO: add filtering and sorting options in the query string
 router.get("/", (req, res, next) => {
-  if (req.query["empty"] === "true") {
+  if (req.query["schema"] === "true") {
     lightService
-      .getEmptyLightObject()
+      .getLightSchema()
       .then((light) => res.json(light))
       .catch((err) => next(err));
   } else {

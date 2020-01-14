@@ -2,6 +2,10 @@ let lightModel = require("./models/light-model").model;
 let lightTemplate = require("./models/light-model").template;
 const socketEmitter = require("../socket.io").socketEmitter;
 
+//
+// TODO: Extract manipulation of buisness objects to buisness logic layer
+//
+
 // TODO: Add filtering parameter
 let getLights = () =>
   lightModel.find({}, { __v: false }, (err, lights) => {
@@ -13,6 +17,7 @@ let getLights = () =>
       Promise.resolve(JSON.stringify(lights));
     }
   });
+
 let getLightById = (id) => {
   let light = lightModel.findOne({ _id: id });
   console.log(light);
@@ -23,9 +28,20 @@ let getLightByName = (name) => {
   console.log(light);
 };
 
+// NOTE: This method is depreciated. This was moved into the buisness logic of the front end light service.
 let getEmptyLightObject = () => {
-  // socketEmitter.emit("test", "data");
   return Promise.resolve(lightTemplate);
+};
+
+let getLightSchema = () => {
+  let lightSchema = {};
+  for (var path in lightModel.schema.paths)
+    if (path.indexOf("_") == -1)
+      lightSchema[path] = {
+        type: lightModel.schema.paths[path].instance,
+        required: lightModel.schema.paths[path].isRequired
+      };
+  return Promise.resolve(lightSchema);
 };
 
 // Clients should use getEmptyLightObject to get correct parameter format
@@ -43,9 +59,17 @@ let addNewLightObject = (lightObject) => {
   }
 };
 
+let updateExistingLightByName = (lightObject) => {
+  // socketEmitter.emit("test", "data");
+  const light = lightModel.findOne({ Name: lightObject.name });
+  light;
+};
+
 module.exports = {
   getLights,
   getLightByName,
-  getEmptyLightObject,
-  addNewLightObject
+  // getEmptyLightObject,
+  getLightSchema,
+  addNewLightObject,
+  updateExistingLightByName
 };

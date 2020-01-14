@@ -44,7 +44,7 @@ function ColorInput(props) {
   const [color, setColor] = useState(hexToRGB(props.color));
   useEffect(() => {
     if (props.reset) setColor(hexToRGB(props.color));
-  }, [props.reset]);
+  }, [props.reset, props.color]);
   let handleColorUpdate = (update, event) => {
     // console.log("Updating color to: " + JSON.stringify(update));
     setColor((prevColor) => {

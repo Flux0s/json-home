@@ -20,12 +20,21 @@ function getLights() {
   };
   return fetch(apiUrl + lightEndpoint, requestOptions).then(handleResponse);
 }
+// TODO: This function has buisness logic in it and should be extracted elsewhere
 function getEmptyLight() {
+  return getLightSchema().then((res) => {
+    // console.log(res);
+    let emptyLight = {};
+    for (var field in res) emptyLight[field] = "";
+    return emptyLight;
+  });
+}
+function getLightSchema() {
   const requestOptions = {
     method: "GET",
     headers: baseHeadersObject(authenticationService.currentUserValue.token)
   };
-  return fetch(apiUrl + lightEndpoint + "?empty=true", requestOptions).then(
+  return fetch(apiUrl + lightEndpoint + "?schema=true", requestOptions).then(
     handleResponse
   );
 }
@@ -42,6 +51,7 @@ function addNewLight(device) {
 export const api = {
   getLights,
   getEmptyLight,
+  getLightSchema,
   // getLightByName,
   addNewLight
 };

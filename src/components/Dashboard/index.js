@@ -10,7 +10,8 @@ const lights = [{ _id: -1 }];
 class Dashboard extends Component {
   handleUpdateList = (newList) => {
     this.setState((currentState) => ({
-      devices: [...currentState.devices, ...newList]
+      devices: [...currentState.devices, ...newList],
+      lightSchema: {}
     }));
     // console.log("Updated list of devices: " + JSON.stringify(newList));
   };
@@ -31,6 +32,14 @@ class Dashboard extends Component {
       .catch((error) => {
         this.throwError(error.message);
       });
+    api
+      .getLightSchema()
+      .then((schema) => {
+        this.setState({ lightSchema: schema });
+      })
+      .catch((error) => {
+        this.throwError(error.message);
+      });
   }
   render() {
     // console.log(this.state.devices);
@@ -43,6 +52,7 @@ class Dashboard extends Component {
               <Light
                 key={device._id}
                 fields={{ ...device }}
+                schema={this.state.lightSchema}
                 handleUpdateList={this.handleUpdateList}
                 throwError={this.throwError}
               />
@@ -51,6 +61,7 @@ class Dashboard extends Component {
         </>
         <Light
           new
+          schema={this.state.lightSchema}
           handleUpdateList={this.handleUpdateList}
           throwError={this.throwError}
         />
