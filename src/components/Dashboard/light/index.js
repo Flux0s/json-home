@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Card,
   Grid,
@@ -55,13 +55,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Light(props) {
   const classes = useStyles();
-  // let [state, setState] = useState();
-
-  // Reload light if schema has loaded
-  useEffect(() => {
-    console.log("Recieved Schema: " + JSON.stringify(props.schema));
-    // setState();
-  }, [props.schema]);
 
   // Set the content object to one of the following states: add new device, loading from server, editable content object
   let [ContentObject, setContentObject] = useState(() => {
