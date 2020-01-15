@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Light(props) {
   const classes = useStyles();
-
+  const [fields, setFields] = useState(props.fields);
   // Set the content object to one of the following states: add new device, loading from server, editable content object
   let [ContentObject, setContentObject] = useState(() => {
     if (props.new) return <AddButton onClick={revealAddFields} />;
@@ -70,25 +70,38 @@ function Light(props) {
     else
       return (
         <Content
-          fields={props.fields}
+          fields={fields}
           schema={props.schema}
+          handleUpdate={handleUpdate}
           primaryButtonText={"Update"}
           secondaryButtonText={"Reset"}
         />
       );
   });
+
+  // Event handlers
+  function handleUpdate(event) {
+    let id = event.target.id,
+      update = {},
+      value = event.target.value;
+    update[id] = value;
+    setFields((prevState) => ({
+      ...prevState,
+      ...update
+    }));
+  }
   // Allows add objects to return to unrevealed state
   function handleCancelAdd() {
     setContentObject(<AddButton onClick={revealAddFields} />);
   }
   // Function that handles the submit event for content objects
-  let handleSubmit = (event, fields) => {
+  let handleSubmit = (event, submitFieldValues) => {
     event.preventDefault();
     // console.log(event);
-    if (fields._id) console.log("Update requested!");
+    if (submitFieldValues._id) console.log("Update requested!");
     else
       api
-        .addNewLight(fields)
+        .addNewLight(submitFieldValues)
         .then((response) => {
           // console.log(response);
           props.handleUpdateList(response);
@@ -100,7 +113,7 @@ function Light(props) {
   // Requests an empty light object via API and creates a content object based on response
   // console.log(JSON.stringify(props));
   function revealAddFields() {
-    console.log(JSON.stringify(props));
+    // console.log(JSON.stringify(props));
     // Set to loading while processing the API call
     setContentObject(
       <Box className={classes.loadingContainer}>
@@ -113,11 +126,12 @@ function Light(props) {
       .getEmptyLight()
       .then((res) => {
         // Create a content object based on reply
-        console.log(JSON.stringify(props.schema));
+        // console.log(JSON.stringify(props.schema));
         setContentObject(
           <Content
             fields={res}
             schema={props.schema}
+            handleUpdate={handleUpdate}
             handleCancelAdd={handleCancelAdd}
             handleSubmit={handleSubmit}
             primaryButtonText={"Add"}

@@ -28,35 +28,22 @@ const useStyles = makeStyles((theme) => ({
 function Content(props) {
   // Definition and initialization
   const classes = useStyles();
-  const [fields, setFields] = useState(props.fields);
-  const [state, setState] = useState({ reset: false });
-
-  // Event handlers
-
-  function handleUpdate(event) {
-    setState({ reset: false });
-    let id = event.target.id,
-      update = {},
-      value = event.target.value;
-    update[id] = value;
-    setFields((prevState) => ({ ...prevState, ...update }));
-  }
 
   return (
     <form
       className={classes.parentBox}
-      onSubmit={(event) => props.handleSubmit(event, fields)}
+      onSubmit={(event) => props.handleSubmit(event)}
     >
       <Box className={classes.fieldContainer}>
         <>
-          {Object.keys(fields).map((field) => {
+          {Object.keys(props.fields).map((field) => {
             if (field === "Name") {
               return (
                 <TextInput
                   key={field}
                   field={field}
-                  value={fields[field]}
-                  handleUpdate={handleUpdate}
+                  value={props.fields[field]}
+                  handleUpdate={props.handleUpdate}
                   variant={undefined}
                 />
               );
@@ -65,9 +52,8 @@ function Content(props) {
                 <ColorInput
                   key={field}
                   field={field}
-                  reset={state.reset}
-                  handleUpdate={handleUpdate}
-                  color={fields["Color"]}
+                  handleUpdate={props.handleUpdate}
+                  color={props.fields["Color"]}
                   variant={undefined}
                 />
               );
@@ -76,22 +62,12 @@ function Content(props) {
                 <TextInput
                   key={field}
                   field={field}
-                  value={fields[field]}
-                  handleUpdate={handleUpdate}
+                  value={props.fields[field]}
+                  handleUpdate={props.handleUpdate}
                   variant='outlined'
                 />
               );
-            return null;
-            /*
-            else if (field === "Color")
-              return (
-                <TextInput
-                  field={field}
-                  value={fields[field]}
-                  handleUpdate={handleUpdate}
-                  variant='outlined'
-                />
-              ); */
+            else return null;
           })}
         </>
       </Box>
@@ -100,15 +76,12 @@ function Content(props) {
           variant='outlined'
           onClick={() => {
             if (props.handleCancelAdd) props.handleCancelAdd();
-            else {
-              setState({ reset: true });
-              setFields(props.fields);
-            }
+            {/* else setFields(props.fields); */}
           }}
-          disabled={
+          /* disabled={
             !props.handleCancelAdd &&
             JSON.stringify(props.fields) === JSON.stringify(fields)
-          }
+          } */
         >
           {props.secondaryButtonText}
         </Button>
