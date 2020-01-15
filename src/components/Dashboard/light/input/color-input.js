@@ -13,25 +13,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // Helper functions to handle parsing of colors
-const hexToRGB = (hex) => {
-  const R = 0,
-    G = 1,
-    B = 2,
-    A = 3;
-  let rgba = [hex.substring(1, 3), hex.substring(3, 5), hex.substring(5, 7)];
-  // Check if the hex includes alpha otherwise set to 0
-  rgba[A] = hex.length > 7 ? hex.substring(7, 9) : "00";
-  rgba.forEach((element, i) => {
-    rgba[i] = parseInt(element, 16);
-  });
-  rgba[A] /= 255;
-  return {
-    r: rgba[R],
-    g: rgba[G],
-    b: rgba[B],
-    a: rgba[A]
-  };
-};
+// const hexToRGB = (hex) => {
+//   const R = 0,
+//     G = 1,
+//     B = 2,
+//     A = 3;
+//   let rgba = [hex.substring(1, 3), hex.substring(3, 5), hex.substring(5, 7)];
+//   // Check if the hex includes alpha otherwise set to 0
+//   rgba[A] = hex.length > 7 ? hex.substring(7, 9) : "00";
+//   rgba.forEach((element, i) => {
+//     rgba[i] = parseInt(element, 16);
+//   });
+//   rgba[A] /= 255;
+//   return {
+//     r: rgba[R],
+//     g: rgba[G],
+//     b: rgba[B],
+//     a: rgba[A]
+//   };
+// };
 
 const decimalToHex = (x) => {
   x = Math.trunc(x * 255).toString(16);

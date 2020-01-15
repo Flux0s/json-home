@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles, Box, Button } from "@material-ui/core";
 import TextInput from "./input/text-input";
 import ColorInput from "./input/color-input";
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 function Content(props) {
   // Definition and initialization
   const classes = useStyles();
-
+  console.log("Rendering Content!");
   return (
     <form
       className={classes.parentBox}
@@ -47,7 +47,8 @@ function Content(props) {
                   variant={undefined}
                 />
               );
-            } else if (field === "Color")
+            } else if (field !== "_id")
+            /* else if (field === "Color")
               return (
                 <ColorInput
                   key={field}
@@ -56,8 +57,7 @@ function Content(props) {
                   color={props.fields["Color"]}
                   variant={undefined}
                 />
-              );
-            else if (field !== "_id")
+              ); */
               return (
                 <TextInput
                   key={field}
@@ -76,7 +76,9 @@ function Content(props) {
           variant='outlined'
           onClick={() => {
             if (props.handleCancelAdd) props.handleCancelAdd();
-            {/* else setFields(props.fields); */}
+            {
+              /* else setFields(props.fields); */
+            }
           }}
           /* disabled={
             !props.handleCancelAdd &&

@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 function TextInput(props) {
+  console.log("Rendering Text Input!");
   const classes = useStyles();
   // console.log(props.variant);
   return (
