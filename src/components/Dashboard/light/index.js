@@ -9,7 +9,6 @@ import {
 
 import Content from "./content";
 import { default as AddContent } from "./addButton";
-// import { api } from "../../helpers/api-service";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -54,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Light = (props) => {
-  console.log("Rendering Light!");
   const classes = useStyles();
   // Set the content object to one of the following states: add new device, loading from server, editable content object
   // let [ContentObject, setContentObject] = useState(() => {
@@ -83,22 +81,7 @@ const Light = (props) => {
   function handleCancelAdd() {
     // setContentObject(<AddContent onClick={revealAddFields} />);
   }
-  // Function that handles the submit event for content objects
-  let handleSubmit = (event, submitFieldValues) => {
-    event.preventDefault();
-    // console.log(event);
-    if (submitFieldValues._id) console.log("Update requested!");
-    // else
-    //   api
-    //     .addNewLight(submitFieldValues)
-    //     .then((response) => {
-    //       // console.log(response);
-    //       props.handleUpdateList(response);
-    //     })
-    //     .catch((error) => {
-    //       props.throwError(error.message);
-    //     });
-  };
+
   // Requests an empty light object via API and creates a content object based on response
   // console.log(JSON.stringify(props));
   function revealAddFields() {
@@ -143,18 +126,28 @@ const Light = (props) => {
   // Event handlers //
   // -------------- //
 
-  // Transforms field update event into lightUpdateObject to be consumed by Dashboard handleUpdateLight()
-  // This is used to get the name of the device to update
-  function handleUpdateField(event) {
-    let field = event.target.id,
-      value = event.target.value,
-      update = {};
-    update[field] = value;
+  // Function that handles the submit event for content objects
+  let handleClickSubmit = (event, fields) => {
+    event.preventDefault();
     props.handleUpdateLight({
       Name: props.fields.Name,
-      Update: { ...update }
+      Update: { ...fields }
     });
-  }
+    //
+    // api
+    //   .addNewLight(submitFieldValues)
+    //   .then((response) => {
+    //     // console.log(response);
+    //     props.handleUpdateList(response);
+    //   })
+    //   .catch((error) => {
+    //     props.throwError(error.message);
+    //   });
+  };
+
+  // Transforms field update event into lightUpdateObject to be consumed by Dashboard handleUpdateLight()
+  // This is used to get the name of the device to update
+
 
   // --------------- //
   // Content Objects //
@@ -176,7 +169,7 @@ const Light = (props) => {
     <Content
       fields={props.fields}
       schema={props.schema}
-      handleUpdate={handleUpdateField}
+      handleClickSubmit={handleClickSubmit}
       primaryButtonText={"Update"}
       secondaryButtonText={"Reset"}
     />

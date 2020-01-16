@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, Box, Button } from "@material-ui/core";
 import TextInput from "./input/text-input";
 import ColorInput from "./input/color-input";
@@ -28,27 +28,62 @@ const useStyles = makeStyles((theme) => ({
 function Content(props) {
   // Definition and initialization
   const classes = useStyles();
-  console.log("Rendering Content!");
+  const [fields, setFields] = useState(props.fields);
+
+  // --------------- //
+  // Content Objects //
+  // --------------- //
+
+  function handleUpdateField(event) {
+    let fieldName = event.target.id,
+      value = event.target.value,
+      update = {};
+    update[fieldName] = value;
+
+    setFields((prevFields) => ({
+      ...prevFields,
+      ...update
+    }));
+    // console.log(fields);
+  }
+
+  // --------------- //
+  // Content Objects //
+  // --------------- //
+
+  // --------------- //
+  // Render Function //
+  // --------------- //
+
   return (
     <form
       className={classes.parentBox}
-      onSubmit={(event) => props.handleSubmit(event)}
+      onSubmit={(event) => props.handleClickSubmit(event, fields)}
     >
       <Box className={classes.fieldContainer}>
         <>
-          {Object.keys(props.fields).map((field) => {
-            if (field === "Name") {
+          {Object.keys(props.schema).map((field) => {
+            if (field.includes("_")) return null;
+            else if (props.schema[field].type === "String") {
               return (
                 <TextInput
                   key={field}
-                  field={field}
-                  value={props.fields[field]}
-                  handleUpdate={props.handleUpdate}
-                  variant={undefined}
+                  fieldName={field}
+                  value={fields[field]}
+                  handleUpdate={handleUpdateField}
+                  required={props.Schema ? props.schema[field].required : false}
                 />
               );
-            } else if (field !== "_id")
-            /* else if (field === "Color")
+            } else if (props.schema[field].type === "Color") {
+              return null;
+              //Should be returning the color input object here
+            } else if (props.schema[field].type === "Boolean") {
+              return null;
+              //Should be returning a switch input object here
+            }
+            return null;
+            /* else if (field !== "_id")
+               else if (field === "Color")
               return (
                 <ColorInput
                   key={field}
@@ -57,17 +92,18 @@ function Content(props) {
                   color={props.fields["Color"]}
                   variant={undefined}
                 />
-              ); */
+              ); 
               return (
                 <TextInput
                   key={field}
-                  field={field}
-                  value={props.fields[field]}
+                  fieldName={field}
+                  value={fieldValue}
                   handleUpdate={props.handleUpdate}
-                  variant='outlined'
+                  required={
+                    props.Schema ? props.Schema[field].isRequired : false
+                  }
                 />
-              );
-            else return null;
+              ); */
           })}
         </>
       </Box>
@@ -76,9 +112,7 @@ function Content(props) {
           variant='outlined'
           onClick={() => {
             if (props.handleCancelAdd) props.handleCancelAdd();
-            {
-              /* else setFields(props.fields); */
-            }
+            /* else setFields(props.fields); */
           }}
           /* disabled={
             !props.handleCancelAdd &&

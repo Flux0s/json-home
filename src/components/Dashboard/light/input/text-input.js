@@ -8,19 +8,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 function TextInput(props) {
-  console.log("Rendering Text Input!");
   const classes = useStyles();
   // console.log(props.variant);
   return (
     <TextField
-      required
-      id={props.field}
-      label={props.field}
+      id={props.fieldName}
+      label={props.fieldName}
       className={classes.textField}
       margin='normal'
       value={props.value}
       onChange={props.handleUpdate}
-      variant={props.variant}
+      variant='filled'
+      required={props.required}
     />
   );
 }

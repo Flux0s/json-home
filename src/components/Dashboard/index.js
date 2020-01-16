@@ -75,7 +75,6 @@ class Dashboard extends Component {
   };
 
   render() {
-    console.log("Rendering Dashboard!");
     return (
       /* <Box> */
       <Grid container direction='row' justify='center' alignItems='center'>
