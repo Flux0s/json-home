@@ -133,7 +133,7 @@ const Light = (props) => {
       Name: props.fields.Name,
       Update: { ...fields }
     });
-    //
+
     // api
     //   .addNewLight(submitFieldValues)
     //   .then((response) => {
@@ -147,7 +147,6 @@ const Light = (props) => {
 
   // Transforms field update event into lightUpdateObject to be consumed by Dashboard handleUpdateLight()
   // This is used to get the name of the device to update
-
 
   // --------------- //
   // Content Objects //

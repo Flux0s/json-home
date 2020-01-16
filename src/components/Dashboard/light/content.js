@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { makeStyles, Box, Button } from "@material-ui/core";
 import TextInput from "./input/text-input";
 import ColorInput from "./input/color-input";
+import SwitchInput from "./input/switch-input";
 
 const useStyles = makeStyles((theme) => ({
   parentBox: {
@@ -44,12 +45,13 @@ function Content(props) {
       ...prevFields,
       ...update
     }));
-    // console.log(fields);
   }
 
   // --------------- //
   // Content Objects //
   // --------------- //
+
+  // N/A
 
   // --------------- //
   // Render Function //
@@ -78,32 +80,10 @@ function Content(props) {
               return null;
               //Should be returning the color input object here
             } else if (props.schema[field].type === "Boolean") {
-              return null;
+              return <SwitchInput key={field} />;
               //Should be returning a switch input object here
             }
             return null;
-            /* else if (field !== "_id")
-               else if (field === "Color")
-              return (
-                <ColorInput
-                  key={field}
-                  field={field}
-                  handleUpdate={props.handleUpdate}
-                  color={props.fields["Color"]}
-                  variant={undefined}
-                />
-              ); 
-              return (
-                <TextInput
-                  key={field}
-                  fieldName={field}
-                  value={fieldValue}
-                  handleUpdate={props.handleUpdate}
-                  required={
-                    props.Schema ? props.Schema[field].isRequired : false
-                  }
-                />
-              ); */
           })}
         </>
       </Box>
