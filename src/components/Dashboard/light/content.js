@@ -65,8 +65,10 @@ function Content(props) {
       <Box className={classes.fieldContainer}>
         <>
           {Object.keys(props.schema).map((field) => {
+            // Display nothing for inputs that include '_' (This is to ignore _id and other auto generated fields from the database)
             if (field.includes("_")) return null;
             else if (props.schema[field].type === "String") {
+              // Display a text box for String fields
               return (
                 <TextInput
                   key={field}
@@ -77,12 +79,14 @@ function Content(props) {
                 />
               );
             } else if (props.schema[field].type === "Color") {
+              // Display a color picker for Color fields
               return null;
               //Should be returning the color input object here
             } else if (props.schema[field].type === "Boolean") {
+              // Display a switch for boolean inputs
               return <SwitchInput key={field} />;
-              //Should be returning a switch input object here
             }
+            // Display nothing for other inputs
             return null;
           })}
         </>
