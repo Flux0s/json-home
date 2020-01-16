@@ -19,9 +19,9 @@ lightSchema.methods.togglePower = (cb) => {
   return Promise.resolve(this.On);
 };
 
-template = { Name: "", Location: "", Color: "" };
+// template = { Name: "", Location: "", Color: "" };
 
 module.exports = {
   model: mongoose.model("Light", lightSchema),
-  template: template
+  // template: template
 };
