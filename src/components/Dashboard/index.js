@@ -105,7 +105,6 @@ class Dashboard extends Component {
                 fields={{ ...device }}
                 schema={this.state.lightSchema}
                 handleUpdateLight={this.handleUpdateLight}
-                handleUpdateList={this.handleUpdateList}
                 throwError={this.throwError}
               />
             );
@@ -115,9 +114,9 @@ class Dashboard extends Component {
           new
           fields={this.state.newLightFields}
           schema={this.state.lightSchema}
-          handleUpdateList={this.handleUpdateList}
           handleClickAdd={this.handleClickAdd}
           handleCancelAdd={this.handleCancelAdd}
+          handleUpdateLight={this.handleUpdateLight}
           throwError={this.throwError}
         />
       </Grid>

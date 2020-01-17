@@ -38,6 +38,8 @@ function Content(props) {
   // ---------------- //
   // Helper Functions //
   // ---------------- //
+
+  // Converts a string to the sum of the ascii values of it's characters
   function asciiValueOfString(string) {
     let value = 0;
     [...string].forEach((char) => {
@@ -45,6 +47,7 @@ function Content(props) {
     });
     return value;
   }
+
   // -------------- //
   // Event Handlers //
   // -------------- //
@@ -71,6 +74,7 @@ function Content(props) {
 
   function handleClickSecondary() {
     if (props.new) props.handleCancelAdd();
+    else setFields(props.fields);
   }
 
   // --------------- //
@@ -92,6 +96,8 @@ function Content(props) {
                 asciiValueOfString(props.schema[field2].type)
             )
             .map((field) => {
+              console.log(props.schema[field]);
+              console.log(props.schema[field].required);
               // Display nothing for inputs that include '_' (This is to ignore _id and other auto generated fields from the database)
               if (field.includes("_")) return null;
               else if (props.schema[field].type === "String") {

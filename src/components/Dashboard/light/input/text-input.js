@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 function TextInput(props) {
   const classes = useStyles();
-  // console.log(props.variant);
+  console.log(props.required);
   return (
     <TextField
       id={props.id}
