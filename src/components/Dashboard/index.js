@@ -11,10 +11,13 @@ const lights = [{ _id: -1 }];
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = { devices: lights };
+    this.state = { devices: lights, newLightFields: undefined };
     api
       .getLights()
       .then((devices) => {
+        Object.keys(devices).forEach((device, i) => {
+          devices[device]._id = i;
+        });
         this.setState({ devices: devices });
       })
       .catch((error) => {
@@ -37,6 +40,7 @@ class Dashboard extends Component {
     }));
     // console.log("Updated list of devices: " + JSON.stringify(newList));
   };
+
   handleUpdateLight = (lightUpdateObject) => {
     this.setState((prevState) => {
       let newState = prevState,
@@ -49,14 +53,6 @@ class Dashboard extends Component {
         );
         return prevState;
       }
-      // console.log(
-      //   "Field Update triggered: \n" + JSON.stringify(lightUpdateObject)
-      // );
-      // console.log("Current state is: \n" + JSON.stringify(prevState));
-      // console.log(
-      //   "Attenpting to edit the following Light\n: " + lightStateIndex
-      // );
-      // // Updates fields from lightUpdateObject only if they existed in prevstate
       Object.keys(lightUpdateObject.Update)
         .filter((key) => key in prevState.devices[lightStateIndex])
         .forEach(
@@ -67,6 +63,22 @@ class Dashboard extends Component {
       return newState;
     });
   };
+
+  // Requests an empty light object via API and creates a content object based on response
+  // console.log(JSON.stringify(props));
+  handleClickAdd = () => {
+    // console.log(JSON.stringify(props));
+    api
+      .getEmptyLight()
+      .then((res) => {
+        console.log(this.state);
+        this.setState({ newLightFields: res });
+      })
+      .catch((error) => {
+        this.throwError(error.message);
+      });
+  };
+
   throwError = (errorMessage) => {
     this.props.enqueueSnackbar(errorMessage, {
       variant: "error",
@@ -94,8 +106,10 @@ class Dashboard extends Component {
         </>
         <Light
           new
+          fields={this.state.newLightFields}
           schema={this.state.lightSchema}
           handleUpdateList={this.handleUpdateList}
+          handleClickAdd={this.handleClickAdd}
           throwError={this.throwError}
         />
       </Grid>

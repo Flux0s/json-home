@@ -12,7 +12,7 @@ function TextInput(props) {
   // console.log(props.variant);
   return (
     <TextField
-      id={props.fieldName}
+      id={props.id}
       label={props.fieldName}
       className={classes.textField}
       margin='normal'

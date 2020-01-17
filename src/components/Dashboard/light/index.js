@@ -53,74 +53,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Light = (props) => {
+  // -------------- //
+  // Initialization //
+  // -------------- //
+
   const classes = useStyles();
-  // Set the content object to one of the following states: add new device, loading from server, editable content object
-  // let [ContentObject, setContentObject] = useState(() => {
-  //   if (props.new) return <AddContent onClick={revealAddFields} />;
-  //   else if (!props.fields.Name || !props.schema)
-  //     return (
-  //       <Box className={classes.loadingContainer}>
-  //         <Box className={classes.loadingItem}>
-  //           <CircularProgress />
-  //         </Box>
-  //       </Box>
-  //     );
-  //   else
-  //     return (
-  //       <Content
-  //         fields={fields}
-  //         schema={props.schema}
-  //         handleUpdate={handleUpdateField}
-  //         primaryButtonText={"Update"}
-  //         secondaryButtonText={"Reset"}
-  //       />
-  //     );
-  // });
-
-  // Allows add objects to return to unrevealed state
-  function handleCancelAdd() {
-    // setContentObject(<AddContent onClick={revealAddFields} />);
-  }
-
-  // Requests an empty light object via API and creates a content object based on response
-  // console.log(JSON.stringify(props));
-  function revealAddFields() {
-    // console.log(JSON.stringify(props));
-    // Set to loading while processing the API call
-    // setContentObject(
-    //   <Box className={classes.loadingContainer}>
-    //     <Box className={classes.loadingItem}>
-    //       <CircularProgress />
-    //     </Box>
-    //   </Box>
-    // );
-    // api
-    //   .getEmptyLight()
-    //   .then((res) => {
-    //     // Create a content object based on reply
-    //     // console.log(JSON.stringify(props.schema));
-    //     setContentObject(
-    //       <Content
-    //         fields={res}
-    //         schema={props.schema}
-    //         handleUpdate={handleUpdateField}
-    //         handleCancelAdd={handleCancelAdd}
-    //         handleSubmit={handleSubmit}
-    //         primaryButtonText={"Add"}
-    //         secondaryButtonText={"Cancel"}
-    //       />
-    //     );
-    //   })
-    //   .catch((error) => {
-    //     props.throwError(error.message);
-    //   });
-  }
-
-  //
-  //
-  // New implementation
-  //
-  //
+  const existingLightPrimaryButtonText = "Update";
+  const existingLightSecondaryButtonText = "Reset";
+  const newLightPrimaryButtonText = "Submit";
+  const newLightSecondaryButtonText = "Cancel";
 
   // -------------- //
   // Event handlers //
@@ -166,16 +107,24 @@ const Light = (props) => {
   // Shows a card with input fields populated based on the intersection of props.schema and props.fields
   const LightContent = (props) => (
     <Content
+      new={props.new}
       fields={props.fields}
       schema={props.schema}
       handleClickSubmit={handleClickSubmit}
-      primaryButtonText={"Update"}
-      secondaryButtonText={"Reset"}
+      primaryButtonText={
+        props.new ? newLightPrimaryButtonText : existingLightPrimaryButtonText
+      }
+      secondaryButtonText={
+        props.new
+          ? newLightSecondaryButtonText
+          : existingLightSecondaryButtonText
+      }
     />
   );
 
   const ConditionalContent = (props) => {
-    if (props.new) return <AddContent onClick={revealAddFields} />;
+    if (props.new && !props.fields)
+      return <AddContent onClick={props.handleClickAdd} />;
     else if (!props.fields || !props.schema) return <LoadContent />;
     else return <LightContent {...props} />;
   };
@@ -185,6 +134,7 @@ const Light = (props) => {
       <Card className={classes.card}>
         <ConditionalContent
           new={props.new}
+          handleClickAdd={props.handleClickAdd}
           fields={props.fields}
           schema={props.schema}
         />

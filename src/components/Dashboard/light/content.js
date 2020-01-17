@@ -27,16 +27,39 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Content(props) {
-  // Definition and initialization
+  
+  // -------------- //
+  // Initialization //
+  // -------------- //
+
   const classes = useStyles();
   const [fields, setFields] = useState(props.fields);
+  const fieldIdDelimiter = "@";
 
-  // --------------- //
-  // Content Objects //
-  // --------------- //
+  // ---------------- //
+  // Helper Functions //
+  // ---------------- //
+  function asciiValueOfString(string) {
+    let value = 0;
+    [...string].forEach((char) => {
+      value += char.charCodeAt(0);
+    });
+    return value;
+  }
+  // -------------- //
+  // Event Handlers //
+  // -------------- //
 
   function handleUpdateField(event) {
-    let fieldName = event.target.id,
+    // console.log(event.target.id);
+    // console.log(event.target.value);
+
+    // The name of the field is prefixed by the index of the light (to avoid duplicate id's in the dom)
+    // This forces decomposision based on the fieldIdDelimiter
+    let fieldName = event.target.id.substr(
+        0,
+        event.target.id.indexOf(fieldIdDelimiter)
+      ),
       value = event.target.value,
       update = {};
     update[fieldName] = value;
@@ -47,11 +70,9 @@ function Content(props) {
     }));
   }
 
-  // --------------- //
-  // Content Objects //
-  // --------------- //
-
-  // N/A
+  function handleClickSecondary() {
+    console.log(props.new);
+  }
 
   // --------------- //
   // Render Function //
@@ -64,40 +85,55 @@ function Content(props) {
     >
       <Box className={classes.fieldContainer}>
         <>
-          {Object.keys(props.schema).map((field) => {
-            // Display nothing for inputs that include '_' (This is to ignore _id and other auto generated fields from the database)
-            if (field.includes("_")) return null;
-            else if (props.schema[field].type === "String") {
-              // Display a text box for String fields
-              return (
-                <TextInput
-                  key={field}
-                  fieldName={field}
-                  value={fields[field]}
-                  handleUpdate={handleUpdateField}
-                  required={props.Schema ? props.schema[field].required : false}
-                />
-              );
-            } else if (props.schema[field].type === "Color") {
-              // Display a color picker for Color fields
+          {Object.keys(props.schema)
+            //This sort function groups fields based on their data type (so that input types are grouped in the render)
+            .sort(
+              (field1, field2) =>
+                asciiValueOfString(props.schema[field1].type) -
+                asciiValueOfString(props.schema[field2].type)
+            )
+            .map((field) => {
+              // Display nothing for inputs that include '_' (This is to ignore _id and other auto generated fields from the database)
+              if (field.includes("_")) return null;
+              else if (props.schema[field].type === "String") {
+                // Display a text box for String fields
+                return (
+                  <TextInput
+                    key={field}
+                    id={field + fieldIdDelimiter + fields._id}
+                    fieldName={field}
+                    value={fields[field]}
+                    handleUpdate={handleUpdateField}
+                    required={
+                      props.Schema ? props.schema[field].required : false
+                    }
+                  />
+                );
+              } else if (props.schema[field].type === "Color") {
+                // Display a color picker for Color fields
+                return null;
+                //Should be returning the color input object here
+              } else if (props.schema[field].type === "Boolean") {
+                // Display a switch for boolean inputs
+                return (
+                  <SwitchInput
+                    key={field}
+                    id={field + fieldIdDelimiter + fields._id}
+                    fieldName={field}
+                    value={fields[field] ? fields[field] : "false"}
+                    handleUpdate={handleUpdateField}
+                  />
+                );
+              }
+              // Display nothing for other (non-configured)inputs
               return null;
-              //Should be returning the color input object here
-            } else if (props.schema[field].type === "Boolean") {
-              // Display a switch for boolean inputs
-              return <SwitchInput key={field} />;
-            }
-            // Display nothing for other inputs
-            return null;
-          })}
+            })}
         </>
       </Box>
       <Box className={classes.buttonContainer}>
         <Button
           variant='outlined'
-          onClick={() => {
-            if (props.handleCancelAdd) props.handleCancelAdd();
-            /* else setFields(props.fields); */
-          }}
+          onClick={handleClickSecondary}
           /* disabled={
             !props.handleCancelAdd &&
             JSON.stringify(props.fields) === JSON.stringify(fields)
