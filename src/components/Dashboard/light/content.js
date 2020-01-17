@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Content(props) {
-  
   // -------------- //
   // Initialization //
   // -------------- //
@@ -71,7 +70,7 @@ function Content(props) {
   }
 
   function handleClickSecondary() {
-    console.log(props.new);
+    if (props.new) props.handleCancelAdd();
   }
 
   // --------------- //

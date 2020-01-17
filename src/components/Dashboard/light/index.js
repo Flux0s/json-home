@@ -7,7 +7,7 @@ import {
   Box
 } from "@material-ui/core";
 
-import Content from "./content";
+import { default as LightContent } from "./content";
 import { default as AddContent } from "./addButton";
 
 const useStyles = makeStyles((theme) => ({
@@ -86,14 +86,9 @@ const Light = (props) => {
     //   });
   };
 
-  // Transforms field update event into lightUpdateObject to be consumed by Dashboard handleUpdateLight()
-  // This is used to get the name of the device to update
-
   // --------------- //
   // Content Objects //
   // --------------- //
-
-  // <AddContent /> is pulled from ./addButton.js
 
   // Shows a blank card with a loading animation
   const LoadContent = (props) => (
@@ -102,24 +97,6 @@ const Light = (props) => {
         <CircularProgress />
       </Box>
     </Box>
-  );
-
-  // Shows a card with input fields populated based on the intersection of props.schema and props.fields
-  const LightContent = (props) => (
-    <Content
-      new={props.new}
-      fields={props.fields}
-      schema={props.schema}
-      handleClickSubmit={handleClickSubmit}
-      primaryButtonText={
-        props.new ? newLightPrimaryButtonText : existingLightPrimaryButtonText
-      }
-      secondaryButtonText={
-        props.new
-          ? newLightSecondaryButtonText
-          : existingLightSecondaryButtonText
-      }
-    />
   );
 
   const ConditionalContent = (props) => {
@@ -134,9 +111,21 @@ const Light = (props) => {
       <Card className={classes.card}>
         <ConditionalContent
           new={props.new}
+          handleClickSubmit={handleClickSubmit}
           handleClickAdd={props.handleClickAdd}
+          handleCancelAdd={props.handleCancelAdd}
           fields={props.fields}
           schema={props.schema}
+          primaryButtonText={
+            props.new
+              ? newLightPrimaryButtonText
+              : existingLightPrimaryButtonText
+          }
+          secondaryButtonText={
+            props.new
+              ? newLightSecondaryButtonText
+              : existingLightSecondaryButtonText
+          }
         />
       </Card>
     </Grid>

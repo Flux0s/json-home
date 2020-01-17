@@ -9,6 +9,10 @@ import Light from "./light";
 const lights = [{ _id: -1 }];
 
 class Dashboard extends Component {
+  // -------------- //
+  // Initialization //
+  // -------------- //
+
   constructor(props) {
     super(props);
     this.state = { devices: lights, newLightFields: undefined };
@@ -33,12 +37,15 @@ class Dashboard extends Component {
       });
   }
 
+  // -------------- //
+  // Event handlers //
+  // -------------- //
+
   handleUpdateList = (newList) => {
     this.setState((currentState) => ({
       devices: [...currentState.devices, ...newList],
       lightSchema: {}
     }));
-    // console.log("Updated list of devices: " + JSON.stringify(newList));
   };
 
   handleUpdateLight = (lightUpdateObject) => {
@@ -64,19 +71,19 @@ class Dashboard extends Component {
     });
   };
 
-  // Requests an empty light object via API and creates a content object based on response
-  // console.log(JSON.stringify(props));
   handleClickAdd = () => {
-    // console.log(JSON.stringify(props));
     api
       .getEmptyLight()
       .then((res) => {
-        console.log(this.state);
         this.setState({ newLightFields: res });
       })
       .catch((error) => {
         this.throwError(error.message);
       });
+  };
+
+  handleCancelAdd = () => {
+    this.setState({ newLightFields: undefined });
   };
 
   throwError = (errorMessage) => {
@@ -110,6 +117,7 @@ class Dashboard extends Component {
           schema={this.state.lightSchema}
           handleUpdateList={this.handleUpdateList}
           handleClickAdd={this.handleClickAdd}
+          handleCancelAdd={this.handleCancelAdd}
           throwError={this.throwError}
         />
       </Grid>
