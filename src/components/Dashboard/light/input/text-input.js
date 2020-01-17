@@ -8,8 +8,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 function TextInput(props) {
+  // -------------- //
+  // Initialization //
+  // -------------- //
+
   const classes = useStyles();
-  console.log(props.required);
+
+  // --------------- //
+  // Render Function //
+  // --------------- //
+
   return (
     <TextField
       id={props.id}

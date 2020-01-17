@@ -96,8 +96,6 @@ function Content(props) {
                 asciiValueOfString(props.schema[field2].type)
             )
             .map((field) => {
-              console.log(props.schema[field]);
-              console.log(props.schema[field].required);
               // Display nothing for inputs that include '_' (This is to ignore _id and other auto generated fields from the database)
               if (field.includes("_")) return null;
               else if (props.schema[field].type === "String") {
