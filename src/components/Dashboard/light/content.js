@@ -139,10 +139,10 @@ function Content(props) {
         <Button
           variant='outlined'
           onClick={handleClickSecondary}
-          /* disabled={
-            !props.handleCancelAdd &&
+          disabled={
+            !props.new &&
             JSON.stringify(props.fields) === JSON.stringify(fields)
-          } */
+          }
         >
           {props.secondaryButtonText}
         </Button>
