@@ -33,7 +33,7 @@ router.put("/", (req, res, next) => {
 router.post("/:id", (req, res, next) => {
   lightService
     .updateExistingLight(req.params.id, req.body)
-    .then(() => {})
+    .then(() => res.status(200).send())
     .catch((err) => next(err));
 });
 module.exports = router;
