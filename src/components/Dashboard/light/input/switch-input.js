@@ -28,8 +28,10 @@ function SwitchInput(props) {
   // -------------- //
 
   function handleClickSwitch(event) {
-    event.target.value = event.target.checked;
-    props.handleUpdate(event);
+    let eventMock = { target: {} };
+    eventMock.target["id"] = event.target.id;
+    eventMock.target["value"] = event.target.checked;
+    props.handleUpdate(eventMock);
   }
 
   // --------------- //
@@ -45,7 +47,7 @@ function SwitchInput(props) {
         id={props.id}
         className={classes.switch}
         onChange={handleClickSwitch}
-        checked={props.value === "true"}
+        checked={props.value}
       />
     </div>
   );

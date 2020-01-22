@@ -61,7 +61,7 @@ class Dashboard extends Component {
         return prevState;
       }
       Object.keys(lightUpdateObject.Update)
-        // .filter((key) => key in prevState.devices[lightStateIndex])
+        .filter((key) => key in prevState.devices[lightStateIndex])
         .forEach(
           (key) =>
             (newState.devices[lightStateIndex][key] =
@@ -87,12 +87,20 @@ class Dashboard extends Component {
     this.setState({ newLightFields: undefined });
   };
 
+  // ---------------- //
+  // Helper Functions //
+  // ---------------- //
+
   throwError = (errorMessage) => {
     this.props.enqueueSnackbar(errorMessage, {
       variant: "error",
       autoHideDuration: 3500
     });
   };
+
+  // --------------- //
+  // Render Function //
+  // --------------- //
 
   render() {
     return (

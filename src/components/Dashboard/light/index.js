@@ -75,6 +75,7 @@ const Light = (props) => {
         Name: props.fields.Name,
         Update: { ...fields }
       });
+    else props.handleSubmitNewLight(fields);
 
     // api
     //   .addNewLight(submitFieldValues)
@@ -106,6 +107,10 @@ const Light = (props) => {
     else if (!props.fields || !props.schema) return <LoadContent />;
     else return <LightContent {...props} />;
   };
+
+  // --------------- //
+  // Render Function //
+  // --------------- //
 
   return (
     <Grid item className={classes.gridItem}>

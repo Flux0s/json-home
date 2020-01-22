@@ -33,13 +33,10 @@ const useStyles = makeStyles((theme) => ({
 //   };
 // };
 
-const decimalToHex = (x) => {
-  x = Math.trunc(x * 255).toString(16);
-  x = x.length < 2 ? "0" + x : x;
-  return x;
-};
-
 function ColorInput(props) {
+  // -------------- //
+  // Initialization //
+  // -------------- //
   const classes = useStyles();
   let handleColorUpdate = (update, event) => {
     event = {
@@ -50,6 +47,11 @@ function ColorInput(props) {
     };
     props.handleUpdate(event);
   };
+
+  // -------------- //
+  // Event Handlers //
+  // -------------- //
+
   let handleAlphaUpdate = (update, event) => {
     event = {
       target: {
@@ -59,6 +61,20 @@ function ColorInput(props) {
     };
     props.handleUpdate(event);
   };
+
+  // ---------------- //
+  // Helper Functions //
+  // ---------------- //
+
+  let decimalToHex = (x) => {
+    x = Math.trunc(x * 255).toString(16);
+    x = x.length < 2 ? "0" + x : x;
+    return x;
+  };
+  // --------------- //
+  // Render Function //
+  // --------------- //
+
   return (
     <div>
       <div className={classes.pickerContainer}>

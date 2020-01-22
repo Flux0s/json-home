@@ -111,7 +111,7 @@ function Content(props) {
                     value={fields[field]}
                     handleUpdate={handleUpdateField}
                     required={
-                      props.Schema ? props.schema[field].required : false
+                      props.schema ? props.schema[field].required : false
                     }
                   />
                 );
@@ -132,7 +132,7 @@ function Content(props) {
                     key={field}
                     id={field + fieldIdDelimiter + fields._id}
                     fieldName={field}
-                    value={fields[field] ? fields[field] : "false"}
+                    value={fields[field]}
                     handleUpdate={handleUpdateField}
                   />
                 );

@@ -35,6 +35,5 @@ router.post("/:id", (req, res, next) => {
     .updateExistingLight(req.params.id, req.body)
     .then(() => {})
     .catch((err) => next(err));
-  return;
 });
 module.exports = router;
