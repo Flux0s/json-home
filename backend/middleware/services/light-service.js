@@ -59,17 +59,29 @@ let addNewLightObject = (lightObject) => {
   }
 };
 
-let updateExistingLightByName = (lightObject) => {
+async function updateExistingLight(id, lightObject) {
   // socketEmitter.emit("test", "data");
-  const light = lightModel.findOne({ Name: lightObject.name });
-  light;
-};
+  const light = await lightModel.findOne({ _id: id }, (err, light) => {
+    return err ? Promise.reject(err) : Promise.resolve(light);
+  });
+  console.log(JSON.stringify(light));
+  Object.keys(lightObject)
+    .filter((field) => field.indexOf("_") == -1)
+    .forEach((field) => {
+      light[field] = lightObject[field];
+    });
+  let test = light.validateSync();
+  console.log(test);
+  return Promise.reject(
+    new Error("Problem encountered in service call to updateExistingLight")
+  );
+}
 
 module.exports = {
   getLights,
   getLightByName,
-  // getEmptyLightObject,
+  getLightById,
   getLightSchema,
   addNewLightObject,
-  updateExistingLightByName
+  updateExistingLight
 };

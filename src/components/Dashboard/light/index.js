@@ -70,10 +70,11 @@ const Light = (props) => {
   // Function that handles the submit event for content objects
   let handleClickSubmit = (event, fields) => {
     event.preventDefault();
-    props.handleUpdateLight({
-      Name: props.fields.Name,
-      Update: { ...fields }
-    });
+    if (!props.new)
+      props.handleUpdateLight({
+        Name: props.fields.Name,
+        Update: { ...fields }
+      });
 
     // api
     //   .addNewLight(submitFieldValues)

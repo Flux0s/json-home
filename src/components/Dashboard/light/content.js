@@ -98,12 +98,15 @@ function Content(props) {
             .map((field) => {
               // Display nothing for inputs that include '_' (This is to ignore _id and other auto generated fields from the database)
               if (field.includes("_")) return null;
-              else if (props.schema[field].type === "String") {
+              else if (
+                props.schema[field].type === "String" ||
+                props.schema[field].type === "Color"
+              ) {
                 // Display a text box for String fields
                 return (
                   <TextInput
                     key={field}
-                    id={field + fieldIdDelimiter + fields._id}
+                    id={field + fieldIdDelimiter + fields._pageId}
                     fieldName={field}
                     value={fields[field]}
                     handleUpdate={handleUpdateField}
@@ -114,7 +117,13 @@ function Content(props) {
                 );
               } else if (props.schema[field].type === "Color") {
                 // Display a color picker for Color fields
-                return null;
+                return (
+                  <ColorInput
+                    key={field}
+                    color={fields[field]}
+                    handleUpdate={handleUpdateField}
+                  />
+                );
                 //Should be returning the color input object here
               } else if (props.schema[field].type === "Boolean") {
                 // Display a switch for boolean inputs

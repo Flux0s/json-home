@@ -6,7 +6,7 @@ import { api } from "../helpers/api-service.js";
 import Light from "./light";
 // import { JsonWebTokenError } from "jsonwebtoken";
 
-const lights = [{ _id: -1 }];
+const lights = [{ _pageId: -1 }];
 
 class Dashboard extends Component {
   // -------------- //
@@ -20,7 +20,7 @@ class Dashboard extends Component {
       .getLights()
       .then((devices) => {
         Object.keys(devices).forEach((device, i) => {
-          devices[device]._id = i;
+          devices[device]._pageId = i;
         });
         this.setState({ devices: devices });
       })
@@ -56,18 +56,21 @@ class Dashboard extends Component {
         });
       if (lightStateIndex === -1) {
         this.throwError(
-          "Error: attempted to update a field on a device that doesn't exist!"
+          "Error: attempted to update a device that doesn't exist!"
         );
         return prevState;
       }
       Object.keys(lightUpdateObject.Update)
-        .filter((key) => key in prevState.devices[lightStateIndex])
+        // .filter((key) => key in prevState.devices[lightStateIndex])
         .forEach(
           (key) =>
             (newState.devices[lightStateIndex][key] =
               lightUpdateObject.Update[key])
         );
-      return newState;
+      return api
+        .updateExistingLight(newState.devices[lightStateIndex])
+        .then(() => newState)
+        .catch((error) => this.throwError(error.message));
     });
   };
 
@@ -77,9 +80,7 @@ class Dashboard extends Component {
       .then((res) => {
         this.setState({ newLightFields: res });
       })
-      .catch((error) => {
-        this.throwError(error.message);
-      });
+      .catch((error) => this.throwError(error.message));
   };
 
   handleCancelAdd = () => {
@@ -95,13 +96,12 @@ class Dashboard extends Component {
 
   render() {
     return (
-      /* <Box> */
       <Grid container direction='row' justify='center' alignItems='center'>
         <>
           {this.state.devices.map((device) => {
             return (
               <Light
-                key={device._id}
+                key={device._pageId}
                 fields={{ ...device }}
                 schema={this.state.lightSchema}
                 handleUpdateLight={this.handleUpdateLight}
@@ -120,7 +120,6 @@ class Dashboard extends Component {
           throwError={this.throwError}
         />
       </Grid>
-      /* </Box> */
     );
   }
 }

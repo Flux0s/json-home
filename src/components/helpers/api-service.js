@@ -38,13 +38,23 @@ function getLightSchema() {
     handleResponse
   );
 }
-function addNewLight(device) {
+function addNewLight(light) {
   const requestOptions = {
     method: "PUT",
     headers: baseHeadersObject(authenticationService.currentUserValue.token),
-    body: JSON.stringify(device)
+    body: JSON.stringify(light)
   };
   return fetch(apiUrl + lightEndpoint, requestOptions).then(handleResponse);
+}
+function updateExistingLight(light) {
+  const requestOptions = {
+    method: "POST",
+    headers: baseHeadersObject(authenticationService.currentUserValue.token),
+    body: JSON.stringify(light)
+  };
+  return fetch(apiUrl + lightEndpoint + "/" + light._id, requestOptions).then(
+    handleResponse
+  );
 }
 
 // API export
@@ -52,6 +62,6 @@ export const api = {
   getLights,
   getEmptyLight,
   getLightSchema,
-  // getLightByName,
-  addNewLight
+  addNewLight,
+  updateExistingLight
 };

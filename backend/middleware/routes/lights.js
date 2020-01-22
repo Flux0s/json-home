@@ -31,9 +31,10 @@ router.put("/", (req, res, next) => {
     .catch((err) => next(err));
 });
 router.post("/:id", (req, res, next) => {
-  console.log("Received a request to update light with id: " + req.params.id);
-
-  next(new Error("This API endpoint is currently in development"));
+  lightService
+    .updateExistingLight(req.params.id, req.body)
+    .then(() => {})
+    .catch((err) => next(err));
   return;
 });
 module.exports = router;
