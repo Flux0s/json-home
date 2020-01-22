@@ -75,17 +75,10 @@ const Light = (props) => {
         Name: props.fields.Name,
         Update: { ...fields }
       });
-    else props.handleSubmitNewLight(fields);
-
-    // api
-    //   .addNewLight(submitFieldValues)
-    //   .then((response) => {
-    //     // console.log(response);
-    //     props.handleUpdateList(response);
-    //   })
-    //   .catch((error) => {
-    //     props.throwError(error.message);
-    //   });
+    else {
+      console.log(fields);
+      props.handleSubmitNewLight(fields);
+    }
   };
 
   // --------------- //

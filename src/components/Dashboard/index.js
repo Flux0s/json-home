@@ -74,6 +74,17 @@ class Dashboard extends Component {
     });
   };
 
+  handleSubmitNewLight = (newLight) => {
+    api
+      .addNewLight(newLight)
+      .then((response) => {
+        this.handleUpdateList(response);
+      })
+      .catch((error) => {
+        this.throwError(error.message);
+      });
+  };
+
   handleClickAdd = () => {
     api
       .getEmptyLight()
@@ -125,6 +136,7 @@ class Dashboard extends Component {
           handleClickAdd={this.handleClickAdd}
           handleCancelAdd={this.handleCancelAdd}
           handleUpdateLight={this.handleUpdateLight}
+          handleSubmitNewLight={this.handleSubmitNewLight}
           throwError={this.throwError}
         />
       </Grid>

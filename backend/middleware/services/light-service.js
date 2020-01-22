@@ -53,7 +53,8 @@ let addNewLightObject = (lightObject) => {
   if (validationError) return Promise.reject(validationError);
   else {
     return newLightObject.save((err) => {
-      if (err) return Promise.reject(err);
+      if (err)
+        return Promise.reject(err);
       else return getLights();
     });
   }
