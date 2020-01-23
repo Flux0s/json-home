@@ -100,10 +100,14 @@ class Dashboard extends Component {
 
   handleConfirmDelete = (id) => {
     // TODO: Need to call the api method for light deletion here
-    this.setState((prevState) => {
-      let newState = prevState;
-      newState.devices = prevState.devices.filter((light) => light._id !== id);
-      return newState;
+    api.deleteExistingLight(id).then(() => {
+      this.setState((prevState) => {
+        let newState = prevState;
+        newState.devices = prevState.devices.filter(
+          (light) => light._id !== id
+        );
+        return newState;
+      });
     });
   };
 

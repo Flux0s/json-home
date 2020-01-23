@@ -20,7 +20,7 @@ const DeleteDialog = (props) => {
     >
       <DialogTitle id='alert-dialog-title'>
         {"Delete "}
-        <Typography variant='overline'>{props.lightName}</Typography> {"?"}
+        <Typography variant='button'>{props.lightName}</Typography> {"?"}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id='alert-dialog-description'>

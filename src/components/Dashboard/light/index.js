@@ -114,8 +114,11 @@ const Light = (props) => {
     setDeleteDialogOpen(false);
     props.handleConfirmDelete(props.fields._id);
   };
-  let handleMouseHover = () => {
-    setHover((prevState) => !prevState);
+  let handleMouseIn = () => {
+    setHover(true);
+  };
+  let handleMouseOut = () => {
+    setHover(false);
   };
 
   // --------------- //
@@ -175,8 +178,8 @@ const Light = (props) => {
     <Grid
       item
       className={classes.gridItem}
-      onMouseEnter={handleMouseHover}
-      onMouseLeave={handleMouseHover}
+      onMouseEnter={handleMouseIn}
+      onMouseLeave={handleMouseOut}
     >
       <Card className={classes.card}>
         <ConditionalContent
