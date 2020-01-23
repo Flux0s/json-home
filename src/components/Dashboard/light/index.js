@@ -12,6 +12,7 @@ import MoreVert from "@material-ui/icons/MoreVert";
 import { default as LightContent } from "./content";
 import { default as AddContent } from "./addButton";
 import OptionsMenu from "./optionsMenu";
+import DeleteDialog from "./deleteDialog";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -71,7 +72,9 @@ const Light = (props) => {
   // -------------- //
 
   const classes = useStyles();
-  const [open, setOptionsOpen] = React.useState(false);
+  const [optionsOpen, setOptionsoptionsOpen] = React.useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+  const [hover, setHover] = React.useState(false);
   const buttonRef = React.useRef();
   const existingLightPrimaryButtonText = "Update";
   const existingLightSecondaryButtonText = "Reset";
@@ -95,20 +98,24 @@ const Light = (props) => {
     }
   };
   let handleClickMore = (event) => {
-    // let target = event.currentTarget;
-    // var child = target.lastElementChild;
-    // while (child) {
-    //   target.removeChild(child);
-    //   child = target.lastElementChild;
-    // }
-    // console.log(target);
-    setOptionsOpen(true);
+    setOptionsoptionsOpen(true);
   };
   let handleCloseOptions = () => {
-    setOptionsOpen(false);
+    setOptionsoptionsOpen(false);
   };
   let handleClickDelete = () => {
-    setOptionsOpen(false);
+    setOptionsoptionsOpen(false);
+    setDeleteDialogOpen(true);
+  };
+  let handleCloseDelete = () => {
+    setDeleteDialogOpen(false);
+  };
+  let handleConfirmDelete = () => {
+    setDeleteDialogOpen(false);
+    props.handleConfirmDelete(props.fields._id);
+  };
+  let handleMouseHover = () => {
+    setHover((prevState) => !prevState);
   };
 
   // --------------- //
@@ -131,23 +138,28 @@ const Light = (props) => {
     else
       return (
         <Box className={classes.contentBox}>
-          <Box className={classes.deleteButtonContainer}>
+          <Box
+            className={classes.deleteButtonContainer}
+            style={{ display: props.new ? "none" : "unset" }}
+          >
             <IconButton
-              /* id={props.fields._pageId + "_more"}
-              aria-label='more'
-              aria-controls='long-menu'
-              aria-haspopup='true' */
               onClick={handleClickMore}
               ref={buttonRef}
+              style={{ visibility: !hover ? "hidden" : "visible" }}
             >
               <MoreVert fontSize='inherit' />
             </IconButton>
             <OptionsMenu
-              id={props.fields._pageId}
               anchorEl={() => buttonRef.current}
-              open={open}
+              open={optionsOpen}
               handleClose={handleCloseOptions}
               handleClickDelete={handleClickDelete}
+            />
+            <DeleteDialog
+              handleClose={handleCloseDelete}
+              handleConfirmDelete={handleConfirmDelete}
+              lightName={props.fields.Name}
+              open={deleteDialogOpen}
             />
           </Box>
           <LightContent {...props} />
@@ -160,7 +172,12 @@ const Light = (props) => {
   // --------------- //
 
   return (
-    <Grid item className={classes.gridItem}>
+    <Grid
+      item
+      className={classes.gridItem}
+      onMouseEnter={handleMouseHover}
+      onMouseLeave={handleMouseHover}
+    >
       <Card className={classes.card}>
         <ConditionalContent
           new={props.new}

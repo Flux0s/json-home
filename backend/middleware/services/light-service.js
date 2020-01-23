@@ -40,6 +40,7 @@ let getLightSchema = () => {
   for (var path in lightModel.schema.paths)
     if (path.indexOf("_") == -1)
       lightSchema[path] = {
+        // TODO: Add logic for setting type to color if name is color
         type: lightModel.schema.paths[path].instance,
         required: lightModel.schema.paths[path].isRequired
       };
