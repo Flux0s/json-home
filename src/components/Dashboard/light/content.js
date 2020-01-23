@@ -10,7 +10,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexFlow: "column",
     height: "100%",
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
+    paddingTop: 0
   },
   fieldContainer: {
     flex: "1 1 auto"

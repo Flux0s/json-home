@@ -98,6 +98,14 @@ class Dashboard extends Component {
     this.setState({ newLightFields: undefined });
   };
 
+  handleConfirmDelete = (id) => {
+    // TODO: Need to call the api method for light deletion here
+    this.setState((prevState) => {
+      let newState = prevState.devices.filter((light) => light._id !== id);
+      return newState;
+    });
+  };
+
   // ---------------- //
   // Helper Functions //
   // ---------------- //

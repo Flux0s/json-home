@@ -11,6 +11,7 @@ import MoreVert from "@material-ui/icons/MoreVert";
 
 import { default as LightContent } from "./content";
 import { default as AddContent } from "./addButton";
+import OptionsMenu from "./optionsMenu";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -56,8 +57,11 @@ const useStyles = makeStyles((theme) => ({
     // width: "100%",
     display: "flex",
     flexFlow: "column",
-    height: "100%",
-    // padding: theme.spacing(2)
+    height: "100%"
+  },
+  deleteButtonContainer: {
+    flex: "0 1 auto",
+    textAlign: "right"
   }
 }));
 
@@ -67,6 +71,8 @@ const Light = (props) => {
   // -------------- //
 
   const classes = useStyles();
+  const [open, setOptionsOpen] = React.useState(false);
+  const buttonRef = React.useRef();
   const existingLightPrimaryButtonText = "Update";
   const existingLightSecondaryButtonText = "Reset";
   const newLightPrimaryButtonText = "Submit";
@@ -85,9 +91,24 @@ const Light = (props) => {
         Update: { ...fields }
       });
     else {
-      console.log(fields);
       props.handleSubmitNewLight(fields);
     }
+  };
+  let handleClickMore = (event) => {
+    // let target = event.currentTarget;
+    // var child = target.lastElementChild;
+    // while (child) {
+    //   target.removeChild(child);
+    //   child = target.lastElementChild;
+    // }
+    // console.log(target);
+    setOptionsOpen(true);
+  };
+  let handleCloseOptions = () => {
+    setOptionsOpen(false);
+  };
+  let handleClickDelete = () => {
+    setOptionsOpen(false);
   };
 
   // --------------- //
@@ -109,10 +130,26 @@ const Light = (props) => {
     else if (!props.fields || !props.schema) return <LoadContent />;
     else
       return (
-        <Box classname={classes.contentBox}>
-          <IconButton>
-            <MoreVert />
-          </IconButton>
+        <Box className={classes.contentBox}>
+          <Box className={classes.deleteButtonContainer}>
+            <IconButton
+              /* id={props.fields._pageId + "_more"}
+              aria-label='more'
+              aria-controls='long-menu'
+              aria-haspopup='true' */
+              onClick={handleClickMore}
+              ref={buttonRef}
+            >
+              <MoreVert fontSize='inherit' />
+            </IconButton>
+            <OptionsMenu
+              id={props.fields._pageId}
+              anchorEl={() => buttonRef.current}
+              open={open}
+              handleClose={handleCloseOptions}
+              handleClickDelete={handleClickDelete}
+            />
+          </Box>
           <LightContent {...props} />
         </Box>
       );
