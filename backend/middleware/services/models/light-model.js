@@ -21,7 +21,4 @@ lightSchema.methods.togglePower = (cb) => {
 
 // template = { Name: "", Location: "", Color: "" };
 
-module.exports = {
-  model: mongoose.model("Light", lightSchema),
-  // template: template
-};
+module.exports = mongoose.model("Light", lightSchema);

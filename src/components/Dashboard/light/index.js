@@ -4,8 +4,10 @@ import {
   Grid,
   makeStyles,
   CircularProgress,
-  Box
+  Box,
+  IconButton
 } from "@material-ui/core";
+import MoreVert from "@material-ui/icons/MoreVert";
 
 import { default as LightContent } from "./content";
 import { default as AddContent } from "./addButton";
@@ -49,6 +51,13 @@ const useStyles = makeStyles((theme) => ({
     flex: "0 1 auto",
     textAlign: "center",
     fontSize: "1.5em"
+  },
+  contentBox: {
+    // width: "100%",
+    display: "flex",
+    flexFlow: "column",
+    height: "100%",
+    // padding: theme.spacing(2)
   }
 }));
 
@@ -98,7 +107,15 @@ const Light = (props) => {
     if (props.new && !props.fields)
       return <AddContent onClick={props.handleClickAdd} />;
     else if (!props.fields || !props.schema) return <LoadContent />;
-    else return <LightContent {...props} />;
+    else
+      return (
+        <Box classname={classes.contentBox}>
+          <IconButton>
+            <MoreVert />
+          </IconButton>
+          <LightContent {...props} />
+        </Box>
+      );
   };
 
   // --------------- //

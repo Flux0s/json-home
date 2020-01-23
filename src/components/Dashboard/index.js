@@ -105,7 +105,7 @@ class Dashboard extends Component {
   throwError = (errorMessage) => {
     this.props.enqueueSnackbar(errorMessage, {
       variant: "error",
-      autoHideDuration: 3500
+      autoHideDuration: 3000
     });
   };
 

@@ -1,5 +1,5 @@
-let lightModel = require("./models/light-model").model;
-let lightTemplate = require("./models/light-model").template;
+let lightModel = require("./models/light-model");
+// let lightTemplate = require("./models/light-model").template;
 const socketEmitter = require("../socket.io").socketEmitter;
 
 //
@@ -19,19 +19,21 @@ let getLights = () =>
   });
 
 let getLightById = (id) => {
-  let light = lightModel.findOne({ _id: id });
-  console.log(light);
+  return lightModel.findOne({ _id: id }, (err, light) =>
+    err ? Promise.reject(err) : Promise.resolve(light)
+  );
 };
 
 let getLightByName = (name) => {
-  let light = lightModel.findOne({ Name: name });
-  console.log(light);
+  return lightModel.findOne({ Name: name }, (err, light) =>
+    err ? Promise.reject(err) : Promise.resolve(light)
+  );
 };
 
 // NOTE: This method is depreciated. This was moved into the buisness logic of the front end light service.
-let getEmptyLightObject = () => {
-  return Promise.resolve(lightTemplate);
-};
+// let getEmptyLightObject = () => {
+//   return Promise.resolve(lightTemplate);
+// };
 
 let getLightSchema = () => {
   let lightSchema = {};
@@ -53,27 +55,34 @@ let addNewLightObject = (lightObject) => {
   if (validationError) return Promise.reject(validationError);
   else {
     return newLightObject.save((err) => {
-      if (err)
-        return Promise.reject(err);
+      if (err) return Promise.reject(err);
       else return getLights();
     });
   }
 };
 
-async function updateExistingLight(id, lightObject) {
+let updateExistingLight = (id, lightObject) => {
   // socketEmitter.emit("test", "data");
-  const light = await lightModel.findOne({ _id: id }, (err, light) => {
-    return err ? Promise.reject(err) : Promise.resolve(light);
-  });
-  // console.log(JSON.stringify(light));
-  Object.keys(lightObject)
-    .filter((field) => field.indexOf("_") == -1)
-    .forEach((field) => {
-      light[field] = lightObject[field];
+  return lightModel
+    .findOne({ _id: id }, (err, light) => {
+      return err ? Promise.reject(err) : Promise.resolve(light);
+    })
+    .then((light) => {
+      Object.keys(lightObject)
+        .filter((field) => field.indexOf("_") == -1)
+        .forEach((field) => {
+          light[field] = lightObject[field];
+        });
+      light.save();
+      return Promise.resolve();
     });
-  light.save();
-  return Promise.resolve();
-}
+};
+
+let deleteLight = (id) => {
+  return lightModel.deleteOne({ _id: id }, (err) =>
+    err ? Promise.reject(err) : Promise.resolve()
+  );
+};
 
 module.exports = {
   getLights,
@@ -81,5 +90,6 @@ module.exports = {
   getLightById,
   getLightSchema,
   addNewLightObject,
-  updateExistingLight
+  updateExistingLight,
+  deleteLight
 };

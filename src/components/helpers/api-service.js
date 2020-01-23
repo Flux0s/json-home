@@ -57,11 +57,22 @@ function updateExistingLight(light) {
   );
 }
 
+function deleteExistingLight(id) {
+  const requestOptions = {
+    method: "DELETE",
+    headers: baseHeadersObject(authenticationService.currentUserValue.token)
+  };
+  return fetch(apiUrl + lightEndpoint + "/" + id, requestOptions).then(
+    handleResponse
+  );
+}
+
 // API export
 export const api = {
   getLights,
   getEmptyLight,
   getLightSchema,
   addNewLight,
-  updateExistingLight
+  updateExistingLight,
+  deleteExistingLight
 };
