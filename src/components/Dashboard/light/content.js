@@ -54,8 +54,6 @@ function Content(props) {
   // -------------- //
 
   function handleUpdateField(event) {
-    console.log(event.target.id);
-    console.log(event.target.value);
     // The name of the field is prefixed by the index of the light (to avoid duplicate id's in the dom)
     // This forces decomposision based on the fieldIdDelimiter
     let fieldName = event.target.id.substr(
@@ -65,12 +63,10 @@ function Content(props) {
       value = event.target.value,
       update = {};
     update[fieldName] = value;
-    console.log(fields);
     setFields((prevFields) => ({
       ...prevFields,
       ...update
     }));
-    console.log(fields);
   }
 
   function handleClickSecondary() {

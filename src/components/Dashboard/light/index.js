@@ -74,7 +74,6 @@ const Light = (props) => {
   const classes = useStyles();
   const [optionsOpen, setOptionsoptionsOpen] = React.useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
-  const [hover, setHover] = React.useState(false);
   const buttonRef = React.useRef();
   const existingLightPrimaryButtonText = "Update";
   const existingLightSecondaryButtonText = "Reset";
@@ -114,12 +113,6 @@ const Light = (props) => {
     setDeleteDialogOpen(false);
     props.handleConfirmDelete(props.fields._id);
   };
-  let handleMouseIn = () => {
-    setHover(true);
-  };
-  let handleMouseOut = () => {
-    setHover(false);
-  };
 
   // --------------- //
   // Content Objects //
@@ -135,6 +128,13 @@ const Light = (props) => {
   );
 
   const ConditionalContent = (props) => {
+    const [hover, setHover] = React.useState(false);
+    let handleMouseIn = () => {
+      setHover(true);
+    };
+    let handleMouseOut = () => {
+      setHover(false);
+    };
     if (props.new && !props.fields)
       return <AddContent onClick={props.handleClickAdd} />;
     else if (!props.fields || !props.schema) return <LoadContent />;

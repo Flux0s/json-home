@@ -56,10 +56,10 @@ let addNewLightObject = (lightObject) => {
   let validationError = newLightObject.validateSync();
   if (validationError) return Promise.reject(validationError);
   else {
-    return newLightObject.save((err) => {
-      if (err) return Promise.reject(err);
-      else return Promise.resolve(getLights());
-    });
+     newLightObject.save((err) => {
+      return Promise.reject(err);
+    }).catch((err));
+    return Promise.resolve(getLights());
   }
 };
 
