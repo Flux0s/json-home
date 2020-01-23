@@ -54,9 +54,8 @@ function Content(props) {
   // -------------- //
 
   function handleUpdateField(event) {
-    // console.log(event.target.id);
-    // console.log(event.target.value);
-
+    console.log(event.target.id);
+    console.log(event.target.value);
     // The name of the field is prefixed by the index of the light (to avoid duplicate id's in the dom)
     // This forces decomposision based on the fieldIdDelimiter
     let fieldName = event.target.id.substr(
@@ -66,11 +65,12 @@ function Content(props) {
       value = event.target.value,
       update = {};
     update[fieldName] = value;
-
+    console.log(fields);
     setFields((prevFields) => ({
       ...prevFields,
       ...update
     }));
+    console.log(fields);
   }
 
   function handleClickSecondary() {
@@ -91,11 +91,11 @@ function Content(props) {
         <>
           {Object.keys(props.schema)
             //This sort function groups fields based on their data type (so that input types are grouped in the render)
-            .sort(
+            /* .sort(
               (field1, field2) =>
                 asciiValueOfString(props.schema[field1].type) -
                 asciiValueOfString(props.schema[field2].type)
-            )
+            ) */
             .map((field) => {
               // Display nothing for inputs that include '_' (This is to ignore _id and other auto generated fields from the database)
               if (field.includes("_")) return null;
@@ -121,6 +121,7 @@ function Content(props) {
                 return (
                   <ColorInput
                     key={field}
+                    id={field + fieldIdDelimiter + fields._pageId}
                     color={fields[field]}
                     handleUpdate={handleUpdateField}
                   />

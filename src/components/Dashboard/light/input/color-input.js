@@ -38,24 +38,24 @@ function ColorInput(props) {
   // Initialization //
   // -------------- //
   const classes = useStyles();
+
+  // -------------- //
+  // Event Handlers //
+  // -------------- //
   let handleColorUpdate = (update, event) => {
     event = {
       target: {
-        id: "Color",
+        id: props.id,
         value: update.hex + props.color.substring(7, 9)
       }
     };
     props.handleUpdate(event);
   };
 
-  // -------------- //
-  // Event Handlers //
-  // -------------- //
-
   let handleAlphaUpdate = (update, event) => {
     event = {
       target: {
-        id: "Color",
+        id: props.id,
         value: props.color.substring(0, 7) + decimalToHex(update.rgb.a)
       }
     };

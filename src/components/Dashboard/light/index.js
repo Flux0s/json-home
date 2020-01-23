@@ -144,6 +144,8 @@ const Light = (props) => {
           <Box
             className={classes.deleteButtonContainer}
             style={{ display: props.new ? "none" : "unset" }}
+            onMouseEnter={handleMouseIn}
+            onMouseLeave={handleMouseOut}
           >
             <IconButton
               onClick={handleClickMore}
@@ -175,12 +177,7 @@ const Light = (props) => {
   // --------------- //
 
   return (
-    <Grid
-      item
-      className={classes.gridItem}
-      onMouseEnter={handleMouseIn}
-      onMouseLeave={handleMouseOut}
-    >
+    <Grid item className={classes.gridItem}>
       <Card className={classes.card}>
         <ConditionalContent
           new={props.new}

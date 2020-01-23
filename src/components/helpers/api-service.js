@@ -25,7 +25,11 @@ function getEmptyLight() {
   return getLightSchema().then((res) => {
     // console.log(res);
     let emptyLight = {};
-    for (var field in res) emptyLight[field] = "";
+    for (var field in res) {
+      if (res[field].type === "String") emptyLight[field] = "";
+      else if (res[field].type === "Color") emptyLight[field] = "#00000000";
+      else if (res[field].type === "Boolean") emptyLight[field] = false;
+    }
     return emptyLight;
   });
 }

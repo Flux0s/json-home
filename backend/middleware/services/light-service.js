@@ -41,7 +41,8 @@ let getLightSchema = () => {
     if (path.indexOf("_") == -1)
       lightSchema[path] = {
         // TODO: Add logic for setting type to color if name is color
-        type: lightModel.schema.paths[path].instance,
+        type:
+          path === "Color" ? "Color" : lightModel.schema.paths[path].instance,
         required: lightModel.schema.paths[path].isRequired
       };
   return Promise.resolve(lightSchema);
@@ -57,7 +58,7 @@ let addNewLightObject = (lightObject) => {
   else {
     return newLightObject.save((err) => {
       if (err) return Promise.reject(err);
-      else return getLights();
+      else return Promise.resolve(getLights());
     });
   }
 };

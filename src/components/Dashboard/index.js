@@ -6,7 +6,7 @@ import { api } from "../helpers/api-service.js";
 import Light from "./light";
 // import { JsonWebTokenError } from "jsonwebtoken";
 
-const lights = [{ _pageId: -1 }];
+const lights = [{ _pageId: 0 }];
 
 class Dashboard extends Component {
   // -------------- //
@@ -89,7 +89,7 @@ class Dashboard extends Component {
     api
       .getEmptyLight()
       .then((res) => {
-        this.setState({ newLightFields: res });
+        this.setState({ newLightFields: { ...res, _pageId: -1 } });
       })
       .catch((error) => this.throwError(error.message));
   };
@@ -138,7 +138,6 @@ class Dashboard extends Component {
                 schema={this.state.lightSchema}
                 handleUpdateLight={this.handleUpdateLight}
                 handleConfirmDelete={this.handleConfirmDelete}
-                throwError={this.throwError}
               />
             );
           })}
@@ -151,7 +150,6 @@ class Dashboard extends Component {
           handleCancelAdd={this.handleCancelAdd}
           handleUpdateLight={this.handleUpdateLight}
           handleSubmitNewLight={this.handleSubmitNewLight}
-          throwError={this.throwError}
         />
       </Grid>
     );
