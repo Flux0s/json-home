@@ -14,11 +14,11 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 const useStyles = makeStyles((theme) => ({
   codeText: {
     borderRadius: "5px",
-    border: "1px solid #d7d9da",
-    backgroundColor: "#d7d9da",
+    border: "1px solid #e3e8e8",
+    backgroundColor: "#e3e8e8",
     padding: "2px"
   }
-}));
+}))
 
 const DeleteDialog = (props) => {
   const classes = useStyles();
