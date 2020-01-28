@@ -24,7 +24,6 @@ let getLightById = (id) => {
   );
 };
 
-
 // NOTE: This method is depreciated. Could not see how it would be used.
 // let getLightByName = (name) => {
 //   return lightModel.findOne({ Name: name }, (err, light) =>
@@ -63,7 +62,6 @@ let addNewLightObject = (lightObject) =>
   });
 
 let updateExistingLight = (id, lightObject) => {
-  // socketEmitter.emit("test", "data");
   return lightModel
     .findOne({ _id: id }, (err, light) => {
       return err ? Promise.reject(err) : Promise.resolve(light);
@@ -75,6 +73,7 @@ let updateExistingLight = (id, lightObject) => {
           light[field] = lightObject[field];
         });
       light.save();
+      socketEmitter.emit("Update-" + id, lightObject);
       return Promise.resolve();
     });
 };
