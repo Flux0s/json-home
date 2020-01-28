@@ -9,11 +9,12 @@ const socketEmitter = require("../socket.io").socketEmitter;
 // TODO: Add filtering parameter
 let getLights = () =>
   lightModel.find({}, { __v: false }, (err, lights) => {
+    // console.log(JSON.stringify(lights));
     if (err) {
       // console.log(err);
       return Promise.reject(err);
     } else {
-      // console.log(JSON.stringify(lights));
+      console.log(JSON.stringify(lights));
       Promise.resolve(JSON.stringify(lights));
     }
   });
@@ -24,11 +25,13 @@ let getLightById = (id) => {
   );
 };
 
-let getLightByName = (name) => {
-  return lightModel.findOne({ Name: name }, (err, light) =>
-    err ? Promise.reject(err) : Promise.resolve(light)
-  );
-};
+
+// NOTE: This method is depreciated. Could not see how it would be used.
+// let getLightByName = (name) => {
+//   return lightModel.findOne({ Name: name }, (err, light) =>
+//     err ? Promise.reject(err) : Promise.resolve(light)
+//   );
+// };
 
 // NOTE: This method is depreciated. This was moved into the buisness logic of the front end light service.
 // let getEmptyLightObject = () => {
@@ -50,18 +53,15 @@ let getLightSchema = () => {
 
 // Clients should use getEmptyLightObject to get correct parameter format
 // Returns: List of lights after adding the new object, or err if failed validation or during save operation
-let addNewLightObject = (lightObject) => {
-  newLightObject = new lightModel(lightObject);
-  console.log(JSON.stringify(lightObject));
-  let validationError = newLightObject.validateSync();
-  if (validationError) return Promise.reject(validationError);
-  else {
-     newLightObject.save((err) => {
-      return Promise.reject(err);
-    }).catch((err));
-    return Promise.resolve(getLights());
-  }
-};
+let addNewLightObject = (lightObject) =>
+  new Promise((resolve, reject) => {
+    newLightObject = new lightModel(lightObject);
+    let validationError = newLightObject.validateSync();
+    if (validationError) return reject(validationError);
+    return newLightObject.save((err, light) => {
+      err ? reject(err) : resolve();
+    });
+  });
 
 let updateExistingLight = (id, lightObject) => {
   // socketEmitter.emit("test", "data");
@@ -88,7 +88,6 @@ let deleteLight = (id) => {
 
 module.exports = {
   getLights,
-  getLightByName,
   getLightById,
   getLightSchema,
   addNewLightObject,

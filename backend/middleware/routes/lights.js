@@ -28,7 +28,10 @@ router.get("/:id", (req, res, next) => {
 router.put("/", (req, res, next) => {
   lightService
     .addNewLightObject(req.body)
-    .then((newLightList) => res.json(newLightList))
+    .then(() => lightService.getLights())
+    .then((newLightList) => {
+      return res.json(newLightList);
+    })
     .catch((err) => next(err));
 });
 // Update existing light (by _id)
