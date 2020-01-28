@@ -6,18 +6,22 @@ import {
   DialogContent,
   DialogContentText,
   Dialog,
-  DialogTitle
+  DialogTitle,
+  makeStyles
 } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
-const codeText = {
-  borderRadius: "5px",
-  border: "1px solid #BCBEC0",
-  padding: "2px",
-  font: "12px Monaco,Consolas,'Andale  Mono','DejaVu Sans Mono',monospace"
-};
+const useStyles = makeStyles((theme) => ({
+  codeText: {
+    borderRadius: "5px",
+    border: "1px solid #d7d9da",
+    backgroundColor: "#d7d9da",
+    padding: "2px"
+  }
+}));
 
 const DeleteDialog = (props) => {
+  const classes = useStyles();
   return (
     <Dialog
       open={props.open}
@@ -27,12 +31,17 @@ const DeleteDialog = (props) => {
     >
       <DialogTitle id='alert-dialog-title'>
         {"Delete "}
-        <Typography variant='button'>{props.lightName}</Typography> {"?"}
+        <code variant='p1' className={classes.codeText}>
+          {props.lightName}
+        </code>
+        {"?"}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id='alert-dialog-description'>
           {"Are you sure you want to delete "}
-          <Typography variant='overline'>{props.lightName}</Typography>
+          <code variant='p1' className={classes.codeText}>
+            {props.lightName}
+          </code>
           {" forever? You will not be able to restore it if you do."}
         </DialogContentText>
       </DialogContent>
