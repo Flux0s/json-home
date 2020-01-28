@@ -10,6 +10,13 @@ import {
 } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
+const codeText = {
+  borderRadius: "5px",
+  border: "1px solid #BCBEC0",
+  padding: "2px",
+  font: "12px Monaco,Consolas,'Andale  Mono','DejaVu Sans Mono',monospace"
+};
+
 const DeleteDialog = (props) => {
   return (
     <Dialog

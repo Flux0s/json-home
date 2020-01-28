@@ -25,6 +25,7 @@ router.get("/:id", (req, res, next) => {
   return;
 });
 // Add a new light
+// Returns: The new list of light objects
 router.put("/", (req, res, next) => {
   lightService
     .addNewLightObject(req.body)

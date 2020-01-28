@@ -78,7 +78,11 @@ class Dashboard extends Component {
     api
       .addNewLight(newLight)
       .then((response) => {
-        this.handleUpdateList(response);
+        console.log(response);
+        Object.keys(response).forEach((device, i) => {
+          response[device]._pageId = i;
+        });
+        this.setState({ devices: response });
       })
       .catch((error) => {
         this.throwError(error.message);

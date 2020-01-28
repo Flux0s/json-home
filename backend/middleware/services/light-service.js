@@ -14,7 +14,6 @@ let getLights = () =>
       // console.log(err);
       return Promise.reject(err);
     } else {
-      console.log(JSON.stringify(lights));
       Promise.resolve(JSON.stringify(lights));
     }
   });
