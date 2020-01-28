@@ -41,7 +41,7 @@ class TopAppBar extends Component {
             return (
                 <Button
                     color="secondary"
-                    variant="contained"
+                    variant="outlined"
                     onClick={this.logout}
                 >
                     Sign-Out

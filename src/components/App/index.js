@@ -20,73 +20,61 @@ import * as ROUTES from "../../constants/routes";
 import { CssBaseline } from "@material-ui/core";
 
 const theme = createMuiTheme({
-    palette: {
-        primary: { main: "#6C96B8" },
-        secondary: { main: "#D4A974" }
-    }
+  palette: {
+    primary: { main: "#6C96B8" },
+    secondary: { main: "#D6CDA8" }
+  }
 });
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            currentUser: null
-        };
-    }
+    this.state = {
+      currentUser: null
+    };
+  }
 
-    componentDidMount() {
-        authenticationService.currentUser.subscribe((x) =>
-            this.setState({ currentUser: x })
-        );
-    }
+  componentDidMount() {
+    authenticationService.currentUser.subscribe((x) =>
+      this.setState({ currentUser: x })
+    );
+  }
 
-    logout() {
-        authenticationService.logout();
-        history.push(ROUTES.SIGN_IN);
-    }
+  logout() {
+    authenticationService.logout();
+    history.push(ROUTES.SIGN_IN);
+  }
 
-    render() {
-        return (
-            <Router history={history}>
-                <ThemeProvider theme={theme}>
-                    <CssBaseline />
-                    <SnackbarProvider maxSnack={3}>
-                        <div className="box">
-                            <div className="row header">
-                                <TopAppBar />
-                            </div>
-                            <div className="row content">
-                                <Switch>
-                                    <Route
-                                        exact
-                                        path={ROUTES.LANDING}
-                                        component={LandingPage}
-                                    />
-                                    <Route
-                                        exact
-                                        path={ROUTES.SIGN_IN}
-                                        component={SignIn}
-                                    />
-                                    <Route
-                                        exact
-                                        path={ROUTES.SIGN_UP}
-                                        component={SignUp}
-                                    />
-                                    <PrivateRoute
-                                        exact
-                                        path={ROUTES.DASHBOARD}
-                                        component={Dashboard}
-                                    />
-                                    <Route component={NotFound} />
-                                </Switch>
-                            </div>
-                        </div>
-                    </SnackbarProvider>
-                </ThemeProvider>
-            </Router>
-        );
-    }
+  render() {
+    return (
+      <Router history={history}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <SnackbarProvider maxSnack={3}>
+            <div className='box'>
+              <div className='row header'>
+                <TopAppBar />
+              </div>
+              <div className='row content'>
+                <Switch>
+                  <Route exact path={ROUTES.LANDING} component={LandingPage} />
+                  <Route exact path={ROUTES.SIGN_IN} component={SignIn} />
+                  <Route exact path={ROUTES.SIGN_UP} component={SignUp} />
+                  <PrivateRoute
+                    exact
+                    path={ROUTES.DASHBOARD}
+                    component={Dashboard}
+                  />
+                  <Route component={NotFound} />
+                </Switch>
+              </div>
+            </div>
+          </SnackbarProvider>
+        </ThemeProvider>
+      </Router>
+    );
+  }
 }
 
 export default App;
