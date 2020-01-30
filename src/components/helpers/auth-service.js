@@ -1,13 +1,13 @@
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject } from "rxjs"
 
-import { handleResponse } from "./response-handler";
-import { auth } from "../../constants/routes";
+import { handleResponse } from "./response-handler"
+import { auth } from "../../constants/routes"
 
-const apiUrl = "http://localhost:5000";
+const apiUrl = "http://localhost:5000"
 
 const currentUserSubject = new BehaviorSubject(
   JSON.parse(localStorage.getItem("currentUser"))
-);
+)
 
 export const authenticationService = {
   signin,
@@ -15,28 +15,28 @@ export const authenticationService = {
   logout,
   currentUser: currentUserSubject.asObservable(),
   get currentUserValue() {
-    return currentUserSubject.value;
+    return currentUserSubject.value
   }
-};
+}
 
 function signin(email, password) {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ user: { email, password } })
-  };
+  }
 
   return fetch(apiUrl + auth.SIGN_IN, requestOptions)
     .then(handleResponse)
     .then((user) => {
       // store user details and jwt token in local storage to keep user logged in between page refreshes
-      localStorage.setItem("currentUser", JSON.stringify(user));
-      currentUserSubject.next(user);
-      return user;
+      localStorage.setItem("currentUser", JSON.stringify(user))
+      currentUserSubject.next(user)
+      return user
     })
     .catch((error) => {
-      return Promise.reject(error);
-    });
+      return Promise.reject(error)
+    })
 }
 
 function signup(email, password) {
@@ -44,13 +44,13 @@ function signup(email, password) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ user: { email, password } })
-  };
+  }
 
-  return fetch(apiUrl + auth.SIGN_UP, requestOptions).then(handleResponse);
+  return fetch(apiUrl + auth.SIGN_UP, requestOptions).then(handleResponse)
 }
 
 function logout() {
   // remove user from local storage to log user out
-  localStorage.removeItem("currentUser");
-  currentUserSubject.next(null);
+  localStorage.removeItem("currentUser")
+  currentUserSubject.next(null)
 }

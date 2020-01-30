@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { Typography, Container, Grid, Box } from "@material-ui/core";
-import { withStyles } from "@material-ui/styles";
-import css from "./landing.module.css";
-import SellingPoint from "./sellingPoint/index";
-import sellingPoints from "./sellingPoint/sellingPoints.json";
-import { DASHBOARD } from "../../constants/routes";
-import { authenticationService } from "../helpers/auth-service";
+import React, { Component } from "react"
+import { Typography, Container, Grid, Box } from "@material-ui/core"
+import { withStyles } from "@material-ui/styles"
+import css from "./landing.module.css"
+import SellingPoint from "./sellingPoint/index"
+import sellingPoints from "./sellingPoint/sellingPoints.json"
+import { DASHBOARD } from "../../constants/routes"
+import { authenticationService } from "../helpers/auth-service"
 
 const styles = (theme) => ({
   headline: {
@@ -22,19 +22,19 @@ const styles = (theme) => ({
     "font-size": "3em",
     "text-align": "center"
   }
-});
+})
 
 class Landing extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     // redirect to home if already logged in
     if (authenticationService.currentUserValue) {
-      this.props.history.push(DASHBOARD);
+      this.props.history.push(DASHBOARD)
     }
   }
   render() {
-    const MUIstyles = this.props.classes;
-    const classes = { ...css, ...MUIstyles };
+    const MUIstyles = this.props.classes
+    const classes = { ...css, ...MUIstyles }
     // console.log(sellingPoints);
     return (
       <div className={classes.parent}>
@@ -78,8 +78,8 @@ class Landing extends Component {
           </Box>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(styles)(Landing);
+export default withStyles(styles)(Landing)

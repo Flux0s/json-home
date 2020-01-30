@@ -1,6 +1,6 @@
-import React from "react";
-import { makeStyles, Box, Button } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+import React from "react"
+import { makeStyles, Box, Button } from "@material-ui/core"
+import AddIcon from "@material-ui/icons/Add"
 
 const useStyles = makeStyles((theme) => ({
   BackgroundBox: {
@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme) => ({
     width: "35%",
     height: "35%"
   }
-}));
+}))
 
 function AddButton(props) {
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <Box className={classes.BackgroundBox}>
       <Button
@@ -34,7 +34,7 @@ function AddButton(props) {
         <AddIcon className={classes.addIcon} />
       </Button>
     </Box>
-  );
+  )
 }
 
-export default AddButton;
+export default AddButton
